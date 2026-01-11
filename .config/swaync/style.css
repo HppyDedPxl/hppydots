@@ -1,0 +1,341 @@
+@import "colors.css";
+@import "../../.cache/wal/colors-waybar.css";
+
+* {
+    font-family: JetBrainsMono NFP;
+    font-weight: bold;
+	font-size: 12px
+}
+ 
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+    opacity: 1;
+}
+ 
+.notification-row {
+    outline: none;
+    margin: 20px;
+    padding: 0;
+    background: transparent;
+}
+ 
+.notification {
+    background: transparent;
+    margin: 0px;
+    border: none;
+}
+
+.notification-group{
+ background: transparent;
+}
+
+@define-color stichcolor lighter(@background);
+
+.notification-content {
+       background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color4,1) 20%,
+        alpha(@color4,1) 20%, 
+        alpha(@color5,1) 20%, 
+        alpha(@color5,1) 22%, 
+        alpha(@color6,1) 22%, 
+        alpha(@color6,1) 24%,
+        alpha(@color7,1) 24%,
+        alpha(@color7,1) 26%
+        );
+    padding: 7px;
+    border-radius: 1rem;
+    border: 2px solid @color6;
+    margin: 6px;
+    box-shadow:4px 4px 2px 2px black;
+    padding:1rem;
+    color: @background;
+    transition: all 0.5s
+}
+
+.notification-background{
+    background: transparent;
+}
+
+.notification-content:hover{
+    transition: all 0.5s;
+       background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color4,1) 20%,
+        alpha(@color4,1) 20%, 
+        alpha(@color5,1) 20%, 
+        alpha(@color5,1) 24%, 
+        alpha(@color6,1) 24%, 
+        alpha(@color6,1) 28%,
+        alpha(@color7,1) 28%,
+        alpha(@color7,1) 30%
+        );
+
+}
+ 
+.close-button {
+    background: @color6;
+    color: @background;
+    text-shadow: none;
+    padding: 0;
+    border-radius: 1rem;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+ 
+.close-button:hover {
+    box-shadow: none;
+    background: @color3;
+    color: @foreground
+    transition: all .15s ease-in-out;
+    border: none
+}
+
+.text-button {
+    color:@background;
+}
+ 
+.notification-action {
+    border: 2px solid @color5;
+    border-radius: .75rem;
+    background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color7,1) 0%, 
+        alpha(@color7,1) 20%, 
+        alpha(@color5,1) 20%, 
+        alpha(@color5,1) 24%, 
+        alpha(@color7,1) 24%,
+        alpha(@color7,1) 26%
+        ); 
+    box-shadow: 4px 4px 2px 2px @background;
+    transition: all 0.25s;
+}
+ 
+.notification-default-action:hover{
+    background: transparent;
+}
+
+.notification-action:hover {
+        background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color7,1) 0%, 
+        alpha(@color7,1) 20%, 
+        alpha(@color6,1) 20%, 
+        alpha(@color6,1) 26%, 
+        alpha(@color7,1) 26%,
+        alpha(@color7,1) 27%
+        ); 
+    border-color: @color6;
+    transition: all 0.25s;
+
+}
+ 
+.summary {
+	padding-top: 4px;
+    font-size: 12px;
+    color: @background;
+}
+ 
+.time {
+    font-size: 10px;
+    color: @background;
+    margin-right: 24px
+}
+ 
+
+.body { 
+    font-size: 10px;
+    color: @background;
+}
+ 
+.control-center {
+           background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color4,1) 20%,
+        alpha(@color4,1) 20%, 
+        alpha(@color5,1) 20%, 
+        alpha(@color5,1) 22%, 
+        alpha(@color6,1) 22%, 
+        alpha(@color6,1) 24%,
+        alpha(@color7,1) 24%,
+        alpha(@color7,1) 26%
+        ); 
+    border: 2px solid @background;
+    border-radius: 1rem;
+    box-shadow:4px 4px 2px 2px @background;
+}
+
+.control-center-list {
+    background: transparent
+}
+ 
+.control-center-list-placeholder {
+    opacity: .5
+}
+ 
+.floating-notifications {
+    background: transparent
+}
+ 
+.blank-window {
+    background: alpha(black, 0.1)
+}
+ 
+.widget-buttons-grid,
+.widget-dnd,
+.widget-title {
+    color: @background;
+    background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color7,1) 20%,
+        alpha(@color7,1) 20%, 
+        alpha(@color5,1) 20%, 
+        alpha(@color5,1) 22%, 
+        alpha(@color7,1) 24%,
+        alpha(@color7,1) 26%
+        ); 
+    border: 1px solid @background;
+    padding: 5px 20px;
+    margin: 15px 20px 5px 20px;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 2px 2px @background;
+    min-height: 3rem;
+}
+
+
+.widget-title>button {
+    font-size: 1rem;
+    color: @background;
+    text-shadow: none;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 5px;
+}
+ 
+.widget-title>button:hover {
+    background: @color6;
+    color: @foreground;
+}
+ 
+ 
+.widget-dnd{
+    margin-top:5px;
+}
+
+.widget-dnd>label {
+    color:@background;
+}
+.widget-dnd>switch {
+    border-radius: 1rem;
+    background: @background;
+}
+ 
+.widget-dnd>switch:checked {
+    background: @color4;
+    border: 1px solid @background;
+
+}
+ 
+.widget-dnd>switch slider {
+     background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color8,1) 30%,
+        alpha(@color8,1) 30%, 
+        alpha(@color11,1) 30%, 
+        alpha(@color11,1) 50%, 
+        alpha(@color8,1) 50%,
+        alpha(@color8,1) 51%
+        ); 
+    border-radius: 3rem;
+    border:1px solid @background;
+
+}
+ 
+.widget-dnd>switch:checked slider {
+      background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color6,1) 30%,
+        alpha(@color6,1) 30%, 
+        alpha(@color8,1) 30%, 
+        alpha(@color8,1) 50%, 
+        alpha(@color6,1) 50%,
+        alpha(@color6,1) 51%
+        ); 
+    border-radius: 3rem
+    border:1px solid @background;
+}
+ 
+.widget-label {
+    margin: 10px 10px 5px 10px;
+}
+ 
+.widget-label>label {
+    font-size: 1rem;
+    color: @background;
+}
+ 
+ 
+.widget-buttons-grid {
+    padding: auto;
+    display:flex;
+}
+ 
+.widget-buttons-grid>flowbox>flowboxchild>button {
+    margin: 0px;
+    background: transparent;
+    border-radius: 5px;
+    color: @background;
+}
+ 
+.widget-buttons-grid>flowbox>flowboxchild>button>label {
+    font-size:1.5rem;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+    background: @color6;
+    color: @foreground;
+}
+
+.widget-notifications {
+    background:alpha(@background,0.2);
+    border:2px inset @background;
+    margin: 5px 20px 5px 20px;
+    box-shadow: 4px 4px 2px 2px @background;
+    margin-bottom:20px;
+
+}
+
+.widget-volume {
+    color: @background;
+    margin: 5px 20px 5px 20px;
+
+}
+ 
+
+trough {
+    background: alpha(@background,0.7);
+}
+trough>highlight{
+    background:@color6;
+}
+slider {
+         background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
+        linear-gradient(45deg, 
+        alpha(@color4,1) 30%,
+        alpha(@color4,1) 30%, 
+        alpha(@color6,1) 30%, 
+        alpha(@color6,1) 50%, 
+        alpha(@color4,1) 50%,
+        alpha(@color4,1) 51%
+        ); 
+}

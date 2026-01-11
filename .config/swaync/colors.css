@@ -1,0 +1,9 @@
+@define-color cc-bg #ffffff;
+@define-color noti-border-color #32302f;
+@define-color noti-bg #3c3836;
+@define-color noti-bg-darker #3c3836;
+@define-color noti-bg-hover rgb(27, 27, 43);
+@define-color noti-bg-focus rgba(27, 27, 27, 0.6);
+@define-color text-color #f9f5d7;
+@define-color text-color-disabled #bdae93;
+@define-color bg-selected #fabd2f;

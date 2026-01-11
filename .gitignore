@@ -1,0 +1,4 @@
+/.cache/hppydots/wallpaper_utils/*
+.gtkrc-2.0
+/.config/bashrc/custom/*
+!/.config/bashrc/custom/USER_BASHRC_GO_HERE

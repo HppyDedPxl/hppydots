@@ -1,0 +1,11 @@
+"palette": {{
+    "col-connector": "{color1}",
+    "col-user-segment": "{color6}",
+    "col-user-segment-text": "{background}",
+    "col-path-segment": "{color5}",
+    "col-path-segment-text": "{background}",
+    "col-exectime-segment": "{color4}",
+    "col-exectime-segment-text": "{foreground}",
+    "col-git-segment": "{color3}",
+    "col-git-segment-text": "{background}"
+  }}

@@ -1,0 +1,154 @@
+# Preparing dependencies for your system
+These dotfiles require certain programs to be installed and configured to have all of their features functional. 
+
+## Base Dependencies
+* btop 
+* code 
+* nfs-utils 
+* xdg-portal-hyprland 
+* xdg-portal-gtk 
+* xdg-portal-gnome 
+* meson 
+* waybar
+```bash 
+sudo pacman -S btop code nfs-utils xdg-portal-hyprland xdg-portal-gtk xdg-portal-gnome meson waybar
+```
+The xdg-portal-* must be started with exec-once during autostart in the hyprland.conf (This is already set up in the dotfiles)
+
+## Audio Control and applet in pipewire
+* pavucontrol
+* Optional: pipewire-pulse (only if using pipewire to bridge to pavucontrol)
+
+```bash
+sudo pacman -S pavucontrol pipewire-pulse
+```
+
+## Shell Customization
+* Oh-My-Posh
+
+Install Oh-My-Posh like so:
+https://ohmyposh.dev/docs/installation/linux
+```
+curl -s https://ohmyposh.dev/install.sh | bash -s
+```
+If there are issues, add ```~/.local/bin``` to your PATH variable (e.g. in ```/etc/environment```)
+
+
+## Bluetooth
+Follow instructions from https://wiki.archlinux.org/title/Bluetooth
+
+Then add the Blueman applet as the gui
+```bash
+sudo pacman -S blueman
+```
+
+## Application Launcher
+* rofi
+
+if wofi is installed from e.g. arch-install:
+```bash
+sudo pacman -R wofi
+```
+then install rofi
+```
+sudo pacman -S rofi
+```
+## Notification demon
+* swaync
+if dunst is installed (e.g. from arch-install) remove it
+```bash
+sudo pacman -R dunst
+```
+then install swaync
+```bash
+sudo pacman -S swaync
+```
+
+## Calculator
+* Qalculate-QT
+```bash
+sudo pacman -S qalculate-qt
+```
+
+## Terminal navigator
+* yazi
+
+Install yazi according to instructions: https://yazi-rs.github.io/docs/installation
+
+```bash
+sudo pacman -S yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide resvg imagemagick
+```
+
+## fonts
+woff2-font-awesome
+nerd-fonts
+noto-fonts-emoji
+ttf-fira-sans
+ttf-fira-code
+ttf-material-icons-git (aur)
+sudo pacman -S noto-fonts-{cjk,emoji,extra}
+-> e.g. in code oss you have to set 'Symbols Nerd Font Mono' as a possible font 
+-> e.g. in Vivaldi you have to set the primary font also to a nerd font
+
+## Screenshot Utilities
+* grimblast
+* satty
+* wl-clipboard
+* hyprpicker
+
+```bash 
+yay -S grimblast-git 
+sudo pacman -S satty wl-clipboard hyprpicker
+```
+
+## Theme managers
+We will be installing 2 theme managers to make generating gtk and qt configs easier.
+* qt6ct
+* nwg-look
+
+```bash 
+sudo pacman -S qt6ct nwg-look
+```
+
+### Themes
+```bash
+sudo pacman -S breeze breeze-gtk
+```
+
+Now using the theme managers apply the themes if you are experiencing theming inconsistencies
+
+
+# Icons! (Waybar tray)
+* to get symbolic icons in blueman applet -> Right click -> Plugins -> Status Icon -> Configuration -> Force Symbolic status icons
+* to get symbolic icons in most other applications: open nwg-look -> icontheme -> set a breeze icon theme
+
+# Wallpapers and dynamic color schemes
+Waytrogen (AUR) is recommended for wallpaper setting
+```bash
+ yay -S waytrogen
+ ```
+
+After installation; in ```.config/waytrogen/config.json``` set the ```executable script``` to the absolute path of
+```~/dotfiles/globalscripts/wallpaper/post_set_wallpaper.sh```
+without any "~" and without "$HOME" expansion
+
+Wallpaper daemons that are supported:
+
+* hyprpaper
+* awww (https://codeberg.org/LGFae/awww) (AUR)
+* mvpaper (https://github.com/GhostNaN/mpvpaper)
+
+# Additional nice to haves I recommend
+* gnome-system-monitor
+
+
+## sddm dynamic theme setup
+create new folder /etc/sddm.conf.d/
+```
+mkdir /etc/sddm.conf.d/
+```
+create new file in that folder "sddm.conf"
+```
+cd /etc/sddm/conf.d/
+touch sddm.conf
+```
