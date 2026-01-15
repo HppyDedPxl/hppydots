@@ -97,7 +97,7 @@
     color:@background;
 }
  
-.notification-action {
+.notification-action .text-button {
     border: 2px solid @color5;
     border-radius: .75rem;
     background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
@@ -118,7 +118,7 @@
     background: transparent;
 }
 
-.notification-action:hover {
+.notification-action .text-button:hover {
         background: repeating-linear-gradient(-45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
         repeating-linear-gradient(45deg,alpha(@stichcolor,0.05) 0px,alpha(@stichcolor,0.05) 2px, transparent 2px, transparent 4px), 
         linear-gradient(45deg, 
@@ -212,7 +212,7 @@
 
 .widget-title>button {
     font-size: 1rem;
-    color: @background;
+    color: #ff00ff;
     text-shadow: none;
     background: transparent;
     box-shadow: none;
