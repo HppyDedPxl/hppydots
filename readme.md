@@ -3,7 +3,6 @@ These dotfiles require certain programs to be installed and configured to have a
 
 ## Base Dependencies
 * hyprpolkitagent
-* btop 
 * code 
 * nfs-utils 
 * xdg-portal-hyprland 
@@ -11,6 +10,7 @@ These dotfiles require certain programs to be installed and configured to have a
 * xdg-portal-gnome 
 * meson 
 * waybar
+
 ```bash 
 sudo pacman -S hyprpolkitagent btop code nfs-utils xdg-portal-hyprland xdg-portal-gtk xdg-portal-gnome meson waybar
 ```
@@ -149,10 +149,15 @@ Wallpaper daemons that are supported:
 
 * hyprpaper
 * awww (https://codeberg.org/LGFae/awww) (AUR)
-* mvpaper (https://github.com/GhostNaN/mpvpaper)
+* mpvaper (https://github.com/GhostNaN/mpvpaper)
+
+### Additionally if using mpvpaper 
+Using mpv-stop (fork of mpvpaper-stop) is recommended and is set up in hypr autostart to conserve cpu power when windows are in front of your animated wallpaper
+Install instructions: https://github.com/HppyDedPxl/mpvpaper-stop
 
 # Additional nice to haves I recommend
 * gnome-system-monitor
+* btop 
 
 
 ## sddm dynamic theme setup
