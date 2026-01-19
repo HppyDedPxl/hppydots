@@ -79,6 +79,11 @@ button:hover {
     color:@foreground;
 }
 
+#temperature:hover {
+    background-color: @color6;
+    color:@foreground;
+}
+
 #workspaces {
     padding-left:40px;
 }
