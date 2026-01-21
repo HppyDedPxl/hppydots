@@ -3,13 +3,14 @@ These dotfiles require certain programs to be installed and configured to have a
 
 ## Base Dependencies
 * hyprpolkitagent
-* code 
+* fastfetch
 * nfs-utils 
 * xdg-portal-hyprland 
 * xdg-portal-gtk 
 * xdg-portal-gnome 
 * meson 
 * waybar
+* code
 
 ```bash 
 sudo pacman -S hyprpolkitagent btop code nfs-utils xdg-portal-hyprland xdg-portal-gtk xdg-portal-gnome meson waybar
