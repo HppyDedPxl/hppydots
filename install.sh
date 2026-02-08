@@ -22,6 +22,7 @@ DOTFILES=(
 	".config/waypaper"
 	".config/xdg-desktop-portal"
 	".config/yazi"
+	".config/quickshell"
 	".cache/hppydots"
 
 )

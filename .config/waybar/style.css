@@ -285,6 +285,8 @@ label:focus {
 
 #pulseaudio {
     background-color: transparent;
+    min-width:100px;
+
   
 }
 

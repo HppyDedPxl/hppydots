@@ -2,3 +2,4 @@ alias ls='LC_ALL=C ls -alF --color=auto'
 alias grep='grep --color=auto'
 alias shutdown='shutdown now'
 alias spotify=spotify_player
+alias weather='curl wttr.in/Berlin'

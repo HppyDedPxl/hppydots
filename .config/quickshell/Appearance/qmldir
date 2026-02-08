@@ -1,0 +1,5 @@
+singleton AppearanceProvider 1.0 AppearanceProvider.qml
+StyledText 1.0 StyledText.qml
+StyledSlider 1.0 StyledSlider.qml
+StyledBarIcon 1.0 StyledBarIcon.qml
+StyledAlertCount 1.0 StyledAlertCount.qml

@@ -1,0 +1,11 @@
+BaseModule 1.0 BaseModule.qml
+Popout 1.0 Popout.qml
+TimeModule 1.0 Time.qml
+WorkspacesModule 1.0 Workspaces.qml
+SpacerModule 1.0 Spacer.qml
+TrayModule 1.0 Tray.qml
+TestModule 1.0 TestModule.qml
+AudioModule 1.0 Audio.qml
+NotificationsModule 1.0 Notifications.qml
+PackagesModule 1.0 Packages.qml
+TemperaturesModule 1.0 Temperatures.qml
