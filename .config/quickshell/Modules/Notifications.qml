@@ -18,7 +18,6 @@ BaseModule {
 
         Rectangle {
             id: root
-
             color: 'transparent'
 
             StyledBarIcon {

@@ -9,7 +9,10 @@ These dotfiles require certain programs to be installed and configured to have a
 * xdg-portal-gtk 
 * xdg-portal-gnome 
 * meson 
-* waybar
+* ~~waybar~~ (optional now if not wanting to use quickshell)
+* ~~swaync~~ (optional now if now not wanting to use quickshell)
+* quickshell
+* qutebrowser
 * code
 
 ```bash 

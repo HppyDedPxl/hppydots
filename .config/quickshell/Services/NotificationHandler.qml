@@ -40,8 +40,6 @@ Singleton {
     }
 
     function getAmountOfNotifications(){
-            console.log(notificationServer.trackedNotifications.values)
-
         return notificationServer.trackedNotifications.values.length;
     }
 

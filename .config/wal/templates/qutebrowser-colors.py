@@ -1,0 +1,1 @@
+c.colors.tabs.bar.bg = {{background}}

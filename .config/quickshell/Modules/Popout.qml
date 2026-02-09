@@ -8,7 +8,6 @@ import Quickshell.Hyprland
 
 PopupWindow {
     id: root
-
     property var margin: AppearanceProvider.rounding
     property var bIsHovered: hoverHandler.hovered
     property Component content
@@ -30,7 +29,8 @@ PopupWindow {
     }
 
     anchor.window: topBar
-    anchor.rect.x: baseModule.x + (baseModule.width / 2) - (width / 2)
+    property var globalPos : baseModule.mapToGlobal(baseModule.x, baseModule.y)
+    anchor.rect.x: globalPos.x + (baseModule.width / 2) - (width / 2)
     anchor.rect.y: parentWindow.height - AppearanceProvider.topBarPadding
     implicitWidth: (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2
     implicitHeight: c.height + AppearanceProvider.topBarPadding * 2

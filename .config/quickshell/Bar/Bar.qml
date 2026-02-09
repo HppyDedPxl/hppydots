@@ -21,17 +21,6 @@ PanelWindow {
         right: true
         left: true
     }
-
-    WheelHandler {
-        id: scrollArea
-
-        enabled: true
-        property: "control.value"
-        onWheel: (event) => {
-
-        }
-    }
-
     MultiEffect {
         id: shadowEffect
 
@@ -72,7 +61,6 @@ PanelWindow {
 
     Rectangle {
         id: topBarGeometry
-
         width: parent.width
         height: AppearanceProvider.topBarWidth
         clip: true
@@ -86,55 +74,43 @@ PanelWindow {
 
             gradient: Gradient {
                 orientation: Gradient.Horizontal
-
                 GradientStop {
                     position: 0
                     color: AppearanceProvider.backgroundColor
                 }
-
                 GradientStop {
                     position: 0.25
                     color: AppearanceProvider.backgroundColor
                 }
-
                 GradientStop {
                     position: 0.250001
                     color: AppearanceProvider.accentColor
                 }
-
                 GradientStop {
                     position: 0.26
                     color: AppearanceProvider.accentColor
                 }
-
                 GradientStop {
                     position: 0.260001
                     color: AppearanceProvider.accentColorLighter
                 }
-
                 GradientStop {
                     position: 0.27
                     color: AppearanceProvider.accentColorLighter
                 }
-
                 GradientStop {
                     position: 0.270001
                     color: AppearanceProvider.backgroundColorSecondary
                 }
-
             }
-
         }
 
         RowLayout {
             id: barWidgets
-
             anchors.fill: parent
             spacing: 1
-            children: topBar.content
-            
+            children: topBar.content         
         }
-
     }
 
     Shape {
@@ -163,14 +139,11 @@ PanelWindow {
                 x: 0
                 y: 0
             }
-
             PathLine {
                 x: 0
                 y: AppearanceProvider.topBarAdornmentSize
             }
-
         }
-
     }
 
     Shape {

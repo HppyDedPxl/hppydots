@@ -119,7 +119,6 @@ Rectangle {
 
     Loader {
         id: mainContent
-
         anchors.fill: parent
         active: true
         sourceComponent: content

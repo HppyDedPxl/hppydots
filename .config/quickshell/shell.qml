@@ -88,5 +88,56 @@ Variants {
               implicitHeight: 25 + 800       
       }
     }
+
+  //   SlimBar {
+  //     id:topBar
+  //     leftBarWidth:300
+  //     rightBarWidth:300
+  //     leftContent: [
+  //       SpacerModule{
+  //         preferredWidth: 20
+  //       },
+  //       WorkspacesModule {
+  //         bDoHighlight:false;
+  //         width:180
+  //       }
+  //     ]
+  //     rightContent: [
+  //       // CpuModule {
+  //       //   textColor:AppearanceProvider.textColorSecondary
+  //       // },
+  //       //  MemoryModule {
+  //       //   textColor:AppearanceProvider.textColorSecondary
+  //       // },
+  //       // TemperaturesModule {
+  //       //   textColor:AppearanceProvider.textColorSecondary
+  //       // },
+  //       SpacerModule{},
+  //       PackagesModule {
+  //         textColor:AppearanceProvider.textColorSecondary
+  //       },
+  //       NotificationsModule{
+  //         bDoHighlight:true
+  //         textColor:AppearanceProvider.textColorSecondary
+  //         usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+  //       },
+  //       AudioModule{
+  //         bDoHighlight:true
+  //         bPopupOnHover:true
+  //         textColor:AppearanceProvider.textColorSecondary
+  //         usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+  //       },
+  // TrayModule {
+  //         textColor:AppearanceProvider.textColorSecondary
+  //         usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+  //         bPopupOnHover:true
+  //       },
+  //       SpacerModule {
+  //         preferredWidth:20
+  //       }
+  //     ]
+
+      
+  //   }
   }
 }

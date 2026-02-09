@@ -23,6 +23,7 @@ DOTFILES=(
 	".config/xdg-desktop-portal"
 	".config/yazi"
 	".config/quickshell"
+	".config/qutebrowser"
 	".cache/hppydots"
 
 )

@@ -10,6 +10,7 @@ Singleton {
              Math.pow(color.b,2.2) * 0.0722;
              return Ys;
     }
+
     property var luminanceFlipPoint: 0.36
 
     id: root
@@ -37,6 +38,7 @@ Singleton {
     property var primaryFontSize : 12
 
     property var topBarWidth : 45
+    property var slimBarWidth : 10
     property var topBarPadding: 60
 
     property var rounding: 20
