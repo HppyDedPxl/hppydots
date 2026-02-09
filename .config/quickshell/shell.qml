@@ -70,6 +70,10 @@ Variants {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
+        BatteryModule {
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+        },
         TrayModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary

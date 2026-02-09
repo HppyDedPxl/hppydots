@@ -11,3 +11,4 @@ PackagesModule 1.0 Packages.qml
 TemperaturesModule 1.0 Temperatures.qml
 CpuModule 1.0 Cpu.qml
 MemoryModule 1.0 Memory.qml
+BatteryModule 1.0 Battery.qml

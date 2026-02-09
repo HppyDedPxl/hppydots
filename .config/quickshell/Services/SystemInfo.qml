@@ -4,7 +4,7 @@ import Quickshell.Io
 pragma Singleton
 
 Singleton {
-    id: packagesHandler
+    id: systemInfo
 
     property var avgCpuTemp: 0
     property var avgCpuLoad: 0
@@ -12,12 +12,24 @@ Singleton {
     property var lastCpuIdle: 0
     property var memFree: 0
     property var memTotal: 0
+    property var batteryStatus: "Not charging"
+    property var batteryPercentage: 100
+
+    property var bHasBattery : true
 
     function initService() {
         timer.running = true;
+        queryAll()
+    }
+
+    function queryAll(){
         temperatureCheck.running = true;
         cpuramcheck.running = true;
         memcheck.running = true;
+        if(bHasBattery){
+            batteryStatusCheck.running = true
+            batteryCapacityCheck.running = true
+        }
     }
 
     function getListOfValuesFromRegex(regex, input) {
@@ -71,9 +83,34 @@ Singleton {
         running: false
         repeat: true
         onTriggered: {
-            temperatureCheck.running = true;
-            cpuramcheck.running = true;
-            memcheck.running = true;
+            queryAll();
+        }
+    }
+
+    Process {
+        id: batteryStatusCheck
+        command: ["cat", "/sys/class/power_supply/BAT0/status"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                systemInfo.batteryStatus = this.text
+            }
+        }
+        stderr: StdioCollector {
+            onStreamFinished: {
+                console.log("Error " + this.text + " getting battery state, stop queriying battery!");
+                bHasBattery = false;
+            }
+        }
+    }
+    Process {
+        id: batteryCapacityCheck
+        command: ["cat", "/sys/class/power_supply/BAT0/capacity"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                systemInfo.batteryPercentage = parseFloat(this.text)
+            }
         }
     }
 
