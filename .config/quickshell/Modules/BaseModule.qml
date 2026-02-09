@@ -146,12 +146,13 @@ Rectangle {
             bIsHovered = false;
         }
         onClicked: {
-            if(bHasClickAction){
-                onClickAction.startDetached()
-            }
-            else (!bPopupOnHover)
-                openPopup();
 
+            if (bHasClickAction){
+                onClickAction.startDetached();
+            }
+            else if(!bPopupOnHover){
+                openPopup();
+            }
         }
     }
 }

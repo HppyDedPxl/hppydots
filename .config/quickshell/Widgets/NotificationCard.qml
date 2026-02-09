@@ -101,7 +101,7 @@ Item {
 
             default property alias data: rowLayout.data
 
-            color: AppearanceProvider.textColor
+            color: AppearanceProvider.backgroundColorSecondary
             implicitWidth: headerRect.width
             implicitHeight: rowLayout.implicitHeight
             bottomLeftRadius: AppearanceProvider.rounding / 2
@@ -137,7 +137,7 @@ Item {
                     Layout.topMargin: 10
                     Layout.bottomMargin: 10
                     wrapMode: Text.WordWrap
-                    color: AppearanceProvider.textColorDark
+                    color: AppearanceProvider.textColorSecondary
                     text: notification.body
                     clip: true
                     elide: Text.ElideRight

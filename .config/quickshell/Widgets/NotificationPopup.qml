@@ -63,7 +63,7 @@ Item {
             running: true
             easing.type: Easing.OutElastic
             onFinished:{
-                if(notification.actions.length == 0 && notification.urgency <= 1)
+                if(notification.urgency <= 1)
                     displayTimeoutTimer.running = true
                     onFinished:{
                         onShowAnimFinished()

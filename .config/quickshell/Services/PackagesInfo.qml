@@ -14,7 +14,7 @@ Singleton {
 
     Timer{
         id: timer
-        interval: 10000
+        interval: 10000*1800 // check every 30 minutes after start
         running: false
         repeat:true
         onTriggered:{

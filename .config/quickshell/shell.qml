@@ -43,39 +43,39 @@ Variants {
         SpacerModule {
         } ,
         TemperaturesModule {
-          textColor:AppearanceProvider.textColorDark
+          textColor:AppearanceProvider.textColorSecondary
           width:80
         },
 
         PackagesModule {
-          textColor:AppearanceProvider.textColorDark
+          textColor:AppearanceProvider.textColorSecondary
           width:45
         },
 
         NotificationsModule{
           width:45
           bDoHighlight:true
-          textColor:AppearanceProvider.textColorDark
-          usedBackgroundColor:AppearanceProvider.textColor
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
  
         AudioModule{
           width:125
           bDoHighlight:true
           bPopupOnHover:true
-          textColor:AppearanceProvider.textColorDark
-          usedBackgroundColor:AppearanceProvider.textColor
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
 
         TimeModule {
           width:75
           bPopupOnHover:true
-          textColor:AppearanceProvider.textColorDark
-          usedBackgroundColor:AppearanceProvider.textColor
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
         TrayModule {
-          textColor:AppearanceProvider.textColorDark
-          usedBackgroundColor:AppearanceProvider.textColor
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           width:50
           bPopupOnHover:true
         },

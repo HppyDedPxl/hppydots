@@ -9,8 +9,14 @@ Singleton {
     ScriptModel{
         id:displayNotifications
     }
-    ScriptModel {
-        id:notificationBacklog
+    
+    function dismissAll(){
+        displayNotifications.values = []
+        while(notificationServer.trackedNotifications.values.length>0){
+            if(notificationServer.trackedNotifications.values[0] !== null){
+                notificationServer.trackedNotifications.values[0].dismiss()
+            }
+        }
     }
 
     function getDisplayNotifications(){
@@ -18,7 +24,7 @@ Singleton {
     }
 
     function getNotificationBacklog(){
-        return notificationBacklog;
+        return notificationServer.trackedNotifications;
     }
 
     function removeDisplayNotification(notification){
@@ -30,30 +36,22 @@ Singleton {
 
     function dismissNotification(notification){
         displayNotifications.values = displayNotifications.values.filter(x => x !== notification)
-        notificationBacklog.values = notificationBacklog.values.filter(x => x !== notification)
         notification.dismiss();
     }
 
     function getAmountOfNotifications(){
-        return notificationBacklog.values.length;
+            console.log(notificationServer.trackedNotifications.values)
+
+        return notificationServer.trackedNotifications.values.length;
     }
 
     NotificationServer {
         id: notificationServer
+        persistenceSupported: true
         onNotification:notification=>{
             notification.tracked = true
-            if(!notification.transient)
-                notificationBacklog.values.push(notification)
-            displayNotifications.values.push(notification)
-
-            console.log("~~~Received Notification~~~")
-            console.log("summary: " + notification.summary)
-            console.log("body: " + notification.body)
-            console.log("actions:" + notification.actions)
-            console.log("transient:" + notification.transient)
-            console.log("inlineReply?:" + notification.hasInlineReply)
-            console.log("urgency: " + notification.urgency)
-            
+            if(!notification.lastGeneration)
+                displayNotifications.values.push(notification)
         }
     }
 

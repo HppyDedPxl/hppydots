@@ -14,7 +14,7 @@ Singleton {
 
     Timer{
         id: timer
-        interval: 10000
+        interval: 2000 // check every 2 seconds
         running: false
         repeat:true
         onTriggered:{

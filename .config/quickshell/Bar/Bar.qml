@@ -119,7 +119,7 @@ PanelWindow {
 
                 GradientStop {
                     position: 0.270001
-                    color: AppearanceProvider.textColor
+                    color: AppearanceProvider.backgroundColorSecondary
                 }
 
             }

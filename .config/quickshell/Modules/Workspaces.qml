@@ -64,6 +64,7 @@ BaseModule{
                                     property bool onThisScreen: wsIsOnScreen(ws);
                                     property bool isActive: Hyprland.focusedWorkspace?.id == (index + 1)
                                     text: index + 1
+                                    color: AppearanceProvider.inactiveTextColor
                                 }
 
                                 states: [
@@ -76,8 +77,9 @@ BaseModule{
                                                 color: AppearanceProvider.activeColor
                                             }
                                             workspaceText{
-                                                color: AppearanceProvider.backgroundColor
+                                                color: AppearanceProvider.activeTextColor
                                             }
+
                                         }
                                     },
                                     State {
@@ -86,6 +88,9 @@ BaseModule{
                                         PropertyChanges {
                                             workspaceWidget{
                                                 color: AppearanceProvider.highlightColor
+                                            }
+                                            workspaceText{
+                                                color: AppearanceProvider.highlightTextColor
                                             }
                                         }
                                     }

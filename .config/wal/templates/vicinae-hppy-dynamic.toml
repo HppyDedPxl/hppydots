@@ -28,12 +28,12 @@ variant = "dark"                              # Theme variant: "dark" or "light"
 # Most other colors can be automatically derived from these if not specified.
 
 [colors.core]
-accent = "{color3}"              # Primary accent color (used for input borders, text selection background...)
+accent = "{color5}"              # Primary accent color (used for input borders, text selection background...)
 accent_foreground = "{color6}"   # Text color on accent-colored backgrounds
-background = "{color7}"          # Main application background
+background = "{foreground}"          # Main application background
 foreground = "{background}"          # Primary text color
 secondary_background = "{color7}" # Background for surfaces elevated above main (popups, tooltips, panels)
-border = "{color5}"              # Default border color throughout the UI
+border = "{background}"              # Default border color throughout the UI
 
 # ============================================================================
 # Window-Specific Colors
@@ -41,10 +41,10 @@ border = "{color5}"              # Default border color throughout the UI
 # Override border colors for specific window types
 
 [colors.main_window]
-border = "{color5}"
+border = "{background}"
 
 [colors.settings_window]
-border = "{color5}"
+border = "{background}"
 
 # ============================================================================
 # Accent Colors
@@ -68,10 +68,10 @@ purple = "#bc8cff"
 
 [colors.text]
 default = "{background}"             # Usually same as core.foreground
-muted = "{color8}"               # Secondary text: hints, less important info
+muted = "{color4}"               # Secondary text: hints, less important info
 danger = "#b9543b"              # Errors or warnings
 success = "#3a9c61"             # Success or positive states
-placeholder = "{color6}"			# input placeholder, search placeholder...
+placeholder = "{color4}"			# input placeholder, search placeholder...
 selection = {{ background = "{color4}", foreground = "{background}" }}
 
 [colors.text.links]
@@ -96,7 +96,7 @@ border_error = "#b9543b"
 [colors.button.primary]
 background = "{color7}"
 foreground = "{foreground}"
-hover = {{ background = "{color3}" }}
+hover = {{ background = "{color5}" }}
 focus = {{ outline = "colors.core.accent" }}
 
 # ============================================================================
@@ -105,12 +105,12 @@ focus = {{ outline = "colors.core.accent" }}
 # Colors for list items (horizontal list views)
 
 [colors.list.item.hover]
-background = "{color4}"
-foreground = "{foreground}"
+background = "{color5}"
+foreground = "{background}"
 
 [colors.list.item.selection]
-background = "{color4}"          # Selected item on main background
-foreground = "{foreground}"
+background = "{color5}"          # Selected item on main background
+foreground = "{background}"
 secondary_background = "{color4}" # Selected item on secondary surfaces (popups, panels)
                                  # Light themes: lighter than primary selection
                                  # Dark themes: lighter/brighter than primary selection

@@ -39,7 +39,7 @@ WrapperMouseArea {
             Rectangle {
                 width: control.visualPosition * parent.width
                 height: parent.height
-                color: AppearanceProvider.accentColor
+                color: AppearanceProvider.inactiveColor
                 radius: parent.radius
             }
         }
