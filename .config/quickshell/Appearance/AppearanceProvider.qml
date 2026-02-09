@@ -27,7 +27,7 @@ Singleton {
     property var activeTextColor: getPercievedLuminance(activeColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
    
     property var inactiveColor: Pywal.color8
-    property var inactiveTextColor: getPercievedLuminance(inactiveTextColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
+    property var inactiveTextColor: getPercievedLuminance(inactiveColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
     
     property var accentColor: Pywal.color5
     property var accentColorLighter: Pywal.color6
