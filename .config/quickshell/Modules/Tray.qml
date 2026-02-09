@@ -10,7 +10,7 @@ BaseModule {
     property var trayWidth: 185
     property var itemColumns: 6
     property QsMenuAnchor openedMenu: menuAnchor
-
+    width:45
     function getTrayItemsFiltered() {
         var TrayItems = [];
         for (var i = 0; i < SystemTray.items.values.length; i++) {
@@ -73,14 +73,17 @@ BaseModule {
             color: 'transparent'
 
             GridLayout {
-                anchors.fill: parent
+                anchors.top:parent.top
+                anchors.left:parent.left
+                anchors.right:parent.right
+                anchors.bottom:parent.bottom
                 anchors.margins: 10
+                anchors.topMargin:20
                 columns: itemColumns
                 uniformCellHeights: true
                 uniformCellWidths: true
                 rowSpacing: 10
-                
-
+           
                 Repeater {
                     model: getTrayItemsFiltered().length
                     Image {

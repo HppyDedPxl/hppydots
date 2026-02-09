@@ -132,6 +132,7 @@ PanelWindow {
             anchors.fill: parent
             spacing: 1
             children: topBar.content
+            
         }
 
     }
@@ -183,7 +184,7 @@ PanelWindow {
 
         ShapePath {
             strokeWidth: 0
-            fillColor: AppearanceProvider.textColor
+            fillColor: AppearanceProvider.backgroundColorSecondary
             startX: 0
             startY: 0
 

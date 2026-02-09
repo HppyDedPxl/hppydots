@@ -8,6 +8,7 @@ import Quickshell.Io // for Process
 
 BaseModule {
     id: baseModule
+    width:parent.height
     dbgName:"PackagesModule"
     content: _content
     popupContent: null

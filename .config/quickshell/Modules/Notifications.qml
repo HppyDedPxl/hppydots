@@ -9,7 +9,7 @@ import Quickshell.Services.Notifications
 
 BaseModule {
     id: baseModule
-
+    width:parent.height
     content: _content
     popupContent: _popupContent
 
@@ -23,7 +23,6 @@ BaseModule {
 
             StyledBarIcon {
                 id: icon
-
                 text: "󰎟"
             }
 

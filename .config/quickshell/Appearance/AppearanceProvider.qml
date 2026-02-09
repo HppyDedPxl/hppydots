@@ -15,19 +15,19 @@ Singleton {
     id: root
     
     property var backgroundColor : Pywal.color4;
-    property var textColor :  getPercievedLuminance(backgroundColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
+    property var textColor :  getPercievedLuminance(backgroundColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
 
     property var backgroundColorSecondary: Pywal.foreground;
     property var textColorSecondary : Pywal.background;
     
     property var highlightColor : Pywal.color1
-    property var highlightTextColor: getPercievedLuminance(highlightColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
+    property var highlightTextColor: getPercievedLuminance(highlightColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
    
     property var activeColor : Pywal.color7
-    property var activeTextColor: getPercievedLuminance(activeColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
+    property var activeTextColor: getPercievedLuminance(activeColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
    
     property var inactiveColor: Pywal.color8
-    property var inactiveTextColor: getPercievedLuminance(inactiveColor) < Pywal.foreground ? Pywal.foreground : Pywal.background;
+    property var inactiveTextColor: getPercievedLuminance(inactiveColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     
     property var accentColor: Pywal.color5
     property var accentColorLighter: Pywal.color6

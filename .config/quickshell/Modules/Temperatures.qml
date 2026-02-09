@@ -5,7 +5,7 @@ import Quickshell
 
 BaseModule {
     id: baseModule
-
+    width:75
     function getTemperatureIcon() {
         const iconSetup = [[85, ""], [70, ""], [45, ""], [30, ""], [0, ""]];
         for (let i = 0; i < iconSetup.length; i++) {

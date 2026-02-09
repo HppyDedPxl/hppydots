@@ -9,7 +9,7 @@ import Quickshell.Widgets
 
 BaseModule {
     id: baseModule
-
+    width:75
     property var textShort: ""
     property var textLong: ""
 
@@ -20,7 +20,7 @@ BaseModule {
 
     Component {
         id: _content
-
+        
         Rectangle {
             id: wrapper
 

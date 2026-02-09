@@ -35,32 +35,30 @@ Variants {
         SpacerModule {
           preferredWidth:50
         } ,
-
         WorkspacesModule {
           width:200
           bDoHighlight:false;
         },
         SpacerModule {
         } ,
+          CpuModule {
+          textColor:AppearanceProvider.textColorSecondary
+        },
+         MemoryModule {
+          textColor:AppearanceProvider.textColorSecondary
+        },
         TemperaturesModule {
           textColor:AppearanceProvider.textColorSecondary
-          width:80
         },
-
         PackagesModule {
           textColor:AppearanceProvider.textColorSecondary
-          width:45
         },
-
         NotificationsModule{
-          width:45
           bDoHighlight:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
- 
         AudioModule{
-          width:125
           bDoHighlight:true
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
@@ -68,7 +66,6 @@ Variants {
         },
 
         TimeModule {
-          width:75
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
@@ -76,7 +73,6 @@ Variants {
         TrayModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          width:50
           bPopupOnHover:true
         },
         SpacerModule {
