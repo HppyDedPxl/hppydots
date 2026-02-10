@@ -52,27 +52,27 @@ PanelWindow {
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.32
+                    position: 0.20
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.320001
+                    position: 0.200001
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.34
+                    position: 0.22
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.340001
+                    position: 0.220001
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.36
+                    position: 0.24
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.360001
+                    position: 0.240001
                     color: AppearanceProvider.backgroundColorSecondary
                 }
         }

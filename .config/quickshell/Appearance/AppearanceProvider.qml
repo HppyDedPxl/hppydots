@@ -21,7 +21,7 @@ Singleton {
     property var backgroundColorSecondary: Pywal.color1;
     property var textColorSecondary : getPercievedLuminance(Pywal.color1) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     
-    property var highlightColor : Pywal.color1
+    property var highlightColor : Pywal.color4
     property var highlightTextColor: getPercievedLuminance(highlightColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
    
     property var activeColor : Pywal.color7
@@ -30,8 +30,8 @@ Singleton {
     property var inactiveColor: Pywal.color8
     property var inactiveTextColor: getPercievedLuminance(inactiveColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     
-    property var accentColor: Pywal.color4
-    property var accentColorLighter: Pywal.color6
+    property var accentColor: Pywal.color2
+    property var accentColorLighter: Pywal.color3
 
 
     property var primaryFont : "JetBrainsMono Nerd Font"

@@ -35,9 +35,13 @@ Variants {
       id:topBar
       content:[
         SpacerModule {
-          preferredWidth:50
+          
+          
         } ,
-        
+              SpacerModule {
+          preferredWidth:500
+          
+        } ,
         WorkspacesModule {
           bDoHighlight:false;
         },
