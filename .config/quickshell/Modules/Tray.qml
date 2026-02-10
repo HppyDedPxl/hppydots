@@ -67,9 +67,10 @@ BaseModule {
         id: _popupContent
         Rectangle {
             property var iconSizeOffset: 50;
-
-            height: (trayWidth / itemColumns) * (SystemTray.items.values.length / itemColumns + 1)
-            width: trayWidth
+            property var sideMargins: 20
+            property var topBottomMargins: 10
+            width: trayWidth + sideMargins * 2
+            height: (width / itemColumns) * (SystemTray.items.values.length / itemColumns) + topBottomMargins*2
             color: 'transparent'
 
             GridLayout {
@@ -77,8 +78,11 @@ BaseModule {
                 anchors.left:parent.left
                 anchors.right:parent.right
                 anchors.bottom:parent.bottom
-                anchors.margins: 10
-                anchors.topMargin:20
+                anchors.leftMargin: 20
+                anchors.rightMargin: 20
+                anchors.topMargin: topBottomMargins
+                anchors.bottomMargin: topBottomMargins
+
                 columns: itemColumns
                 uniformCellHeights: true
                 uniformCellWidths: true
