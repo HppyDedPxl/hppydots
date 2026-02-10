@@ -9,7 +9,7 @@ BaseModule{
     id:baseModule
     content: _content
     popupContent: null
-    width:60
+    width:70
     Component {
         id: _content
         Rectangle {

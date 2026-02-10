@@ -10,7 +10,7 @@ BaseModule{
     content: _content
     popupContent: null
     property bool minimalMode: true
-    width: minimalMode ? 130 : 220
+    width: minimalMode ? 110 : 220
     Component {
         id: _content
         Rectangle {

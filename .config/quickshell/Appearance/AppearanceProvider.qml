@@ -37,7 +37,7 @@ Singleton {
     property var primaryFont : "JetBrainsMono Nerd Font"
     property var primaryFontSize : 12
 
-    property var topBarWidth : 45
+    property var topBarWidth : 40
     property var slimBarWidth : 10
     property var topBarPadding: 60
 

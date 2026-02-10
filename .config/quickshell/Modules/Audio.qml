@@ -9,7 +9,7 @@ import Quickshell.Widgets
 
 BaseModule {
     id: baseModule
-    width: 130
+    width: 150
 
     property var audioSink: Pipewire.defaultAudioSink
     property int volume: (audioSink && audioSink.audio) ? Math.round(audioSink.audio.volume * 100) : 0

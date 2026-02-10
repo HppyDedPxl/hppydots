@@ -35,51 +35,75 @@ Variants {
         SpacerModule {
           preferredWidth:50
         } ,
+        
         WorkspacesModule {
-          width:200
           bDoHighlight:false;
         },
         SpacerModule {
         } ,
-          CpuModule {
+               DividerModule {},
+        CpuModule {
           textColor:AppearanceProvider.textColorSecondary
         },
+        DividerModule {},
          MemoryModule {
           textColor:AppearanceProvider.textColorSecondary
         },
+        DividerModule {},
+
         TemperaturesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
+        DividerModule {},
+
         PackagesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
+        DividerModule {},
+
         NotificationsModule{
           bDoHighlight:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
+        DividerModule {},
+
         AudioModule{
           bDoHighlight:true
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
+        DividerModule {},
 
+        
         TimeModule {
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
+
+        DividerModule {},
+
         BatteryModule {
+          id: batteryModule
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           
         },
+
+        DividerModule {
+          visible: batteryModule.visible
+        },
+
+
         TrayModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           bPopupOnHover:true
         },
+        DividerModule {},
+
         SpacerModule {
           preferredWidth:20
         }      

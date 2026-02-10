@@ -27,6 +27,9 @@ Rectangle {
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
 
+
+    property var mainContentLoader: mainContent
+
     function openPopup() {
         popup.visible=true
         popup.openOnClick()
@@ -36,7 +39,7 @@ Rectangle {
     }
     
     height: parent.height
-    width:mainContent.width
+    width:mainContent.item.childrenRect.width
     color: "transparent"
 
     states: [
