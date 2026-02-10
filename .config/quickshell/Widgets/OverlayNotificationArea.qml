@@ -7,13 +7,23 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
+import Quickshell.Wayland
 
-PopupWindow {
+PanelWindow {
+    screen: scope.modelData
+    anchors {
+        right: true
+        top: true
+        bottom: true
+    }
+    width:350
+    exclusiveZone: 0
     id: window
     visible:true
     property list<Item> activePopups: []
     property list<Region> activeRegions: []
     property var spacing: 5
+    WlrLayershell.layer: WlrLayer.Overlay
     color: 'transparent'
     mask: Region { id: cutoutRegion; regions: activeRegions; }
     property var isOnFocusedWindow: Hyprland.focusedMonitor.name == modelData.name

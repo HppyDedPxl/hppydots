@@ -41,7 +41,7 @@ Rectangle {
     height: parent.height
     width:mainContent.item.childrenRect.width
     color: "transparent"
-
+    
     states: [
         State {
             name: "closed"

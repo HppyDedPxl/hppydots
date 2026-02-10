@@ -5,12 +5,10 @@ import QtQuick.Effects
 import QtQuick.Layouts
 import QtQuick.Shapes
 import Quickshell
-
+0
 PanelWindow {
     id: topBar
-
     property list<Item> content
-
     screen: scope.modelData
     implicitHeight: AppearanceProvider.topBarWidth + AppearanceProvider.topBarPadding
     color: 'transparent'
