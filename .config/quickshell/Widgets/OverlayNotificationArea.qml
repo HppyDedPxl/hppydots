@@ -16,7 +16,7 @@ PanelWindow {
         top: true
         bottom: true
     }
-    width:350
+    implicitWidth:350
     exclusiveZone: 0
     id: window
     visible:true

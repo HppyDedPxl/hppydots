@@ -39,7 +39,7 @@ Rectangle {
     }
     
     height: parent.height
-    width:mainContent.item.childrenRect.width
+    width: mainContent.item.childrenRect.width
     color: "transparent"
     
     states: [

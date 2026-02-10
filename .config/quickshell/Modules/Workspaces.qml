@@ -9,29 +9,51 @@ import "../Appearance"
 
 
 BaseModule{
+    function getAmountVisible(){
+        console.log("~~~~~~~~~~~~" + mainContentLoader.item.innerRepeater.model.values.length)
+        let c = mainContentLoader.item.innerRepeater.model.values.length
+        let vis = 0
+        for(let i = 0; i < c; i++){
+            if ( mainContentLoader.item.innerRepeater.itemAt(i).visible)
+                vis++
+        }
+        return vis;
+    }
     id: baseModule
     content: workspaceBar
-    
+    color:'transparent'
+    property var blipSpacing : 5
+    property var verticalMargins: 2
+    width: getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
     Component {
         id: workspaceBar
 
         Rectangle {
             id: root
             color:'transparent'
+            border.width:1
+            radius:AppearanceProvider.rounding
+            border.color:AppearanceProvider.activeColor
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            property var margins : 4
+            anchors.topMargin: verticalMargins
+            anchors.bottomMargin:verticalMargins
+            property var margins : 2
             anchors.margins:margins
+            property var innerRepeater : repeater
 
             Row {
                 id:row
-                spacing: 5
+                spacing: blipSpacing
                 height:root.height
                 Repeater {
                     id: repeater
-                    model: Hyprland.workspaces          
+                    model: Hyprland.workspaces
                     Rectangle{
-                        function wsIsOnScreen(workspace) {
+                        color:'transparent'
+                        width:parent.height
+                        height:parent.height
+                         function wsIsOnScreen(workspace) {
                             if(workspace !== null && workspace !== undefined){
                                 return workspace.monitor !== null && workspace.monitor.name == scope.modelData.name;
                             }
@@ -42,10 +64,15 @@ BaseModule{
                         property bool onThisScreen: wsIsOnScreen(modelData);
                         property bool isActive: Hyprland.focusedWorkspace?.id == modelData.id
                         visible: onThisScreen 
-                        id: workspaceWidget                        
-                        width: root.height
-                        height: root.height
-                        radius: root.height/2
+
+                        Rectangle{
+                       
+                        
+                        id: workspaceWidget    
+                        anchors.centerIn:parent                    
+                        width: parent.height/2
+                        height: parent.height/2
+                        radius: parent.height/2
                         color: AppearanceProvider.inactiveColor
                         property bool isHovered
                         MouseArea {
@@ -75,11 +102,12 @@ BaseModule{
                                 when: isActive
                                 PropertyChanges {
                                     workspaceWidget{
-                                        width:row.height*2
-                                        color: AppearanceProvider.activeColor
+                                        width:row.height*0.9
+                                        height:row.height*0.9
+                                        color: AppearanceProvider.highlightColor
                                     }
                                     workspaceText{
-                                        color: AppearanceProvider.activeTextColor
+                                        color: AppearanceProvider.highlightTextColor
                                     }
                                 }
                             },
@@ -102,7 +130,7 @@ BaseModule{
                                 to: "active"
                                 reversible: true
                                 PropertyAnimation {
-                                    properties: "width,color"
+                                    properties: "width,height,color,opacity"
                                     duration: 250
                                     easing.type: Easing.InOutQuad
                                 }
@@ -129,6 +157,8 @@ BaseModule{
                             }
                         ]
                     }
+                    }
+                    
                 }
             }
         } 
