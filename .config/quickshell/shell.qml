@@ -73,6 +73,7 @@ Variants {
         BatteryModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          
         },
         TrayModule {
           textColor:AppearanceProvider.textColorSecondary

@@ -5,7 +5,7 @@ import "../Services"
 
 BaseModule{
     id: baseModule
-    dbgName: batteryModule
+    dbgName: "batteryModule"
     width: 55
     visible: SystemInfo.bHasBattery
     content: _content
@@ -34,8 +34,9 @@ BaseModule{
     }
 
     function getBatteryStateIcon(){
-        if (SystemInfo.batteryStatus == "Not charging")
+        if (SystemInfo.batteryStatus.toString() == "Not charging"){
             return ""
+        }
         if (SystemInfo.batteryStatus == "Discharging" || SystemInfo.batteryStatus == "Full")
             return getBatteryDischargingIcon(SystemInfo.batteryPercentage)
         if (SystemInfo.batteryStatus == "Charging")
@@ -53,7 +54,7 @@ BaseModule{
             StyledText {
                 anchors.centerIn:  parent
                 color:baseModule.textColorOnBar
-                text: (SystemInfo.batteryPercentage-1) + "%" + getBatteryStateIcon()
+                text: SystemInfo.batteryPercentage + "% " + getBatteryStateIcon()
             }
     }
             

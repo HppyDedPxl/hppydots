@@ -49,7 +49,11 @@ Singleton {
     function evaluateSensorsOutput(input) {
         // Average Cpu Core Temp:
         const regExp_coreTemp = /Core [0-9]*:[\s]*\+([0-9.]*)/gm;
+        const regExp_coreTempAlt = /CPU:[\s]*\+([0-9.]*)/gm; // alternative format e.g. for thinkpads
         let cpuTemps = getListOfValuesFromRegex(regExp_coreTemp, input);
+        if (cpuTemps.length == 0){
+            cpuTemps = getListOfValuesFromRegex(regExp_coreTempAlt, input);
+        }
         let sum = 0;
         for (let i = 0; i < cpuTemps.length; i++) {
             sum += parseFloat(cpuTemps[i]);
@@ -93,13 +97,15 @@ Singleton {
         running: false
         stdout: StdioCollector {
             onStreamFinished: {
-                systemInfo.batteryStatus = this.text
+                systemInfo.batteryStatus = String(this.text).replace('\n','')
             }
         }
         stderr: StdioCollector {
             onStreamFinished: {
-                console.log("Error " + this.text + " getting battery state, stop queriying battery!");
-                bHasBattery = false;
+                if(this.data != ""){
+                    console.log("Error " + this.data + " getting battery state, stop queriying battery!");
+                    bHasBattery = false;
+                }
             }
         }
     }
