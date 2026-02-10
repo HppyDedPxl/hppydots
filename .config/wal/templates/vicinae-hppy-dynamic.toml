@@ -28,9 +28,9 @@ variant = "dark"                              # Theme variant: "dark" or "light"
 # Most other colors can be automatically derived from these if not specified.
 
 [colors.core]
-accent = "{color5}"              # Primary accent color (used for input borders, text selection background...)
-accent_foreground = "{color6}"   # Text color on accent-colored backgrounds
-background = "{foreground}"          # Main application background
+accent = "{color4}"              # Primary accent color (used for input borders, text selection background...)
+accent_foreground = "{background}"   # Text color on accent-colored backgrounds
+background = "{color1}"          # Main application background
 foreground = "{background}"          # Primary text color
 secondary_background = "{color7}" # Background for surfaces elevated above main (popups, tooltips, panels)
 border = "{background}"              # Default border color throughout the UI
@@ -105,11 +105,11 @@ focus = {{ outline = "colors.core.accent" }}
 # Colors for list items (horizontal list views)
 
 [colors.list.item.hover]
-background = "{color5}"
+background = "{color6}"
 foreground = "{background}"
 
 [colors.list.item.selection]
-background = "{color5}"          # Selected item on main background
+background = "{color6}"          # Selected item on main background
 foreground = "{background}"
 secondary_background = "{color4}" # Selected item on secondary surfaces (popups, panels)
                                  # Light themes: lighter than primary selection

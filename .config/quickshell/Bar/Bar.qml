@@ -67,7 +67,7 @@ PanelWindow {
             height: parent.width
             width: parent.width
             anchors.centerIn: parent
-            rotation: -45
+            rotation: 45
             containmentMask: topBarGeometry
 
             gradient: Gradient {

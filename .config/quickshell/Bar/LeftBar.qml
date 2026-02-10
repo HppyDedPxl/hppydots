@@ -40,7 +40,7 @@ PanelWindow {
        clip:true
 
        Rectangle{
-            rotation:45
+            rotation:-45
             height:parent.height
             width:parent.height
             anchors.centerIn:parent
@@ -52,27 +52,27 @@ PanelWindow {
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.25
+                    position: 0.32
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.250001
+                    position: 0.320001
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.26
+                    position: 0.34
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.260001
+                    position: 0.340001
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.27
+                    position: 0.36
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.270001
+                    position: 0.360001
                     color: AppearanceProvider.backgroundColorSecondary
                 }
         }
