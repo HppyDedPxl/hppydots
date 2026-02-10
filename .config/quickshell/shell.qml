@@ -29,6 +29,8 @@ Variants {
         }
     }
    
+    LeftBar{id:leftBar}
+
     Bar {
       id:topBar
       content:[
@@ -109,6 +111,8 @@ Variants {
         }      
       ]
     }
+
+
 
     OverlayNotificationArea{
       id:notificationArea

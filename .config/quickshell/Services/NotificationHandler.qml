@@ -46,8 +46,11 @@ Singleton {
     NotificationServer {
         id: notificationServer
         persistenceSupported: true
+        actionsSupported: true
+        imageSupported: true
         onNotification:notification=>{
             notification.tracked = true
+            console.log(notification.actions)
             if(!notification.lastGeneration)
                 displayNotifications.values.push(notification)
         }
