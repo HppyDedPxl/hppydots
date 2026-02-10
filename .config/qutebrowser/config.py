@@ -50,6 +50,9 @@ def load_pywal_colors():
 c.fonts.default_family = "JetBrainsMono Nerd Font"
 c.fonts.default_size = '12pt'
 c.tabs.width = '7%'
+config.bind('K', 'tab-next')
+config.bind('J', 'tab-prev')
+c.content.unknown_url_scheme_policy = "allow-all"
 config.load_autoconfig(True)
 load_pywal_colors()
 
@@ -2322,8 +2325,6 @@ load_pywal_colors()
 # config.bind('F', 'hint all tab')
 # config.bind('G', 'scroll-to-perc')
 # config.bind('H', 'back')
-# config.bind('J', 'tab-next')
-# config.bind('K', 'tab-prev')
 # config.bind('L', 'forward')
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')

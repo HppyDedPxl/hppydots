@@ -3,3 +3,4 @@
 /.config/bashrc/custom/*
 !/.config/bashrc/custom/USER_BASHRC_GO_HERE
 .config/oh-my-posh/themes/dynamic_autogen.omp.json
+.config/qutebrowser/autoconfig.yml
