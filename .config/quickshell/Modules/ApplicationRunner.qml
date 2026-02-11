@@ -78,6 +78,7 @@ BaseModule{
                         // Cancel the save, and deselect the text input
                         textInput.text=""
                         baseModule.closePopup()
+                        displayDesktopEntries.values = []
                     }
                 Keys.onDownPressed:{
                     baseModule.selectedAppIndex= Math.max(0,Math.min(baseModule.selectedAppIndex+1,displayDesktopEntries.values.length-1))
@@ -89,6 +90,7 @@ BaseModule{
                     if(displayDesktopEntries.values[baseModule.selectedAppIndex] != undefined && displayDesktopEntries.values[baseModule.selectedAppIndex] != null)
                         displayDesktopEntries.values[baseModule.selectedAppIndex].execute()
                     textInput.text=""
+                    displayDesktopEntries.values = []
                     baseModule.closePopup()
                 }
                 onTextEdited:{
@@ -120,8 +122,6 @@ BaseModule{
                     anchors.leftMargin:15
                     anchors.rightMargin:40
                     height: displayDesktopEntries.values.length * 60  
-
-                    color:AppearanceProvider.inactiveColor
                     ColumnLayout {
                         id: col
                         anchors.top:parent.top

@@ -53,7 +53,6 @@ Rectangle {
     }
 
     function closePopup() {
-        console.log("here")
         popup.hyprlandGrabber.active=false
     }
     

@@ -142,6 +142,13 @@ PopupWindow {
                 reversible: true
 
                 SequentialAnimation {
+                    ScriptAction {
+                        script: {
+                            if(c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
+                                c.item.getAutoFocusItem().forceActiveFocus()
+                            }
+                        }
+                    }
                     PropertyAnimation {
                         properties: "shapeGroup.y"
                         duration: {
@@ -162,13 +169,7 @@ PopupWindow {
                         }
                         easing.type: Easing.OutCubic
                     }
-                    ScriptAction {
-                        script: {
-                            if(c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
-                                c.item.getAutoFocusItem().forceActiveFocus()
-                            }
-                        }
-                    }
+                    
                 }
             }
         ]
