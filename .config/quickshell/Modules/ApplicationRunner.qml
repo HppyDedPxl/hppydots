@@ -18,9 +18,9 @@ BaseModule{
         Rectangle {
             height: parent.height
             width:100
-            color:'red'
+            color:'transparent'
             StyledText{
-                text:"!"
+                text:""
             }
         }
     }
@@ -65,7 +65,7 @@ BaseModule{
                 anchors.leftMargin:25
                 anchors.rightMargin:25
                 anchors.topMargin:15
-                placeholderText: "applicationName"
+                placeholderText: "Type Application Name..."
                 color:AppearanceProvider.inactiveTextColor
                 leftInset:-10
                 rightInset:-10
