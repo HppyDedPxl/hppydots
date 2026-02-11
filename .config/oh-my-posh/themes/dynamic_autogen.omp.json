@@ -1,15 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "col-connector": "#37464F",
-    "col-user-segment": "#4B6B8A",
-    "col-user-segment-text": "#0c0d0d",
-    "col-path-segment": "#2C53A3",
-    "col-path-segment-text": "#0c0d0d",
-    "col-exectime-segment": "#9C8664",
-    "col-exectime-segment-text": "#acc5d1",
-    "col-git-segment": "#535A5D",
-    "col-git-segment-text": "#0c0d0d"
+    "col-connector": "#2C3C44",
+    "col-user-segment": "#577887",
+    "col-user-segment-text": "#0c0908",
+    "col-path-segment": "#E9A84A",
+    "col-path-segment-text": "#0c0908",
+    "col-exectime-segment": "#A26335",
+    "col-exectime-segment-text": "#adc2cb",
+    "col-git-segment": "#4F5C62",
+    "col-git-segment-text": "#0c0908"
   },
   "blocks": [
     {
