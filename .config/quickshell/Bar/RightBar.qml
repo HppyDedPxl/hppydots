@@ -3,7 +3,7 @@ import QtQuick.Effects
 import Quickshell
 import "../Appearance"
 PanelWindow {
-    id: leftBar
+    id: rightBar
     property list<Item> content
     screen: scope.modelData
     implicitWidth: AppearanceProvider.rightBarWidth + AppearanceProvider.rightBarPadding

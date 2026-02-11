@@ -6,11 +6,10 @@ import QtQuick.Shapes
 import Quickshell
 import Quickshell.Io // for Process
 import Quickshell.Widgets
-
+import Quickshell.Hyprland
 Rectangle {
     id: baseModule
     Layout.fillWidth:false
-
     required property Component content
     property Component popupContent
     property string dbgName: "baseModule"
@@ -26,7 +25,25 @@ Rectangle {
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
+    property var orientation : 0
+    property var targetBar : parent.parent
+    property var hyprlandOpenShortcut: ""
 
+    function isOnActiveMonitor(){
+        return Hyprland.focusedMonitor.name == modelData.name;
+    }
+
+    Loader {
+        active: hyprlandOpenShortcut.length > 0
+        sourceComponent : GlobalShortcut{
+            name:hyprlandOpenShortcut
+            onPressed:{
+                if(isOnActiveMonitor())
+                    openPopup()
+            }
+        }
+    }
+    
 
     property var mainContentLoader: mainContent
 
@@ -36,6 +53,8 @@ Rectangle {
     }
 
     function closePopup() {
+        console.log("here")
+        popup.hyprlandGrabber.active=false
     }
     
     height: parent.height
@@ -118,6 +137,8 @@ Rectangle {
         id: popup
         content: popupContent
         overrideWidth: popupOverrideWidth
+        orientation: baseModule.orientation
+        targetBar:baseModule.targetBar
     }
 
     Loader {

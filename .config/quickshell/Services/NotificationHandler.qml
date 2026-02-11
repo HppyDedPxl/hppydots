@@ -50,7 +50,6 @@ Singleton {
         imageSupported: true
         onNotification:notification=>{
             notification.tracked = true
-            console.log(notification.actions)
             if(!notification.lastGeneration)
                 displayNotifications.values.push(notification)
         }

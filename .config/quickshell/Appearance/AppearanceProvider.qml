@@ -49,6 +49,7 @@ Singleton {
     property var slimBarWidth : 10
     property var rounding: 20
     property var topBarAdornmentSize: 35
+    property var bottomBarAdornmentSize: 35
 
 
     property var shadowColor: 'black'

@@ -28,12 +28,34 @@ Variants {
         SystemInfo.initService()
         }
     }
-   
     LeftBar{id:leftBar}
 
     RightBar{id:rightBar}
     
-    BottomBar{id:bottomBar}
+    BottomBar{id:bottomBar
+    content:[
+           SpacerModule {
+          
+          
+        } ,
+      //  TimeModule {
+      //     bPopupOnHover:true
+      //     textColor:AppearanceProvider.textColorSecondary
+      //     usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+      //     orientation:2
+      //   },
+        ApplicationRunnerModule{
+          // bPopupOnHover:true
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          orientation:2
+          hyprlandOpenShortcut:"open_app_launcher"
+        },
+             SpacerModule {
+          
+          
+        } ,
+    ]}  
 
     Bar {
       id:topBar
@@ -42,7 +64,7 @@ Variants {
           
           
         } ,
-              SpacerModule {
+        SpacerModule {
           preferredWidth:500
           
         } ,
@@ -120,7 +142,7 @@ Variants {
       ]
     }
 
-  
+
 
     OverlayNotificationArea{
       id:notificationArea

@@ -10,7 +10,6 @@ import "../Appearance"
 
 BaseModule{
     function getAmountVisible(){
-        console.log("~~~~~~~~~~~~" + mainContentLoader.item.innerRepeater.model.values.length)
         let c = mainContentLoader.item.innerRepeater.model.values.length
         let vis = 0
         for(let i = 0; i < c; i++){
@@ -22,9 +21,14 @@ BaseModule{
     id: baseModule
     content: workspaceBar
     color:'transparent'
-    property var blipSpacing : 5
+    property var blipSpacing : 15
     property var verticalMargins: 2
     width: getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
+    Behavior on width {
+                NumberAnimation {
+                    duration:200
+                }
+            }
     Component {
         id: workspaceBar
 
@@ -45,14 +49,18 @@ BaseModule{
             Row {
                 id:row
                 spacing: blipSpacing
+                anchors.centerIn:parent
                 height:root.height
                 Repeater {
                     id: repeater
                     model: Hyprland.workspaces
                     Rectangle{
+                        id:workspaceWidgetRoot
                         color:'transparent'
-                        width:parent.height
-                        height:parent.height
+                        anchors.top: parent.top
+                        anchors.topMargin: parent.height/2 - height/2
+                        width:parent.height/2
+                        height:parent.height/2
                          function wsIsOnScreen(workspace) {
                             if(workspace !== null && workspace !== undefined){
                                 return workspace.monitor !== null && workspace.monitor.name == scope.modelData.name;
@@ -70,9 +78,9 @@ BaseModule{
                         
                         id: workspaceWidget    
                         anchors.centerIn:parent                    
-                        width: parent.height/2
-                        height: parent.height/2
-                        radius: parent.height/2
+                        width: parent.height
+                        height: parent.height
+                        radius: parent.height
                         color: AppearanceProvider.inactiveColor
                         property bool isHovered
                         MouseArea {
@@ -80,10 +88,10 @@ BaseModule{
                             enabled: true
                             hoverEnabled: true
                             onEntered: {
-                                isHovered=true
+                                workspaceWidget.isHovered=true
                             }
                             onExited:{
-                                isHovered=false
+                                workspaceWidget.isHovered=false
                             }
                             onClicked: {
                                 Hyprland.dispatch("workspace " + (modelData.id))
@@ -113,7 +121,7 @@ BaseModule{
                             },
                             State {
                                 name: "hovered"
-                                when: isHovered
+                                when: workspaceWidget.isHovered
                                 PropertyChanges {
                                     workspaceWidget{
                                         color: AppearanceProvider.highlightColor

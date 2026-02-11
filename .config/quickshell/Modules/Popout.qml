@@ -8,6 +8,95 @@ import Quickshell.Hyprland
 
 PopupWindow {
     id: root
+
+    function openOnClick() {
+        grab.active = true;
+    }
+
+    function close() {
+        if (grab.active)
+            grab.active = false;
+    }
+
+    function calculateAnchorX(){
+        if(root.orientation == 0 || root.orientation == 2){
+            return baseModule.x + (baseModule.width / 2) - (width / 2)
+        }
+    }
+
+    function calculateAnchorY(){
+        if(root.orientation == 0){
+            return targetBar.height
+        }
+        if(root.orientation == 2){
+            return  -calculateImplicitHeight() + calculateParentPadding()
+        }
+    }
+
+    function calculateParentPadding(){
+        if(orientation == 0 || orientation == 2)
+        {
+            return root.targetBar.parent.height - root.targetBar.height;
+        }
+        else{
+            return root.targetBar.parent.width - root.targetBar.width;
+
+        }
+    }
+
+    function getRadiusSetForOrientation(){
+        if(orientation == 0)
+            return [0,0,AppearanceProvider.rounding,AppearanceProvider.rounding]
+        if(orientation == 2)
+            return [AppearanceProvider.rounding,AppearanceProvider.rounding,0,0]
+    }
+
+    function calculateImplicitHeight(){
+        return c.height + calculateParentPadding() * 2
+    }
+
+    function calculateShapeGroupPopoutTargetY(){
+        if(root.orientation == 0)
+            return 0
+        if(root.orientation == 2)
+            return root.height - targetBar.height - AppearanceProvider.rounding/2
+    }
+    function calculatePopupGroupPopoutTargetY(){
+        if(root.orientation == 0)
+            return 0
+        if(root.orientation == 2)
+            return -c.height+AppearanceProvider.rounding
+    }
+
+    function calculateShapeGroupBaseY(){
+        if(root.orientation == 0)
+            return -AppearanceProvider.rounding * 2
+        if(root.orientation == 2)
+            return root.height + AppearanceProvider.rounding * 2
+    }
+
+    function calculatePopupGroupBaseY(){
+        if(root.orientation == 0)
+            return -c.height + AppearanceProvider.rounding + (AppearanceProvider.rounding/2)
+        if(root.orientation == 2)
+            return 0
+        
+    }
+
+    function calculateLeftShapeRotation(){
+        if(root.orientation == 0)
+            return 0
+        if(root.orientation == 2)
+            return 90
+    }
+
+    function calculateRightShapeRotation(){
+        if(root.orientation == 0)
+            return 270
+        if(root.orientation == 2)
+            return 180
+    }
+
     property var margin: AppearanceProvider.rounding
     property var bIsHovered: hoverHandler.hovered
     property Component content
@@ -17,37 +106,31 @@ PopupWindow {
     property double overrideWidth: -1
     property double baseWidth: overrideWidth > 0 ? overrideWidth : width
     property var shadow: shadowEffect
+    property var targetBar : null
+    property var orientation : 0
+    property var _autoFocusItem : null
 
-    function openOnClick() {
-        grab.active = true;
-    }
-
-    function close() {
-        if (grab.active)
-            grab.active = false;
-
-    }
-
-    anchor.window: topBar
-    property var globalPos : baseModule.mapToGlobal(baseModule.x, baseModule.y)
-    anchor.rect.x: globalPos.x + (baseModule.width / 2) - (width / 2)
-    anchor.rect.y: parentWindow.height - AppearanceProvider.topBarPadding
+    // todo, everything for side bars left right :) this will be fun
+    anchor.window: orientation == 0 ? topBar : bottomBar
+    
+    anchor.rect.x: calculateAnchorX()
+    anchor.rect.y: calculateAnchorY()
     implicitWidth: (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2
-    implicitHeight: c.height + AppearanceProvider.topBarPadding * 2
+    implicitHeight: calculateImplicitHeight()
     color:'transparent'
+
     Item {
         states: [
             State {
                 name: "open"
                 when: root.bOpen == true
-
                 PropertyChanges {
                     popupGroup {
-                        y: 0
+                        y: calculatePopupGroupPopoutTargetY()
                     }
 
                     shapeGroup {
-                        y: 0
+                        y: calculateShapeGroupPopoutTargetY()
                     }
                 }
             }
@@ -62,28 +145,31 @@ PopupWindow {
                     PropertyAnimation {
                         properties: "shapeGroup.y"
                         duration: {
-                            var travelShapeGroup = (-AppearanceProvider.rounding * 2) * -1;
-                            var travelMainGroup = (-c.height + AppearanceProvider.rounding * 1) * -1;
+                            var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
+                            var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
                             var totalTravel = travelShapeGroup + travelMainGroup;
                             return (travelShapeGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                         }
-                        easing.type: Easing.InQuad
+                        easing.type: Easing.InCubic
                     }
-
                     PropertyAnimation {
                         properties: "popupGroup.y"
                         duration: {
-                            var travelShapeGroup = (-AppearanceProvider.rounding * 2) * -1;
-                            var travelMainGroup = (-c.height + AppearanceProvider.rounding * 1) * -1;
+                            var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
+                            var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
                             var totalTravel = travelShapeGroup + travelMainGroup;
                             return (travelMainGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                         }
                         easing.type: Easing.OutCubic
                     }
-
-
+                    ScriptAction {
+                        script: {
+                            if(c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
+                                c.item.getAutoFocusItem().forceActiveFocus()
+                            }
+                        }
+                    }
                 }
-
             }
         ]
     }
@@ -93,19 +179,12 @@ PopupWindow {
         enabled: true
         blocking:false
     }
-
-
     Item {
         id: shapeGroup
-
-        y: -AppearanceProvider.rounding * 2
-
-       
+        y: calculateShapeGroupBaseY()  
         Item {
             id: popupGroup
-        
-            y: -c.height + AppearanceProvider.rounding + (AppearanceProvider.rounding/2)
-
+            y: calculatePopupGroupBaseY()
              MultiEffect {
                 id: shadowEffect
                 source: rect
@@ -117,103 +196,41 @@ PopupWindow {
                 shadowVerticalOffset: 3
                 visible: true
             }
-
             Rectangle {
                 id: rect
                 color: baseModule.usedBackgroundColor
                 x: margin-1
+                
+                property var roundingSet: getRadiusSetForOrientation()
                 width: (root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2
                 height: c.height
                 anchors.leftMargin: AppearanceProvider.rounding
                 anchors.rightMargin: AppearanceProvider.rounding
-                bottomLeftRadius: AppearanceProvider.rounding
-                bottomRightRadius: AppearanceProvider.rounding
+                topLeftRadius: roundingSet[0]
+                topRightRadius: roundingSet[1]
+                bottomRightRadius: roundingSet[2]
+                bottomLeftRadius: roundingSet[3]
                 antialiasing: true
-
                 Loader {
                     id: c
-
                     active: root.visible
                     anchors.centerIn: parent
                     sourceComponent: content !== null ? content : dummyContent
                 }
-
             }
-
         }
-
-        Shape {
-            id: shape1
-
-            preferredRendererType: Shape.CurveRenderer
-            x: 0
-            y: 0
-            width: 45
-            height: 45
-
-            ShapePath {
-                strokeWidth: 0
-                fillColor: baseModule.usedBackgroundColor
-                startX: 0
-                startY: 0
-
-                PathArc {
-                    x: AppearanceProvider.rounding
-                    y: AppearanceProvider.rounding
-                    radiusX: AppearanceProvider.rounding
-                    radiusY: AppearanceProvider.rounding
-                }
-
-                PathLine {
-                    x: AppearanceProvider.rounding
-                    y: 0
-                }
-
-                PathLine {
-                    x: 0
-                    y: 0
-                }
-
-            }
-
+        StyledCurveConnector{
+            id:shapeL
+            size: AppearanceProvider.rounding
+            rotation:calculateLeftShapeRotation()
         }
-
-        Shape {
-            id: shape2
-
-            preferredRendererType: Shape.CurveRenderer
-            x: 0
-            y: 0
-            width: 45
-            height: 45
-
-            ShapePath {
-                strokeWidth: 0
-                fillColor: baseModule.usedBackgroundColor
-                startX: implicitWidth - AppearanceProvider.rounding
-                startY: AppearanceProvider.rounding
-
-                PathArc {
-                    x: implicitWidth
-                    y: 0
-                    radiusX: AppearanceProvider.rounding
-                    radiusY: AppearanceProvider.rounding
-                }
-
-                PathLine {
-                    x: implicitWidth - AppearanceProvider.rounding
-                    y: 0
-                }
-
-                PathLine {
-                    x: implicitWidth - AppearanceProvider.rounding
-                    y: AppearanceProvider.rounding
-                }
-
-            }
-
-        }
-
+        StyledCurveConnector{
+            id:shapeR
+            rotation:calculateRightShapeRotation()
+            size: AppearanceProvider.rounding
+            anchors.left:parent.left
+            anchors.leftMargin: root.width-AppearanceProvider.rounding
+        }      
     }
 
     HyprlandFocusGrab {

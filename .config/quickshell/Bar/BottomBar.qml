@@ -2,15 +2,15 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell
 import QtQuick.Shapes
+import QtQuick.Layouts
 import "../Appearance"
 PanelWindow {
-    id: leftBar
+    id: bottomBar
     property list<Item> content
     screen: scope.modelData
     implicitHeight: AppearanceProvider.bottomBarWidth + AppearanceProvider.bottomBarPadding
     color: 'transparent'
     exclusiveZone: AppearanceProvider.bottomBarWidth
-
 
     anchors {
         right: true
@@ -65,32 +65,34 @@ PanelWindow {
         id: shapeL
 
         preferredRendererType: Shape.CurveRenderer
-        x: AppearanceProvider.bottomBarWidth
-        y: AppearanceProvider.bottomBarPadding-AppearanceProvider.bottomBarWidth
-        width: AppearanceProvider.bottomBarWidth
-        height: AppearanceProvider.bottomBarWidth
+
+        x: AppearanceProvider.bottomBarAdornmentSize 
+        y: AppearanceProvider.bottomBarPadding-AppearanceProvider.bottomBarAdornmentSize
+
+        width: AppearanceProvider.bottomBarAdornmentSize
+        height: AppearanceProvider.bottomBarAdornmentSize
 
         ShapePath {
             strokeWidth: 0
             strokeColor: 'red'
             fillColor: AppearanceProvider.backgroundColorSecondary
             startX: 0
-            startY: AppearanceProvider.bottomBarWidth
+            startY: AppearanceProvider.bottomBarAdornmentSize
 
             PathArc {
-                x: -AppearanceProvider.bottomBarWidth
+                x: -AppearanceProvider.bottomBarAdornmentSize
                 y: 0
-                radiusX: AppearanceProvider.bottomBarWidth
-                radiusY: AppearanceProvider.bottomBarWidth
+                radiusX: AppearanceProvider.bottomBarAdornmentSize
+                radiusY: AppearanceProvider.bottomBarAdornmentSize
             }
 
             PathLine {
-                x: -AppearanceProvider.bottomBarWidth
+                x: -AppearanceProvider.bottomBarAdornmentSize
                 y: 0
             }
             PathLine {
-                x: -AppearanceProvider.bottomBarWidth
-                y: AppearanceProvider.bottomBarWidth
+                x: -AppearanceProvider.bottomBarAdornmentSize
+                y: AppearanceProvider.bottomBarAdornmentSize
             }
         }
     }
@@ -99,33 +101,33 @@ PanelWindow {
         id: shapeR
 
         preferredRendererType: Shape.CurveRenderer
-        x: parent.width - AppearanceProvider.bottomBarWidth
-        y: AppearanceProvider.bottomBarPadding-AppearanceProvider.bottomBarWidth
-        width: AppearanceProvider.bottomBarWidth
-        height: AppearanceProvider.bottomBarWidth
+        x: parent.width - AppearanceProvider.bottomBarAdornmentSize
+        y: AppearanceProvider.bottomBarPadding-AppearanceProvider.bottomBarAdornmentSize
+        width: AppearanceProvider.bottomBarAdornmentSize
+        height: AppearanceProvider.bottomBarAdornmentSize
 
         ShapePath {
             strokeWidth: 0
             fillColor: AppearanceProvider.backgroundColorSecondary
-            startX: AppearanceProvider.bottomBarWidth
+            startX: AppearanceProvider.bottomBarAdornmentSize
             startY: 0
 
             PathArc {
                 // direction: PathArc.Counterclockwise
 
                 x: 0
-                y: AppearanceProvider.bottomBarWidth
-                radiusX: AppearanceProvider.bottomBarWidth
-                radiusY: AppearanceProvider.bottomBarWidth
+                y: AppearanceProvider.bottomBarAdornmentSize
+                radiusX: AppearanceProvider.bottomBarAdornmentSize
+                radiusY: AppearanceProvider.bottomBarAdornmentSize
             }
 
             PathLine {
-                x: AppearanceProvider.bottomBarWidth
-                y: AppearanceProvider.bottomBarWidth
+                x: AppearanceProvider.bottomBarAdornmentSize
+                y: AppearanceProvider.bottomBarAdornmentSize
             }
 
             PathLine {
-                x: AppearanceProvider.bottomBarWidth
+                x: AppearanceProvider.bottomBarAdornmentSize
                 y: 0
             }
 
@@ -142,6 +144,13 @@ PanelWindow {
         color: AppearanceProvider.backgroundColorSecondary
         height:AppearanceProvider.bottomBarWidth
         clip:true
+
+        RowLayout {
+            id: barWidgets
+            anchors.fill: parent
+            spacing: 1
+            children: bottomBar.content         
+        }
         
     }
 }
