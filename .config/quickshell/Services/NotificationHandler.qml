@@ -24,7 +24,6 @@ Singleton {
             body : _notification.body,
             resident : _notification.resident,
             urgency : _notification.urgency,
-            notification: _notification
         }
         return obj
     }
@@ -32,7 +31,6 @@ Singleton {
     function dismissAll(){
         displayNotifications.values = []
         while(backlogNotifications.values.length>0){
-            console.log(backlogNotifications.values[0])
             if(backlogNotifications.values[0] != null){
                 dismissBacklogNotification(backlogNotifications.values[0])
             }
@@ -51,10 +49,14 @@ Singleton {
         let i = backlogNotifications.values.findIndex(x=>x.id == notification.id)
         if(i >= 0)
         {
-            if(backlogNotifications.values[i].notification){
-                backlogNotifications.values[i].notification.dismiss()
-            }
+            dismissNotificationOnServerById(notification.id)
             backlogNotifications.values = backlogNotifications.values.filter(x => x.id !== notification.id)
+        }
+    }
+
+    function dismissNotificationOnServerById(){
+        for (let i = 0; i < notificationServer.trackedNotifications.values.length; i++){
+            notificationServer.trackedNotifications.values[i].dismiss()
         }
     }
 
@@ -62,7 +64,7 @@ Singleton {
         displayNotifications.values = displayNotifications.values.filter(x => x.id !== notification.id)
         // if the notification is transient its also not in the backlog, so we need to dismiss it entirely
         if(notification.transient)
-            notification.dismiss()
+            dismissNotificationOnServerById(notification.id)
     }
 
     function dismissNotification(notification){
@@ -72,6 +74,33 @@ Singleton {
 
     function getAmountOfNotifications(){
         return backlogNotifications.values.length;
+    }
+
+    function notificationExistsOnServer(notification){
+        for (let i = 0; i < notificationServer.trackedNotifications.values.length; i++){
+            if(notificationServer.trackedNotifications.values[i].id == notification.id)
+            return true;
+        }
+        return false
+    }
+
+    function removeOrphanedNotifications(){
+        for(let i = 0; i< backlogNotifications.values.length; i++){
+            if(!notificationExistsOnServer(backlogNotifications.values[i]))
+            {
+                backlogNotifications.values.splice(i,1)
+                i--
+            }
+        }
+    }
+
+    Timer {
+        interval: 2000
+        running:true
+        repeat: true
+        onTriggered: {
+            removeOrphanedNotifications()
+        }
     }
 
     NotificationServer {

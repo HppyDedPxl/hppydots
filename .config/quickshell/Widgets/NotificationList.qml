@@ -33,7 +33,7 @@ Item{
         id: rp
         model: NotificationHandler.getNotificationBacklog()
 
-         onItemAdded:(idx,item)=> {
+        onItemAdded:(idx,item)=> {
             listView._widgets.push(item)
         }
         onItemRemoved:(idx)=>{

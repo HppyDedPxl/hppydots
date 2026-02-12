@@ -144,12 +144,8 @@ Item {
                     font.pointSize: 10
                     maximumLineCount: 4
                 }
-
             }
-
-        
         }
-
     }
 
     RoundButton {

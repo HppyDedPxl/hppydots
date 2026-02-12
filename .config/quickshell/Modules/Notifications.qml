@@ -62,8 +62,8 @@ BaseModule {
                 anchors.top: parent.top
                 anchors.rightMargin: 20
                 anchors.topMargin: 15
-                height: 35
-                width: 80
+                height: 30
+                width: 40
                 text: ""
                 fontSize: 16
                 onClick: () => {

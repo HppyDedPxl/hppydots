@@ -132,6 +132,10 @@ PopupWindow {
                     shapeGroup {
                         y: calculateShapeGroupPopoutTargetY()
                     }
+                    scale {
+                        xScale :1.0
+                        yScale: 1.0
+                    }
                 }
             }
         ]
@@ -140,40 +144,48 @@ PopupWindow {
                 from: "*"
                 to: "open"
                 reversible: true
-
-                SequentialAnimation {
-                    ScriptAction {
-                        script: {
-                            if(c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
-                                c.item.getAutoFocusItem().forceActiveFocus()
+                ParallelAnimation{
+                    SequentialAnimation {
+                        ScriptAction {
+                            script: {
+                                if(c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
+                                    c.item.getAutoFocusItem().forceActiveFocus()
+                                }
                             }
                         }
-                    }
-                    PropertyAnimation {
-                        properties: "shapeGroup.y"
-                        duration: {
-                            var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
-                            var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
-                            var totalTravel = travelShapeGroup + travelMainGroup;
-                            return (travelShapeGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
+                        PropertyAnimation {
+                            properties: "shapeGroup.y"
+                            duration: {
+                                var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
+                                var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
+                                var totalTravel = travelShapeGroup + travelMainGroup;
+                                return (travelShapeGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
+                            }
+                            easing.type: Easing.InCubic
                         }
-                        easing.type: Easing.InCubic
-                    }
-                    PropertyAnimation {
-                        properties: "popupGroup.y"
-                        duration: {
-                            var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
-                            var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
-                            var totalTravel = travelShapeGroup + travelMainGroup;
-                            return (travelMainGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
+                        PropertyAnimation {
+                            properties: "popupGroup.y"
+                            duration: {
+                                var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
+                                var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
+                                var totalTravel = travelShapeGroup + travelMainGroup;
+                                return (travelMainGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
+                            }
+                            easing.type: Easing.OutCubic
                         }
-                        easing.type: Easing.OutCubic
+                        
+                        
                     }
-                    
+                }
+                PropertyAnimation {
+                    properties: "scale.xScale,scale.yScale"
+                    duration: 400
+                    easing.type: Easing.InOutCubic
                 }
             }
         ]
     }
+    
 
     HoverHandler {
         id: hoverHandler
@@ -183,6 +195,13 @@ PopupWindow {
     Item {
         id: shapeGroup
         y: calculateShapeGroupBaseY()  
+        transform: Scale{
+            id: scale
+            origin.x:root.width/2
+            origin.y:0
+            xScale:0
+            yScale:0
+        }
         Item {
             id: popupGroup
             y: calculatePopupGroupBaseY()
