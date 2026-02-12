@@ -38,12 +38,12 @@ Singleton {
     property var primaryFontSize : 12
 
     property var topBarWidth : 40
-    property var leftBarWidth: 10
-    property var rightBarWidth: 10
-    property var bottomBarWidth:10
+    property var leftBarWidth: 15
+    property var rightBarWidth: 15
+    property var bottomBarWidth:10 // Yodo: fix bug with popout not aligning on bottom bar widths other than 10!?
     property var topBarPadding: 60
     property var leftBarPadding : 10
-    property var bottomBarPadding: 40
+    property var bottomBarPadding: 45
     property var rightBarPadding : 10
 
     property var slimBarWidth : 10

@@ -33,7 +33,9 @@ BaseModule{
         }
 
         for (let i = 0; i < DesktopEntries.applications.values.length; i++){
-            if(DesktopEntries.applications.values[i].name.toLowerCase().startsWith(in_name)){
+            if(DesktopEntries.applications.values[i].noDisplay)
+                continue;
+            if(DesktopEntries.applications.values[i].name.toLowerCase().includes(in_name)){
                 entries.push(DesktopEntries.applications.values[i])            
             }
         }
@@ -54,6 +56,24 @@ BaseModule{
 
             property var getAutoFocusItem:()=>{
                 return textInput
+            }
+            property var elementHeight: 45
+            property var elementSpacing: 10
+            
+            function calcScrollDuration(){
+                let targetY = calcContentY()
+                let curY = listView.contentItem.contentY
+                let d = Math.abs(targetY - curY)
+                return d*2;
+
+            }
+            function calcContentY(){
+                let y = baseModule.selectedAppIndex * (elementHeight + elementSpacing)
+                if (y > innerRect.height - listView.height/2)
+                    return innerRect.height - listView.height
+                if (y > listView.height/2)
+                    return y - listView.height/2     
+                return 0;
             }
 
             TextField {
@@ -82,9 +102,26 @@ BaseModule{
                     }
                 Keys.onDownPressed:{
                     baseModule.selectedAppIndex= Math.max(0,Math.min(baseModule.selectedAppIndex+1,displayDesktopEntries.values.length-1))
+                    console.log(listView.contentItem)
+
+                    scrollAnimation.stop()
+                    scrollAnimation.to = calcContentY()
+                    scrollAnimation.target = listView.contentItem
+                    scrollAnimation.property = "contentY"
+                    scrollAnimation.duration = calcScrollDuration()
+                    scrollAnimation.start()
                 }
                 Keys.onUpPressed:{
                     baseModule.selectedAppIndex= Math.max(0,Math.min(baseModule.selectedAppIndex-1,displayDesktopEntries.values.length-1))
+                    scrollAnimation.stop()
+                    scrollAnimation.to = calcContentY()
+                    scrollAnimation.target = listView.contentItem
+                    scrollAnimation.property = "contentY"
+                    scrollAnimation.duration = calcScrollDuration()
+                    scrollAnimation.start()
+
+
+
                 }
                  Keys.onReturnPressed:{
                     if(displayDesktopEntries.values[baseModule.selectedAppIndex] != undefined && displayDesktopEntries.values[baseModule.selectedAppIndex] != null)
@@ -97,7 +134,7 @@ BaseModule{
                     displayDesktopEntries.values = findByName(this.text)
                 }
             }
-            
+
             ScrollView {
                 id: listView
                 anchors.left: parent.left
@@ -109,10 +146,15 @@ BaseModule{
                 anchors.rightMargin:10
                 anchors.topMargin:10
                 property list<Item> _widgets:[]
-                spacing: 15
+                spacing: elementSpacing
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                 contentWidth: parent.width
-                contentHeight: innerRect.height
+                contentHeight: displayDesktopEntries.values.length * (elementHeight + elementSpacing)
+               
+                NumberAnimation on contentItem {
+                    id:scrollAnimation
+                }
+
                 Rectangle{
                     id: innerRect
                     anchors.left: parent.left
@@ -121,7 +163,8 @@ BaseModule{
                     anchors.bottom:parent.bottom
                     anchors.leftMargin:15
                     anchors.rightMargin:40
-                    height: displayDesktopEntries.values.length * 60  
+                    height: displayDesktopEntries.values.length * (elementHeight + elementSpacing)
+                    color:'transparent'
                     ColumnLayout {
                         id: col
                         anchors.top:parent.top
@@ -135,6 +178,7 @@ BaseModule{
                                 required property var index
                                 _data: modelData
                                 width:innerRect.width
+                                height:elementHeight
                                 isFocused: index == baseModule.selectedAppIndex
                                 
                             }          

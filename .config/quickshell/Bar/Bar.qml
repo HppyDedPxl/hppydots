@@ -5,7 +5,7 @@ import QtQuick.Effects
 import QtQuick.Layouts
 import QtQuick.Shapes
 import Quickshell
-0
+
 PanelWindow {
     id: topBar
     property list<Item> content

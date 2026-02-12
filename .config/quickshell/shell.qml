@@ -28,6 +28,9 @@ Variants {
         SystemInfo.initService()
         }
     }
+
+   // Wallpaper{}
+
     LeftBar{id:leftBar}
 
     RightBar{id:rightBar}
@@ -51,9 +54,7 @@ Variants {
           orientation:2
           hyprlandOpenShortcut:"open_app_launcher"
         },
-             SpacerModule {
-          
-          
+        SpacerModule {  
         } ,
     ]}  
 
