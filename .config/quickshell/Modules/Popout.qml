@@ -5,10 +5,10 @@ import QtQuick.Effects
 import QtQuick.Shapes
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Wayland
 
 PopupWindow {
     id: root
-
     function openOnClick() {
         grab.active = true;
     }
@@ -144,7 +144,7 @@ PopupWindow {
                 SequentialAnimation {
                     ScriptAction {
                         script: {
-                            if(c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
+                            if(c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
                                 c.item.getAutoFocusItem().forceActiveFocus()
                             }
                         }
@@ -200,8 +200,7 @@ PopupWindow {
             Rectangle {
                 id: rect
                 color: baseModule.usedBackgroundColor
-                x: margin-1
-                
+                x: margin-1      
                 property var roundingSet: getRadiusSetForOrientation()
                 width: (root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2
                 height: c.height

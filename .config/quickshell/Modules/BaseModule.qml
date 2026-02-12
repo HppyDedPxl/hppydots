@@ -7,6 +7,7 @@ import Quickshell
 import Quickshell.Io // for Process
 import Quickshell.Widgets
 import Quickshell.Hyprland
+import Quickshell.Wayland
 Rectangle {
     id: baseModule
     Layout.fillWidth:false
@@ -28,7 +29,7 @@ Rectangle {
     property var orientation : 0
     property var targetBar : parent.parent
     property var hyprlandOpenShortcut: ""
-
+  
     function isOnActiveMonitor(){
         return Hyprland.focusedMonitor.name == modelData.name;
     }
@@ -39,7 +40,15 @@ Rectangle {
             name:hyprlandOpenShortcut
             onPressed:{
                 if(isOnActiveMonitor())
+                {
+                    // If we are in a fullscreen application we generally want to disable the fullscreen
+                    // mode. Firstly we dont need to have the popup on an overlay layer then, but secondly
+                    // when starting a new application that will then not disappear behind the fullscreen
+                    // window
+                    if(SystemInfo.activeWindow['fullscreen'] > 0)
+                        Hyprland.dispatch("fullscreen")
                     openPopup()
+                }
             }
         }
     }

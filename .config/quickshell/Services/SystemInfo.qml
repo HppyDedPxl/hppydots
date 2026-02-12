@@ -14,11 +14,13 @@ Singleton {
     property var memTotal: 0
     property var batteryStatus: "Not charging"
     property var batteryPercentage: 100
+    property var activeWindow : {}
 
     property var bHasBattery : true
 
     function initService() {
         timer.running = true;
+        timerFast.running = true;
         queryAll()
     }
 
@@ -82,12 +84,22 @@ Singleton {
 
     Timer {
         id: timer
-
         interval: 2000 // check every 2 seconds
         running: false
         repeat: true
         onTriggered: {
             queryAll();
+        }
+    }
+
+    // more accurate active window scan
+    Timer {
+        id: timerFast
+        interval: 750 
+        running: false
+        repeat: true
+        onTriggered: {
+            getActiveWindowData.running = true
         }
     }
 
@@ -122,44 +134,45 @@ Singleton {
 
     Process {
         id: temperatureCheck
-
         command: ["sensors"]
         running: false
-
         stdout: StdioCollector {
             onStreamFinished: {
                 evaluateSensorsOutput(this.text);
             }
         }
-
     }
 
     Process {
         id: cpuramcheck
-
         command: ["sh", "-c", "cat /proc/stat | grep cpu"]
         running: false
-
         stdout: StdioCollector {
             onStreamFinished: {
                 evaluateTopOutput(this.text);
             }
         }
-
     }
 
     Process {
         id: memcheck
-
         command: ["free"]
         running: false
-
         stdout: StdioCollector {
             onStreamFinished: {
                 evaluateFreeOutput(this.text);
             }
         }
-
     }
 
+    Process {
+        id: getActiveWindowData
+        command: ["hyprctl","-j","activewindow"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                activeWindow = JSON.parse(this.text)
+            }
+        }
+    }
 }
