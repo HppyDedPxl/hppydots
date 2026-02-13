@@ -26,20 +26,20 @@ Rectangle{
             spacing:15
             
 
-                Rectangle{
-                    id: imageRect
-                    width:desktopEntry.height-12
-                    height:desktopEntry.height-12
-                    color:'transparent'
-                    radius:AppearanceProvider.rounding
-                    clip:true
-                    Image {
-                        anchors.fill:parent
-                        id: image
-                        visible:true
-                        source: Quickshell.iconPath(_data.icon)
-                    }
+            Rectangle{
+                id: imageRect
+                width:desktopEntry.height-12
+                height:desktopEntry.height-12
+                color:'transparent'
+                radius:AppearanceProvider.rounding
+                clip:true
+                Image {
+                    anchors.fill:parent
+                    id: image
+                    visible:true
+                    source: Quickshell.iconPath(_data.icon)
                 }
+            }
             
             StyledText {
                 text: _data.name

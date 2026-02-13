@@ -62,7 +62,7 @@ BaseModule{
                         width:parent.height/2
                         height:parent.height/2
                          function wsIsOnScreen(workspace) {
-                            if(workspace !== null && workspace !== undefined){
+                            if(workspace !== null && workspace !== undefined && workspace.id >= 0){
                                 return workspace.monitor !== null && workspace.monitor.name == scope.modelData.name;
                             }
                             return false;

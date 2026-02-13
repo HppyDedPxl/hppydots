@@ -270,8 +270,17 @@ PopupWindow {
                     SequentialAnimation {
                         ScriptAction {
                             script: {
-                                if (c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null)
-                                    c.item.getAutoFocusItem().forceActiveFocus();
+                                if (c.item != null){
+                                    if(c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
+                                        c.item.getAutoFocusItem().forceActiveFocus();
+                                    }
+                                    if(c.item.onOpen != null)
+                                    {
+                                        c.item.onOpen()
+                                    }
+                                }
+                                
+                                    
 
                             }
                         }

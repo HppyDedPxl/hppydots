@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Widgets
+import Quickshell.Hyprland
 import "./"
 import "../Services"
 import "../Appearance"
@@ -13,13 +15,14 @@ BaseModule {
     popupContent: _popupContent
 
     visible: MprisHandler.getPrimaryPlayer() != null
- 
+
     Component {
         id: _content
         Rectangle {
             height: parent.height
             width: parent.width
-            color:'red'
+            color:baseModule.textColorOnBar
+            radius:AppearanceProvider.rounding
         }
     }
 
@@ -32,27 +35,65 @@ BaseModule {
             width: 300
             color:'transparent'
             property var player : MprisHandler.getPrimaryPlayer()
+            property var onOpen : ()=>{
+                loader.item.seekBar.updateTime()
+            }
 
             Loader {
+                id: loader
                 active : player != null
                 sourceComponent: Rectangle {
                     id: root
                     height: base.height
                     width: base.width
+                    property var seekBar : _seekBar
                     color:'transparent'
-                    Item {
+                    RowLayout {
                         id: heading
                         anchors.top:parent.top
                         anchors.left:parent.left
                         anchors.right:parent.right
                         anchors.topMargin:10
-                        anchors.rightMargin:0
+                        anchors.leftMargin:30
+                        anchors.rightMargin:30
                         height:40
+                        StyledButton {
+                            visible:MprisHandler.hasPreviousPlayer();
+                            Layout.preferredWidth:20
+                            Layout.preferredHeight:20
+                            //border.width: 3
+                            //border.color: AppearanceProvider.textColorSecondary
+                            color: 'transparent'
+                            textColor: AppearanceProvider.textColorSecondary
+                            text : ""
+                            fontSize:18
+                            radius: 20
+                            onClick:()=>{
+                                MprisHandler.previousPlayer();
+                            }     
+                        }
                         StyledText {
                             anchors.centerIn : parent
-                            text: base.player.desktopEntry
+                            text: base.player.identity
                             color: AppearanceProvider.textColorSecondary
+                            font.pointSize:15
                         }
+                        StyledButton {
+                                visible:MprisHandler.hasNextPlayer();
+                                Layout.preferredWidth:20
+                                Layout.preferredHeight:20
+                                //border.width: 3
+                                //border.color: AppearanceProvider.textColorSecondary
+                                color: 'transparent'
+                                textColor: AppearanceProvider.textColorSecondary
+                                text : ""
+                                fontSize:18
+                                radius: 20
+                                onClick:()=>{
+                                    MprisHandler.nextPlayer();
+                                }
+                                
+                            }
                     }
                     Image {
                         id:albumArt
@@ -72,11 +113,15 @@ BaseModule {
                         anchors.right:parent.right
                         anchors.topMargin:10
                         anchors.rightMargin:0
-                        height:20
+                        height:childrenRect.height
                         StyledText {
                             anchors.centerIn : parent
                             text: base.player.trackTitle
                             color: AppearanceProvider.textColorSecondary
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+                            horizontalAlignment: Text.AlignHCenter
+                            width:parent.width
                         }
                     }
                     Item {
@@ -84,13 +129,17 @@ BaseModule {
                         anchors.top:trackTitle.bottom
                         anchors.left:parent.left
                         anchors.right:parent.right
-                        anchors.topMargin:10
+                        anchors.topMargin:20
                         anchors.rightMargin:0
-                        height:20
+                     
                         StyledText {
                             anchors.centerIn : parent
                             text: base.player.trackArtist
                             color: AppearanceProvider.textColorSecondary
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+                            horizontalAlignment: Text.AlignHCenter
+                            width:parent.width
                         }
                     }
                     Rectangle {
@@ -98,7 +147,7 @@ BaseModule {
                         anchors.top:trackArtist.bottom
                         anchors.left:parent.left
                         anchors.right:parent.right
-                        anchors.topMargin:20
+                        anchors.topMargin:40
                         anchors.rightMargin:40
                         anchors.leftMargin:40
                         height:controls.width/4
@@ -155,8 +204,7 @@ BaseModule {
                             }
                         }
                     }  
-
-                    Rectangle {
+                    RowLayout {
                         id: seekBar
                         anchors.top:controls.bottom
                         anchors.left:parent.left
@@ -165,14 +213,64 @@ BaseModule {
                         anchors.rightMargin:40
                         anchors.leftMargin:40
                         height:30
-                        color:'transparent'
-
                         StyledSeekBar {
-                            width:seekBar.width
-                            height:seekBar.height
+                            id: _seekBar
+                            Layout.fillWidth:true
+                            height:parent.height
                             target: player
                         }
-                    }   
+                    }
+                    RowLayout {
+                        
+                        anchors.top:seekBar.bottom
+                        anchors.left:parent.left
+                        anchors.right:parent.right
+                        anchors.topMargin:0
+                        anchors.rightMargin:40
+                        anchors.leftMargin:40
+                        height:15
+
+                        StyledText {
+                            property var pos: player.position
+                            Layout.preferredWidth:50
+                            Layout.fillHeight:true
+                            text: _seekBar.getTimeElapsedString()
+                            color:AppearanceProvider.textColorSecondary
+                        }
+                        Rectangle {
+                            Layout.fillWidth:true
+                        }
+                        StyledText {
+                            Layout.preferredWidth:50
+                            text: _seekBar.getTimeRemainingString()
+                            color:AppearanceProvider.textColorSecondary
+                        }
+                    }
+
+                    Rectangle {
+                        width:40
+                        height:40
+                        anchors.bottom:root.bottom
+                        anchors.right:root.right
+                        anchors.bottomMargin:10
+                        anchors.rightMargin:20
+                        color:'transparent'
+                        WrapperMouseArea {
+                            anchors.fill:parent
+                            cursorShape: Qt.PointingHandCursor
+
+                            onClicked: {
+                                console.log(base.player.identity)
+                                if(base.player.identity !== "")
+                                    Hyprland.dispatch("movetoworkspace " + Hyprland.focusedWorkspace.id + ",class:" + base.player.identity.toLowerCase())
+                            }
+                            IconImage{
+                                anchors.fill:parent
+                                source: Quickshell.iconPath(DesktopEntries.heuristicLookup(base.player.identity).icon)
+                            }
+                        }
+                    }
+  
                 }
             }
         }
