@@ -5,3 +5,4 @@ StyledBarIcon 1.0 StyledBarIcon.qml
 StyledAlertCount 1.0 StyledAlertCount.qml
 StyledButton 1.0 StyledButton.qml
 StyledCurveConnector 1.0 StyledCurveConnector.qml
+StyledSeekBar 1.0 StyledSeekBar.qml

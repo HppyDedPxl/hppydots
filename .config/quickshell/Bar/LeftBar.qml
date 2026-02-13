@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Effects
+import QtQuick.Layouts
 import Quickshell
 import "../Appearance"
 PanelWindow {
@@ -37,7 +38,9 @@ PanelWindow {
         anchors.bottom:parent.bottom
         anchors.rightMargin: AppearanceProvider.leftBarPadding
        //color: AppearanceProvider.backgroundColor
-       clip:true
+        clip:true
+
+     
 
        Rectangle{
             rotation:-45
@@ -77,6 +80,17 @@ PanelWindow {
                 }
         }
        }
+
+        ColumnLayout {
+            id: barWidgets
+            anchors.fill: parent
+            spacing: 1
+            children: leftBar.content  
+            Rectangle {
+                anchors.fill:parent
+                color: 'red'
+            }       
+        }
         
     }
 }

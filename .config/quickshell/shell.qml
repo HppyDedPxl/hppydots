@@ -26,12 +26,25 @@ Variants {
       onTriggered: {
         PackagesInfo.initService()
         SystemInfo.initService()
+        MprisHandler.initService()
         }
     }
 
    // Wallpaper{}
 
-    LeftBar{id:leftBar}
+    LeftBar{
+      id:leftBar
+      content:[
+        SpacerModule{},
+        MprisModule{
+          width:AppearanceProvider.leftBarWidth
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          height:30
+          orientation:3
+        },
+        SpacerModule{}
+      ]
+    }
 
     RightBar{id:rightBar}
     

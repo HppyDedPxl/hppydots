@@ -18,7 +18,7 @@ PanelWindow {
         left: true
     }
 
-        MultiEffect {
+    MultiEffect {
         id: shadowEffect
 
         source: shapeL

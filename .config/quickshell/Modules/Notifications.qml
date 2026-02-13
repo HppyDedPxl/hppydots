@@ -29,12 +29,10 @@ BaseModule {
                 targetIcon: icon
                 count: NotificationHandler.getAmountOfNotifications()
             }
-
         }
 
     }
 
-    // Todo:// add "dismiss all" and "dnd" buttons
     Component {
         id: _popupContent
 

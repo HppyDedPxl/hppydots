@@ -10,8 +10,10 @@ Rectangle {
     color: AppearanceProvider.accentColor
     property var bIsHovered : false;
     property var fontSize: 16
+    property alias textColor : innerText.color
 
     StyledText {
+        id: innerText
         anchors.centerIn:parent
         text:button.text
         font.pointSize: button.fontSize
@@ -26,9 +28,10 @@ Rectangle {
         onExited: {
             bIsHovered = false
         }
-        onClicked: [
+        onClicked: {
+            console.log("AHHH")
             button.onClick()
-        ]
+        }
     }
 
     states:[

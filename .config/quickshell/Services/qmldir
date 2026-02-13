@@ -2,3 +2,4 @@ singleton Pywal 1.0 Pywal.qml
 singleton NotificationHandler 1.0 NotificationHandler.qml
 singleton PackagesInfo 1.0 PackagesInfo.qml
 singleton SystemInfo 1.0 SystemInfo.qml
+singleton MprisHandler 1.0 MprisHandler.qml

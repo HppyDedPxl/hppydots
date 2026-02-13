@@ -33,10 +33,12 @@ PopupWindow {
 
     }
 
+
     function calculateAnchorX() {
         if (root.orientation == 0 || root.orientation == 2)
             return baseModule.x + (baseModule.width / 2) - (width / 2);
-
+        else if (root.orientation  == 3)
+            return 0
     }
 
     function calculateAnchorY() {
@@ -46,6 +48,17 @@ PopupWindow {
         if (root.orientation == 2)
             return -calculateImplicitHeight() + calculateParentPadding();
 
+        if (root.orientation == 1 || root.orientation == 3)
+            return -(baseModule.y + (height/2) - (baseModule.height*1.5))
+    }
+
+    function getContentSizeSetForOrientation(){
+        if(root.orientation == 0 || root.orientation == 2){
+            return [margin - 1,0,(root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2,c.height]
+        }
+        else{
+            return [0,margin-1,c.width,(root.overrideWidth > 0 ? root.overrideWidth : c.height)+2]
+        }
     }
 
     function calculateParentPadding() {
@@ -61,11 +74,35 @@ PopupWindow {
 
         if (orientation == 2)
             return [AppearanceProvider.rounding, AppearanceProvider.rounding, 0, 0];
+        if (orientation == 3)
+            return [0, AppearanceProvider.rounding, AppearanceProvider.rounding, 0];
 
     }
 
+    function calculateImplicitWidth(){
+        if(orientation == 0 || orientation == 2)
+            return  (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2;
+        else{
+            return c.width + calculateParentPadding() * 2;
+        }
+    }
+
     function calculateImplicitHeight() {
-        return c.height + calculateParentPadding() * 2;
+        if(orientation == 0 || orientation == 2)
+            return c.height + calculateParentPadding() * 2;
+        else{
+            return (overrideWidth > 0 ? overrideWidth : c.height) + margin * 2;
+        }
+    }
+
+    function calculateShapeGroupPopoutTargetX() {
+        if(root.orientation == 0 || root.orientation == 2)
+            return 0
+        if(root.orientation == 1)
+            return root.width - AppearanceProvider.rounding
+
+        return 0
+        
     }
 
     function calculateShapeGroupPopoutTargetY() {
@@ -75,6 +112,15 @@ PopupWindow {
         if (root.orientation == 2)
             return root.height - AppearanceProvider.rounding ;
 
+        return 0
+
+    }
+
+    function calculatePopupGroupPopoutTargetX() {
+        if( root.orientation == 1)
+            return -c.width + AppearanceProvider.rounding
+
+        return 0
     }
 
     function calculatePopupGroupPopoutTargetY() {
@@ -83,6 +129,18 @@ PopupWindow {
 
         if (root.orientation == 2)
             return -c.height + AppearanceProvider.rounding;
+        
+        return 0;
+    }
+
+    function calculateShapeGroupBaseX(){
+        if(root.orientation == 0 || root.orientation == 2){
+            return 0
+        }
+        if(root.orientation == 3)
+            return -AppearanceProvider.rounding * 2;
+
+        return 0;
 
     }
 
@@ -93,6 +151,17 @@ PopupWindow {
         if (root.orientation == 2)
             return root.height + AppearanceProvider.rounding * 2;
 
+        return 0
+
+    }
+
+    function calculatePopupGroupBaseX () {
+        if(root.orientation == 0 || root.orientation == 2){
+            return 0
+        }
+        if(root.orientation == 3) {
+            return -c.width + AppearanceProvider.rounding + (AppearanceProvider.rounding / 2)
+        }
     }
 
     function calculatePopupGroupBaseY() {
@@ -102,41 +171,66 @@ PopupWindow {
         if (root.orientation == 2)
             return 0;
 
+        if (root.orientation == 3)
+            return 0
+
     }
 
     function calculateLeftShapeRotation() {
         if (root.orientation == 0)
             return 0;
-
+        if (root.orientation == 1)
+            return 270
         if (root.orientation == 2)
             return 90;
-
+        if(root.orientation == 3)
+            return 180
     }
 
     function calculateRightShapeRotation() {
         if (root.orientation == 0)
             return 270;
-
+        if (root.orientation == 1)
+            return 0;
         if (root.orientation == 2)
             return 180;
+        if (root.orientation == 3)
+            return 270;
     }
 
     function calculateTravelShapeGroup(){
-        if(calculateShapeGroupPopoutTargetY() > calculateShapeGroupBaseY())
-            return calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY()
-        return calculateShapeGroupBaseY() - calculateShapeGroupPopoutTargetY()    
+        if(orientation == 0 || orientation == 2)
+        {
+            if(calculateShapeGroupPopoutTargetY() > calculateShapeGroupBaseY())
+                return calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY()
+            return calculateShapeGroupBaseY() - calculateShapeGroupPopoutTargetY()  
+        } 
+        else
+        {
+            if(calculateShapeGroupPopoutTargetX() > calculateShapeGroupBaseX())
+                return calculateShapeGroupPopoutTargetX() - calculateShapeGroupBaseX()
+            return calculateShapeGroupBaseX() - calculateShapeGroupPopoutTargetX()  
+        }
     }
+
     function calculateTravelPopupGroup(){
-        if(calculatePopupGroupPopoutTargetY() > calculatePopupGroupBaseY())
-            return calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY()
-        return calculatePopupGroupBaseY() - calculatePopupGroupPopoutTargetY()    
+        if(orientation == 0 || orientation == 2) {
+            if(calculatePopupGroupPopoutTargetY() > calculatePopupGroupBaseY())
+                return calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY()
+            return calculatePopupGroupBaseY() - calculatePopupGroupPopoutTargetY()    
+        }
+        else{
+            if(calculatePopupGroupPopoutTargetX() > calculatePopupGroupBaseX())
+                return calculatePopupGroupPopoutTargetX() - calculatePopupGroupBaseX()
+            return calculatePopupGroupBaseX() - calculatePopupGroupPopoutTargetX()    
+        }
     }
 
     // todo, everything for side bars left right :) this will be fun
     anchor.window: orientation == 0 ? topBar : bottomBar
     anchor.rect.x: calculateAnchorX()
     anchor.rect.y: calculateAnchorY()
-    implicitWidth: (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2
+    implicitWidth: calculateImplicitWidth()
     implicitHeight: calculateImplicitHeight()
     color: 'transparent'
 
@@ -148,10 +242,12 @@ PopupWindow {
 
                 PropertyChanges {
                     popupGroup {
+                        x: calculatePopupGroupPopoutTargetX()
                         y: calculatePopupGroupPopoutTargetY()
                     }
 
                     shapeGroup {
+                        x: calculateShapeGroupPopoutTargetX()
                         y: calculateShapeGroupPopoutTargetY()
                     }
 
@@ -181,19 +277,18 @@ PopupWindow {
                         }
 
                         PropertyAnimation {
-                            properties: "shapeGroup.y"
+                            properties: "shapeGroup.x,shapeGroup.y"
                             duration: {
                                 var travelShapeGroup = calculateTravelShapeGroup()
                                 var travelMainGroup = calculateTravelPopupGroup()
                                 var totalTravel = travelShapeGroup + travelMainGroup;
-                                console.log(travelShapeGroup)
                                 return (travelShapeGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                             }
                             easing.type: Easing.InCubic
                         }
 
                         PropertyAnimation {
-                            properties: "popupGroup.y"
+                            properties: "popupGroup.x,popupGroup.y"
                             duration: {
                                 var travelShapeGroup = calculateTravelShapeGroup();
                                 var travelMainGroup = calculateTravelPopupGroup();
@@ -202,9 +297,7 @@ PopupWindow {
                             }
                             easing.type: Easing.OutCubic
                         }
-
                     }
-
                 }
 
                 PropertyAnimation {
@@ -212,26 +305,24 @@ PopupWindow {
                     duration: 400
                     easing.type: Easing.InOutCubic
                 }
-
             }
         ]
     }
 
     HoverHandler {
         id: hoverHandler
-
         enabled: true
         blocking: false
     }
 
     Item {
         id: shapeGroup
-
+        x: calculateShapeGroupBaseX()
         y: calculateShapeGroupBaseY()
 
         Item {
             id: popupGroup
-
+            x: calculatePopupGroupBaseX()
             y: calculatePopupGroupBaseY()
 
             MultiEffect {
@@ -250,18 +341,21 @@ PopupWindow {
             Rectangle {
                 id: rect
 
+                property var sizeSet: getContentSizeSetForOrientation()
                 property var roundingSet: getRadiusSetForOrientation()
 
                 color: baseModule.usedBackgroundColor
-                x: margin - 1
-                width: (root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2
-                height: c.height
-                anchors.leftMargin: AppearanceProvider.rounding
-                anchors.rightMargin: AppearanceProvider.rounding
+
+                x: sizeSet[0]
+                y: sizeSet[1]
+                width: sizeSet[2]
+                height: sizeSet[3]
+
                 topLeftRadius: roundingSet[0]
                 topRightRadius: roundingSet[1]
                 bottomRightRadius: roundingSet[2]
                 bottomLeftRadius: roundingSet[3]
+                
                 antialiasing: true
 
                 Loader {
@@ -275,30 +369,50 @@ PopupWindow {
             }
 
         }
+        Item{
+            id: adornmentShapesHorizontal
+            visible: root.orientation % 2 == 0
+            StyledCurveConnector {
+                id: shapeL
 
-        StyledCurveConnector {
-            id: shapeL
+                size: AppearanceProvider.rounding
+                rotation: calculateLeftShapeRotation()
+            }
 
-            size: AppearanceProvider.rounding
-            rotation: calculateLeftShapeRotation()
+            StyledCurveConnector {
+                id: shapeR
+
+                rotation: calculateRightShapeRotation()
+                size: AppearanceProvider.rounding
+                anchors.left: parent.left
+                anchors.leftMargin: root.width - AppearanceProvider.rounding
+            }
         }
+        Item{
+            id: adornmentShapesVertical
+            visible: root.orientation % 2 != 0
+            StyledCurveConnector {
+                id: shapeT
+                size: AppearanceProvider.rounding
+                rotation: calculateLeftShapeRotation()
+            }
 
-        StyledCurveConnector {
-            id: shapeR
+            StyledCurveConnector {
+                id: shapeB
 
-            rotation: calculateRightShapeRotation()
-            size: AppearanceProvider.rounding
-            anchors.left: parent.left
-            anchors.leftMargin: root.width - AppearanceProvider.rounding
+                rotation: calculateRightShapeRotation()
+                size: AppearanceProvider.rounding
+                anchors.top: parent.top
+                anchors.topMargin: root.height - AppearanceProvider.rounding
+            }
         }
 
         transform: Scale {
             id: scale
-
             origin.x: root.width / 2
             origin.y: 0
-            xScale: 0
-            yScale: 0
+            // xScale: 0
+            // yScale: 0
         }
 
     }

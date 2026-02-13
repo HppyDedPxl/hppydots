@@ -19,9 +19,7 @@ BaseModule {
     content: _content
     popupContent: null
     bHasClickAction: true
-    // todo:// make terminal configurable
     onClickExecCommand: ["coolercontrol"]
-
     Component {
         id: _content
 
