@@ -9,93 +9,6 @@ import Quickshell.Wayland
 
 PopupWindow {
     id: root
-    function openOnClick() {
-        grab.active = true;
-    }
-
-    function close() {
-        if (grab.active)
-            grab.active = false;
-    }
-
-    function calculateAnchorX(){
-        if(root.orientation == 0 || root.orientation == 2){
-            return baseModule.x + (baseModule.width / 2) - (width / 2)
-        }
-    }
-
-    function calculateAnchorY(){
-        if(root.orientation == 0){
-            return targetBar.height
-        }
-        if(root.orientation == 2){
-            return  -calculateImplicitHeight() + calculateParentPadding()
-        }
-    }
-
-    function calculateParentPadding(){
-        if(orientation == 0 || orientation == 2)
-        {
-            return root.targetBar.parent.height - root.targetBar.height;
-        }
-        else{
-            return root.targetBar.parent.width - root.targetBar.width;
-
-        }
-    }
-
-    function getRadiusSetForOrientation(){
-        if(orientation == 0)
-            return [0,0,AppearanceProvider.rounding,AppearanceProvider.rounding]
-        if(orientation == 2)
-            return [AppearanceProvider.rounding,AppearanceProvider.rounding,0,0]
-    }
-
-    function calculateImplicitHeight(){
-        return c.height + calculateParentPadding() * 2
-    }
-
-    function calculateShapeGroupPopoutTargetY(){
-        if(root.orientation == 0)
-            return 0
-        if(root.orientation == 2)
-            return root.height - targetBar.height - AppearanceProvider.rounding/2
-    }
-    function calculatePopupGroupPopoutTargetY(){
-        if(root.orientation == 0)
-            return 0
-        if(root.orientation == 2)
-            return -c.height+AppearanceProvider.rounding
-    }
-
-    function calculateShapeGroupBaseY(){
-        if(root.orientation == 0)
-            return -AppearanceProvider.rounding * 2
-        if(root.orientation == 2)
-            return root.height + AppearanceProvider.rounding * 2
-    }
-
-    function calculatePopupGroupBaseY(){
-        if(root.orientation == 0)
-            return -c.height + AppearanceProvider.rounding + (AppearanceProvider.rounding/2)
-        if(root.orientation == 2)
-            return 0
-        
-    }
-
-    function calculateLeftShapeRotation(){
-        if(root.orientation == 0)
-            return 0
-        if(root.orientation == 2)
-            return 90
-    }
-
-    function calculateRightShapeRotation(){
-        if(root.orientation == 0)
-            return 270
-        if(root.orientation == 2)
-            return 180
-    }
 
     property var margin: AppearanceProvider.rounding
     property var bIsHovered: hoverHandler.hovered
@@ -106,24 +19,133 @@ PopupWindow {
     property double overrideWidth: -1
     property double baseWidth: overrideWidth > 0 ? overrideWidth : width
     property var shadow: shadowEffect
-    property var targetBar : null
-    property var orientation : 0
-    property var _autoFocusItem : null
+    property var targetBar: null
+    property var orientation: 0
+    property var _autoFocusItem: null
+
+    function openOnClick() {
+        grab.active = true;
+    }
+
+    function close() {
+        if (grab.active)
+            grab.active = false;
+
+    }
+
+    function calculateAnchorX() {
+        if (root.orientation == 0 || root.orientation == 2)
+            return baseModule.x + (baseModule.width / 2) - (width / 2);
+
+    }
+
+    function calculateAnchorY() {
+        if (root.orientation == 0)
+            return targetBar.height;
+
+        if (root.orientation == 2)
+            return -calculateImplicitHeight() + calculateParentPadding();
+
+    }
+
+    function calculateParentPadding() {
+        if (orientation == 0 || orientation == 2)
+            return root.targetBar.parent.height - root.targetBar.height;
+        else
+            return root.targetBar.parent.width - root.targetBar.width;
+    }
+
+    function getRadiusSetForOrientation() {
+        if (orientation == 0)
+            return [0, 0, AppearanceProvider.rounding, AppearanceProvider.rounding];
+
+        if (orientation == 2)
+            return [AppearanceProvider.rounding, AppearanceProvider.rounding, 0, 0];
+
+    }
+
+    function calculateImplicitHeight() {
+        return c.height + calculateParentPadding() * 2;
+    }
+
+    function calculateShapeGroupPopoutTargetY() {
+        if (root.orientation == 0)
+            return 0;
+
+        if (root.orientation == 2)
+            return root.height - AppearanceProvider.rounding ;
+
+    }
+
+    function calculatePopupGroupPopoutTargetY() {
+        if (root.orientation == 0)
+            return 0;
+
+        if (root.orientation == 2)
+            return -c.height + AppearanceProvider.rounding;
+
+    }
+
+    function calculateShapeGroupBaseY() {
+        if (root.orientation == 0)
+            return -AppearanceProvider.rounding * 2;
+
+        if (root.orientation == 2)
+            return root.height + AppearanceProvider.rounding * 2;
+
+    }
+
+    function calculatePopupGroupBaseY() {
+        if (root.orientation == 0)
+            return -c.height + AppearanceProvider.rounding + (AppearanceProvider.rounding / 2);
+
+        if (root.orientation == 2)
+            return 0;
+
+    }
+
+    function calculateLeftShapeRotation() {
+        if (root.orientation == 0)
+            return 0;
+
+        if (root.orientation == 2)
+            return 90;
+
+    }
+
+    function calculateRightShapeRotation() {
+        if (root.orientation == 0)
+            return 270;
+
+        if (root.orientation == 2)
+            return 180;
+    }
+
+    function calculateTravelShapeGroup(){
+        if(calculateShapeGroupPopoutTargetY() > calculateShapeGroupBaseY())
+            return calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY()
+        return calculateShapeGroupBaseY() - calculateShapeGroupPopoutTargetY()    
+    }
+    function calculateTravelPopupGroup(){
+        if(calculatePopupGroupPopoutTargetY() > calculatePopupGroupBaseY())
+            return calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY()
+        return calculatePopupGroupBaseY() - calculatePopupGroupPopoutTargetY()    
+    }
 
     // todo, everything for side bars left right :) this will be fun
     anchor.window: orientation == 0 ? topBar : bottomBar
-    
     anchor.rect.x: calculateAnchorX()
     anchor.rect.y: calculateAnchorY()
     implicitWidth: (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2
     implicitHeight: calculateImplicitHeight()
-    color:'transparent'
+    color: 'transparent'
 
     Item {
         states: [
             State {
                 name: "open"
                 when: root.bOpen == true
+
                 PropertyChanges {
                     popupGroup {
                         y: calculatePopupGroupPopoutTargetY()
@@ -132,11 +154,14 @@ PopupWindow {
                     shapeGroup {
                         y: calculateShapeGroupPopoutTargetY()
                     }
+
                     scale {
-                        xScale :1.0
-                        yScale: 1.0
+                        xScale: 1
+                        yScale: 1
                     }
+
                 }
+
             }
         ]
         transitions: [
@@ -144,69 +169,74 @@ PopupWindow {
                 from: "*"
                 to: "open"
                 reversible: true
-                ParallelAnimation{
+
+                ParallelAnimation {
                     SequentialAnimation {
                         ScriptAction {
                             script: {
-                                if(c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null){
-                                    c.item.getAutoFocusItem().forceActiveFocus()
-                                }
+                                if (c.item != null && c.item.getAutoFocusItem != null && c.item.getAutoFocusItem() != null)
+                                    c.item.getAutoFocusItem().forceActiveFocus();
+
                             }
                         }
+
                         PropertyAnimation {
                             properties: "shapeGroup.y"
                             duration: {
-                                var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
-                                var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
+                                var travelShapeGroup = calculateTravelShapeGroup()
+                                var travelMainGroup = calculateTravelPopupGroup()
                                 var totalTravel = travelShapeGroup + travelMainGroup;
+                                console.log(travelShapeGroup)
                                 return (travelShapeGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                             }
                             easing.type: Easing.InCubic
                         }
+
                         PropertyAnimation {
                             properties: "popupGroup.y"
                             duration: {
-                                var travelShapeGroup = calculateShapeGroupPopoutTargetY() - calculateShapeGroupBaseY();
-                                var travelMainGroup = calculatePopupGroupPopoutTargetY() - calculatePopupGroupBaseY();;
+                                var travelShapeGroup = calculateTravelShapeGroup();
+                                var travelMainGroup = calculateTravelPopupGroup();
                                 var totalTravel = travelShapeGroup + travelMainGroup;
                                 return (travelMainGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                             }
                             easing.type: Easing.OutCubic
                         }
-                        
-                        
+
                     }
+
                 }
+
                 PropertyAnimation {
                     properties: "scale.xScale,scale.yScale"
                     duration: 400
                     easing.type: Easing.InOutCubic
                 }
+
             }
         ]
     }
-    
 
     HoverHandler {
         id: hoverHandler
+
         enabled: true
-        blocking:false
+        blocking: false
     }
+
     Item {
         id: shapeGroup
-        y: calculateShapeGroupBaseY()  
-        transform: Scale{
-            id: scale
-            origin.x:root.width/2
-            origin.y:0
-            xScale:0
-            yScale:0
-        }
+
+        y: calculateShapeGroupBaseY()
+
         Item {
             id: popupGroup
+
             y: calculatePopupGroupBaseY()
-             MultiEffect {
+
+            MultiEffect {
                 id: shadowEffect
+
                 source: rect
                 anchors.fill: rect
                 shadowBlur: 1
@@ -216,11 +246,14 @@ PopupWindow {
                 shadowVerticalOffset: 3
                 visible: true
             }
+
             Rectangle {
                 id: rect
-                color: baseModule.usedBackgroundColor
-                x: margin-1      
+
                 property var roundingSet: getRadiusSetForOrientation()
+
+                color: baseModule.usedBackgroundColor
+                x: margin - 1
                 width: (root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2
                 height: c.height
                 anchors.leftMargin: AppearanceProvider.rounding
@@ -230,30 +263,49 @@ PopupWindow {
                 bottomRightRadius: roundingSet[2]
                 bottomLeftRadius: roundingSet[3]
                 antialiasing: true
+
                 Loader {
                     id: c
+
                     active: root.visible
                     anchors.centerIn: parent
                     sourceComponent: content !== null ? content : dummyContent
                 }
+
             }
+
         }
-        StyledCurveConnector{
-            id:shapeL
+
+        StyledCurveConnector {
+            id: shapeL
+
             size: AppearanceProvider.rounding
-            rotation:calculateLeftShapeRotation()
+            rotation: calculateLeftShapeRotation()
         }
-        StyledCurveConnector{
-            id:shapeR
-            rotation:calculateRightShapeRotation()
+
+        StyledCurveConnector {
+            id: shapeR
+
+            rotation: calculateRightShapeRotation()
             size: AppearanceProvider.rounding
-            anchors.left:parent.left
-            anchors.leftMargin: root.width-AppearanceProvider.rounding
-        }      
+            anchors.left: parent.left
+            anchors.leftMargin: root.width - AppearanceProvider.rounding
+        }
+
+        transform: Scale {
+            id: scale
+
+            origin.x: root.width / 2
+            origin.y: 0
+            xScale: 0
+            yScale: 0
+        }
+
     }
 
     HyprlandFocusGrab {
         id: grab
+
         windows: [root]
         onCleared: {
             close();
