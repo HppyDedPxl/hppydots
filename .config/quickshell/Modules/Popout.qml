@@ -198,6 +198,19 @@ PopupWindow {
             return 270;
     }
 
+    function calculateXOriginForOrientation(){
+        if (orientation % 2 == 0)
+            return root.width/2
+        else
+            return 0;
+    }
+    function calculateYOriginForOrientation(){
+        if (orientation % 2 == 0){
+            return 0;
+        }
+        else return root.height/2
+    }
+
     function calculateTravelShapeGroup(){
         if(orientation == 0 || orientation == 2)
         {
@@ -418,10 +431,10 @@ PopupWindow {
 
         transform: Scale {
             id: scale
-            origin.x: root.width / 2
-            origin.y: 0
-            // xScale: 0
-            // yScale: 0
+            origin.x: calculateXOriginForOrientation()//root.width / 2
+            origin.y: calculateYOriginForOrientation()
+            xScale: 0
+            yScale: 0
         }
 
     }
