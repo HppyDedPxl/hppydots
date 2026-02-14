@@ -50,7 +50,8 @@ def load_pywal_colors():
 c.fonts.default_family = "JetBrainsMono Nerd Font"
 c.fonts.default_size = '12pt'
 c.tabs.width = '7%'
-c.content.autoplay = False
+c.content.autoplay = False # Prevents yt videos from auto playing once the tab is opened
+c.input.media_keys = False # Disables MPRIS control to qutebrowser
 config.bind('K', 'tab-next')
 config.bind('J', 'tab-prev')
 c.content.unknown_url_scheme_policy = "allow-all"

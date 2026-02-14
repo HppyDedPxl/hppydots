@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
+
 import "./"
 import "../Services"
 import "../Appearance"
@@ -21,8 +23,42 @@ BaseModule {
         Rectangle {
             height: parent.height
             width: parent.width
-            color:baseModule.textColorOnBar
+            color:'transparent'
             radius:AppearanceProvider.rounding
+            
+            WrapperMouseArea{
+                visible: baseModule.orientation % 2 != 0 && !baseModule.popupOpen
+                width: 35
+                y:-5
+                height: width
+                Rectangle {
+                    id: iconRect
+                    visible: true
+                    color : AppearanceProvider.backgroundColorSecondary
+                    width: parent.width         
+                    height: parent.width
+                    radius:parent.width/2
+                    clip:true
+                    Rectangle {
+                        id: innerRect
+                        visible: true
+                        color : AppearanceProvider.backgroundColorSecondary
+                        anchors.centerIn:parent
+                        width: parent.width-10
+                        y:-5
+                        height: width
+                        radius:width/2
+                        Image {
+                            anchors.fill:parent
+                            source: Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayer().identity).icon)
+                        }
+                    }          
+                }
+                cursorShape: Qt.PointingHandCursor
+                onClicked:{
+                    baseModule.openPopup()
+                }
+            }
         }
     }
 
@@ -61,8 +97,6 @@ BaseModule {
                             visible:MprisHandler.hasPreviousPlayer();
                             Layout.preferredWidth:20
                             Layout.preferredHeight:20
-                            //border.width: 3
-                            //border.color: AppearanceProvider.textColorSecondary
                             color: 'transparent'
                             textColor: AppearanceProvider.textColorSecondary
                             text : ""
@@ -82,8 +116,6 @@ BaseModule {
                                 visible:MprisHandler.hasNextPlayer();
                                 Layout.preferredWidth:20
                                 Layout.preferredHeight:20
-                                //border.width: 3
-                                //border.color: AppearanceProvider.textColorSecondary
                                 color: 'transparent'
                                 textColor: AppearanceProvider.textColorSecondary
                                 text : ""

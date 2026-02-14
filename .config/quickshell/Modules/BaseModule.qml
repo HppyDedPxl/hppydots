@@ -18,7 +18,6 @@ Rectangle {
     property double popupOverrideWidth: -1
     property bool bIsHovered : false
     property bool bDoHighlight: true
-    property bool popupOpen: false
     property bool bInhibitClose: false
     property bool bOpenClicked:false
     property bool bHasClickAction:false
@@ -29,10 +28,14 @@ Rectangle {
     property var orientation : 0
     property var targetBar : parent.parent
     property var hyprlandOpenShortcut: ""
-  
+    
+    property var isPopupOpen:()=>{
+        return popup.bOpen
+    }
     function isOnActiveMonitor(){
         return Hyprland.focusedMonitor.name == modelData.name;
     }
+
 
     Loader {
         active: hyprlandOpenShortcut.length > 0

@@ -6,8 +6,6 @@ import QtQuick.Layouts
 import "../Services"
 import "../Appearance"
 
-
-
 BaseModule{
     function getAmountVisible(){
         let c = mainContentLoader.item.innerRepeater.model.values.length
@@ -73,9 +71,7 @@ BaseModule{
                         property bool isActive: Hyprland.focusedWorkspace?.id == modelData.id
                         visible: onThisScreen 
 
-                        Rectangle{
-                       
-                        
+                        Rectangle{       
                             id: workspaceWidget    
                             anchors.centerIn:parent                    
                             width: parent.height
@@ -165,8 +161,7 @@ BaseModule{
                                 }
                             ]
                         }
-                    }
-                    
+                    }        
                 }
             }
         } 

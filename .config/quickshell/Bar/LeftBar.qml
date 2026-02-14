@@ -32,6 +32,7 @@ PanelWindow {
         color: AppearanceProvider.shadowColor
     }
     Rectangle{
+        id: baseRect
         anchors.top:parent.top
         anchors.left:parent.left
         anchors.right:parent.right
@@ -39,9 +40,6 @@ PanelWindow {
         anchors.rightMargin: AppearanceProvider.leftBarPadding
        //color: AppearanceProvider.backgroundColor
         clip:true
-
-     
-
        Rectangle{
             rotation:-45
             height:parent.height
@@ -80,7 +78,11 @@ PanelWindow {
                 }
         }
        }
-
+    }
+    Rectangle {
+        id: contentRect
+        anchors.fill: baseRect
+        color:'transparent'
         ColumnLayout {
             id: barWidgets
             anchors.fill: parent
@@ -90,7 +92,6 @@ PanelWindow {
                 anchors.fill:parent
                 color: 'red'
             }       
-        }
-        
+        }     
     }
 }
