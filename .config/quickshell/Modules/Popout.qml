@@ -23,6 +23,14 @@ PopupWindow {
     property var orientation: 0
     property var _autoFocusItem: null
 
+
+    property var onPopupStartOpen: ()=>{}
+    property var onPopupOpened: ()=>{}
+    property var onPopupStartClosing : ()=>{}
+    property var onPopupClosed: ()=>{}    
+    property alias loadedContent : c.item
+
+    
     function openOnClick() {
         grab.active = true;
     }
@@ -30,9 +38,7 @@ PopupWindow {
     function close() {
         if (grab.active)
             grab.active = false;
-
     }
-
 
     function calculateAnchorX() {
         if (root.orientation == 0 || root.orientation == 2)
@@ -292,9 +298,13 @@ PopupWindow {
                                         c.item.onOpen()
                                     }
                                 }
-                                
-                                    
-
+                                if(state == "open"){
+                                    root.onPopupStartOpen()
+                                }
+                                if(state == "closed")
+                                {
+                                    root.onPopupClosed()
+                                }
                             }
                         }
 
@@ -318,6 +328,20 @@ PopupWindow {
                                 return (travelMainGroup / totalTravel) * AppearanceProvider.popoutAnimDuration;
                             }
                             easing.type: Easing.OutCubic
+                        }
+
+                        ScriptAction {
+                            script: {
+                                if(state == "closed")
+                                {
+                                    root.onPopupStartClosing()
+
+                                }
+                                if(state == "open")
+                                {
+                                    root.onPopupOpened()
+                                }
+                            }
                         }
                     }
                 }

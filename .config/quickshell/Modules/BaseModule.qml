@@ -32,6 +32,15 @@ Rectangle {
     property var isPopupOpen:()=>{
         return popup.bOpen
     }
+
+    property alias loadedBarContent : mainContent.item
+    property alias loadedPopupContent : popup.loadedContent
+
+    property var onPopupStartOpen: null
+    property var onPopupOpened: null
+    property var onPopupStartClosing : null
+    property var onPopupClosed: null
+
     function isOnActiveMonitor(){
         return Hyprland.focusedMonitor.name == modelData.name;
     }
@@ -150,6 +159,41 @@ Rectangle {
         overrideWidth: popupOverrideWidth
         orientation: baseModule.orientation
         targetBar:baseModule.targetBar
+        onPopupStartOpen: ()=>{
+            if(baseModule.onPopupStartOpen)
+                baseModule.onPopupStartOpen();
+            if(loadedBarContent && loadedBarContent.onPopupStartOpen)
+                loadedBarContent.onPopupStartOpen()
+            if(loadedPopupContent && loadedPopupContent.onPopupStartOpen)
+                loadedPopupContent.onPopupStartOpen()
+        }
+        onPopupOpened:()=>{
+            // We want to propagate the event to every level
+            // if any of those elements implements this property we call it
+            if(baseModule.onPopupOpened)
+                baseModule.onPopupOpened();
+            if(loadedBarContent && loadedBarContent.onPopupOpened)
+                loadedBarContent.onPopupOpened()
+            if(loadedPopupContent && loadedPopupContent.onPopupOpened)
+                loadedPopupContent.onPopupOpened()
+            
+        }
+        onPopupStartClosing:()=>{
+            if(baseModule.onPopupStartClosing)
+                baseModule.onPopupStartClosing();
+            if(loadedBarContent && loadedBarContent.onPopupStartClosing)
+                loadedBarContent.onPopupStartClosing()
+            if(loadedPopupContent && loadedPopupContent.onPopupStartClosing)
+                loadedPopupContent.onPopupStartClosing()
+        }
+        onPopupClosed:()=>{
+            if(baseModule.onPopupClosed)
+                baseModule.onPopupClosed();
+            if(loadedBarContent && loadedBarContent.onPopupClosed)
+                loadedBarContent.onPopupClosed()
+            if(loadedPopupContent && loadedPopupContent.onPopupClosed)
+                loadedPopupContent.onPopupClosed()
+        }
     }
 
     Loader {
