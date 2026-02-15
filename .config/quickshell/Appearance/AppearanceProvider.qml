@@ -11,16 +11,25 @@ Singleton {
              return Ys;
     }
 
+    function getColorDifference(cA,cB){
+        console.log((Math.abs(cA.r - cB.r) +  Math.abs(cA.b - cB.b) +  Math.abs(cA.g - cB.g)));
+        return ( Math.abs(cA.r - cB.r) +  Math.abs(cA.b - cB.b) +  Math.abs(cA.g - cB.g))  ;
+    }
+
     property var luminanceFlipPoint: 0.36
 
     id: root
     
-    property var backgroundColor : Pywal.color1;
-    property var textColor :  getPercievedLuminance(backgroundColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
 
     property var backgroundColorSecondary: getPercievedLuminance(Pywal.color1) > .17 ? Pywal.color0 : Pywal.color1;
     property var textColorSecondary : getPercievedLuminance(backgroundColorSecondary) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     
+
+    property var backgroundColor : getColorDifference(Pywal.color1,backgroundColorSecondary) > .4 ?  Pywal.color1 : Pywal.color5;
+    property var textColor :  getPercievedLuminance(backgroundColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
+
+
+
     property var highlightColor : Pywal.color4
     property var highlightTextColor: getPercievedLuminance(highlightColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
    
