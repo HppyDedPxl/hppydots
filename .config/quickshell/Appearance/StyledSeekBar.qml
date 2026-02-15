@@ -15,6 +15,7 @@ Slider {
     property var updateTime:()=>{
          control.value = target.position / target.length;
     }
+    property var progressStrokeWidth:5
     property var forceUpdate: false
 
      function lengthFormat(d){
@@ -56,151 +57,168 @@ Slider {
       
         Rectangle{
             width:parent.width* control.value
-            y: -barHeight/2
+            y: -barHeight/2+1
             color: 'transparent'
             clip:true
             height:barHeight
+            Rectangle {
+                color: AppearanceProvider.backgroundColor
+                anchors.fill:parent
+                anchors.topMargin:(parent.height/2)-(progressStrokeWidth/2)
+                anchors.bottomMargin:(parent.height/2)-(progressStrokeWidth/2)
+                opacity: target.isPlaying ? 0 : 1
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration:500
+                    }
+                }
+
+            }
             Shape {
-            NumberAnimation {
-                id: squiggleAnim
-                target:shape
-                property:"x"
-                from:-shape.step * 2
-                to:0
-                duration:1000
-                running:true
-                onFinished: {
-                    squiggleAnim.running = true
+                opacity: target.isPlaying ? 1 : 0
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration:500
+                    }
+                }
+                NumberAnimation {
+                    id: squiggleAnim
+                    target:shape
+                    property:"x"
+                    from:-shape.step * 2
+                    to:0
+                    duration:1000
+                    running:true
+                    onFinished: {
+                        squiggleAnim.running = true
+                    }
+                }
+                NumberAnimation {
+                    id: squiggleAnim2
+                    target:shape
+                    property:"radi"
+                    from:35
+                    to:45
+                    duration:1000
+                    running:true
+                    onFinished: {
+                        squiggleAnim3.running = true
+                    }
+                    easing.type : Easing.InOutCubic
+
+                }
+                NumberAnimation {
+                    id: squiggleAnim3
+                    target:shape
+                    property:"radi"
+                    from:45
+                    to:35
+                    duration:1000
+                    running:false
+                    onFinished: {
+                        squiggleAnim2.running = true
+                    }
+                    easing.type : Easing.InOutCubic
+                }
+                id:shape
+                x:0
+                y:parent.height/2
+                width:180
+                height:180
+                preferredRendererType: Shape.CurveRenderer
+                property var step: 20
+                property var radi : 17
+                ShapePath {
+                    strokeColor: AppearanceProvider.backgroundColor
+                    strokeWidth: progressStrokeWidth
+                    fillColor:'transparent'
+                    
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                        radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                        radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                        PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                        radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                        radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                    radiusX:shape.radi
+                    radiusY:shape.radi
+
+                    }
+                    PathArc {
+                    relativeX:shape.step
+                        radiusX:shape.radi
+                    radiusY:shape.radi
+                    direction : PathArc.Counterclockwise
+                    }
                 }
             }
-            NumberAnimation {
-                id: squiggleAnim2
-                target:shape
-                property:"radi"
-                from:35
-                to:45
-                duration:1000
-                running:true
-                onFinished: {
-                    squiggleAnim3.running = true
-                }
-                easing.type : Easing.InOutCubic
-
-            }
-            NumberAnimation {
-                id: squiggleAnim3
-                target:shape
-                property:"radi"
-                from:45
-                to:35
-                duration:1000
-                running:false
-                onFinished: {
-                    squiggleAnim2.running = true
-                }
-                easing.type : Easing.InOutCubic
-            }
-            id:shape
-            x:0
-            y:parent.height/2
-            width:180
-            height:180
-            preferredRendererType: Shape.CurveRenderer
-            property var step: 20
-            property var radi : 15
-            ShapePath {
-            strokeColor: AppearanceProvider.backgroundColor
-            strokeWidth: 5
-            fillColor:'transparent'
- 
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-                 PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
-            PathArc {
-               relativeX:shape.step
-               radiusX:shape.radi
-               radiusY:shape.radi
-
-            }
-            PathArc {
-               relativeX:shape.step
-                radiusX:shape.radi
-               radiusY:shape.radi
-               direction : PathArc.Counterclockwise
-            }
- 
-
-        }
-        }
         
         }
         
