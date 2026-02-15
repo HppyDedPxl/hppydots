@@ -33,12 +33,12 @@ WrapperMouseArea {
             width: control.availableWidth
             height: implicitHeight
             radius: AppearanceProvider.rounding
-            color: AppearanceProvider.backgroundColor
+            color: AppearanceProvider.inactiveColor
 
             Rectangle {
                 width: control.visualPosition * parent.width
                 height: parent.height
-                color: AppearanceProvider.inactiveColor
+                color: AppearanceProvider.backgroundColor
                 radius: parent.radius
             }
         }
