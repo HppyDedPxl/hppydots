@@ -26,9 +26,10 @@ BaseModule{
     ]
 
     function getBatteryDischargingIcon(capacity){
+   
         for (let i = 0; i < iconLookupNotCharging.length; i++){
-            if(capacity > iconLookupNotCharging[i]){
-                return iconLookupNotCharging[i]
+            if(capacity > iconLookupNotCharging[i][0]){
+                return iconLookupNotCharging[i][1]
             }
         }
     }
