@@ -2,6 +2,7 @@
 These dotfiles require certain programs to be installed and configured to have all of their features functional. 
 
 ## Base Dependencies
+* eza (better ls)
 * ascpi (for battery status on laptops)
 * hyprpolkitagent
 * fastfetch

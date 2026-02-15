@@ -1,5 +1,7 @@
-alias ls='LC_ALL=C ls -alF --color=auto'
+alias ls='eza -a --icons=always'
+alias ll='eza -al --icons=always'
+alias lt='eza -a --tree --level=1 --icons=always'
+alias shutdown='systemctl poweroff'
 alias grep='grep --color=auto'
-alias shutdown='shutdown now'
 alias spotify=spotify_player
 alias weather='curl wttr.in/Berlin'
