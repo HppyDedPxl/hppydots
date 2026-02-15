@@ -102,8 +102,6 @@ BaseModule{
                     }
                 Keys.onDownPressed:{
                     baseModule.selectedAppIndex= Math.max(0,Math.min(baseModule.selectedAppIndex+1,displayDesktopEntries.values.length-1))
-                    console.log(listView.contentItem)
-
                     scrollAnimation.stop()
                     scrollAnimation.to = calcContentY()
                     scrollAnimation.target = listView.contentItem

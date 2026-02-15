@@ -31,7 +31,6 @@ PanelWindow{
                    
                     bgImage.x = ((screen.width/2) - currentMousePos[0])/(screen.width/2) * 50
                     bgImage.y = ((screen.height/2) - currentMousePos[1])/(screen.height/2) * 50
-                    console.log(bgImage.x)
                 }
            
             }

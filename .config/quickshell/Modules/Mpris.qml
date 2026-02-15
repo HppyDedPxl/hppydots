@@ -307,7 +307,6 @@ BaseModule {
                             cursorShape: Qt.PointingHandCursor
 
                             onClicked: {
-                                console.log(base.player.identity)
                                 if(base.player.identity !== "")
                                     Hyprland.dispatch("movetoworkspace " + Hyprland.focusedWorkspace.id + ",class:" + base.player.identity.toLowerCase())
                             }
