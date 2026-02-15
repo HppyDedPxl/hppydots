@@ -51,8 +51,7 @@ Variants {
     BottomBar{id:bottomBar
     content:[
            SpacerModule {
-          
-          
+        
         } ,
       //  TimeModule {
       //     bPopupOnHover:true

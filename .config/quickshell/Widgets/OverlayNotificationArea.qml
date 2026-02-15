@@ -58,9 +58,8 @@ PanelWindow {
                 onItemRemoved:(idx)=>{
                     activePopups.splice(idx,1)
                     activeRegions.splice(idx,1)
+                    window.updateMask()
                 }
-
-                
 
                 Loader {
                     required property var modelData
@@ -104,7 +103,4 @@ PanelWindow {
 
             }
     }
-
-  
-
 }
