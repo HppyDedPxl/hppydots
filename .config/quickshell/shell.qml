@@ -80,6 +80,7 @@ Variants {
         },
         SpacerModule {
         } ,
+        DividerModule {},
         WireguardModule {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
 

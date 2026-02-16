@@ -214,6 +214,7 @@ BaseModule {
                             StyledButton {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
+                                width:undefined
                                 border.width: 3
                                 border.color: AppearanceProvider.textColorSecondary
                                 color: AppearanceProvider.accentColor
@@ -229,6 +230,7 @@ BaseModule {
                             StyledButton {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
+                                width:undefined
                                 border.width: 3
                                 border.color: AppearanceProvider.textColorSecondary
                                 color: AppearanceProvider.accentColor
@@ -247,6 +249,7 @@ BaseModule {
                             StyledButton {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
+                                width:undefined
                                 border.width: 3
                                 border.color: AppearanceProvider.textColorSecondary
                                 color: AppearanceProvider.accentColor

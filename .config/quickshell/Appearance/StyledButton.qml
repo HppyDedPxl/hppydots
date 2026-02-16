@@ -13,8 +13,9 @@ Rectangle {
     property var bIsHovered : false;
     property var fontSize: 16
     property alias textColor : innerText.color
-    property var hoverTextColor;
+    property var hoverTextColor : innerText.color
     width:innerText.paintedWidth+padding*2
+    
 
     StyledText {
         id: innerText
