@@ -17,6 +17,7 @@ BaseModule {
 
     visible: MprisHandler.getPrimaryPlayer() != null
 
+
     Component {
         id: _content
         Rectangle {
@@ -81,6 +82,14 @@ BaseModule {
         id: _popupContent
 
         Rectangle {
+            function getAudioIcon(volume) {
+                if (volume > .7)
+                    return "";
+                if (volume > .3)
+                    return "";
+                return "";
+            }
+
             id: base
             height: 600
             width: 300
@@ -268,7 +277,7 @@ BaseModule {
                         }
                     }
                     RowLayout {
-                        
+                        id: timingBar
                         anchors.top:seekBar.bottom
                         anchors.left:parent.left
                         anchors.right:parent.right
@@ -292,6 +301,71 @@ BaseModule {
                             text: _seekBar.getTimeRemainingString()
                             color:AppearanceProvider.textColorSecondary
                         }
+                    }
+                    RowLayout {   
+                        anchors.top:timingBar.bottom
+                        anchors.left:parent.left
+                        anchors.right:parent.right
+                        anchors.topMargin:30
+                        anchors.rightMargin:40
+                        anchors.leftMargin:40
+                        height:15
+                        spacing:10
+                        WrapperMouseArea {
+                        id: audioArea
+                        property var bHovered: false
+                        Layout.minimumWidth: 20
+                        hoverEnabled: true
+                        onEntered: {
+                            bHovered = true;
+                        }
+                        onExited: {
+                            bHovered = false;
+                        }
+                        states: [
+                            State {
+                                name: "highlit"
+                                when: audioArea.bHovered
+                                PropertyChanges {
+                                    audioIcon {
+                                        color: AppearanceProvider.highlightColor
+                                    }
+                                }
+                            }
+                        ]
+                        transitions: [
+                            Transition {
+                                from: ""
+                                to: "highlit"
+                                reversible: true
+                                PropertyAnimation {
+                                    property: "audioIcon.color"
+                                    duration: 250
+                                }
+                            }
+                        ]
+                         
+                        StyledText {
+                            id: audioIcon
+                            text: getAudioIcon(player.volume)
+                        }
+                    }
+                        StyledSlider {
+                            id: volumeSlider
+                            value: player.volume
+                            Layout.fillWidth:true
+                            slider.onMoved : {
+                                player.volume = slider.value
+                            }
+                            onScrolled : x => {
+                                player.volume = x
+                            }
+                        }
+                        StyledText {
+                            Layout.minimumWidth: 25
+                            text: Math.floor(player.volume * 100) + "%"
+                        }
+
                     }
 
                     Rectangle {

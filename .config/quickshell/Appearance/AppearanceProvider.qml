@@ -21,7 +21,7 @@ Singleton {
     id: root
     
 
-    property var backgroundColorSecondary: getPercievedLuminance(Pywal.color1) > .17 ? Pywal.color0 : Pywal.color1;
+    property var backgroundColorSecondary: getPercievedLuminance(Pywal.color1) > .092 ? Pywal.color0 : Pywal.color1;
     property var textColorSecondary : getPercievedLuminance(backgroundColorSecondary) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     
 

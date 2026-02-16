@@ -7,20 +7,20 @@ import Quickshell.Widgets
 WrapperMouseArea {
     id: wrapper
     property var scrollSpeed: 0.0002
-    property var onMoved: {
-    }
-    property var value: 0.0
+    property alias slider : control
+    property alias value: control.value
     property var from:0.0
     property var to: 1.0
     scrollGestureEnabled: true
+    signal scrolled(var newValue)
     onWheel: (event) => {
         value = Math.max(from,Math.min(to,value + event.angleDelta.y * scrollSpeed,to))
+        scrolled(value)
     }
 
     Slider {
         id: control
-        value: wrapper.value
-        onMoved: wrapper.onMoved
+        onMoved : wrapper.onMoved
         property var thickness: 15
         from: wrapper.from
         to: wrapper.to

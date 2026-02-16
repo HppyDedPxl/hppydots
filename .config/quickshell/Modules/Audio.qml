@@ -132,8 +132,11 @@ BaseModule {
 
                         Layout.fillWidth: true
                         value: audioSink.audio.volume
-                        onMoved: {
-                            audioSink.audio.volume = volumeSlider.value;
+                        slider.onMoved: {
+                            audioSink.audio.volume = slider.value;
+                        }
+                        onScrolled: x =>{
+                            audioSink.audio.volume = x;
                         }
                     }
 
@@ -194,10 +197,13 @@ BaseModule {
                         id: micSlider
                         Layout.fillWidth: true
                         value: audioSource.audio.volume
-                        to: 1.5
-                        onMoved: {
-                            audioSource.audio.volume = micSlider.value;
+                        slider.onMoved: {
+                            audioSource.audio.volume = slider.value;
                         }
+                        onScrolled: x =>{
+                            audioSource.audio.volume = x;
+                        }
+                        to: 1.5
                     }
                     StyledText {
                         Layout.minimumWidth: 30

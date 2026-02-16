@@ -29,7 +29,6 @@ Rectangle {
             bIsHovered = false
         }
         onClicked: {
-            console.log("AHHH")
             button.onClick()
         }
     }
