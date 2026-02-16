@@ -13,9 +13,10 @@ These dotfiles require certain programs to be installed and configured to have a
 * meson 
 * ~~waybar~~ (optional now if not wanting to use quickshell)
 * ~~swaync~~ (optional now if now not wanting to use quickshell)
-* quickshell
+* quickshell-git (from AUR to get latest git due to polkit dependency)
 * qutebrowser
 * code
+* wireguard-tools + running the install_polkit_policy.sh (for wireguard applet)
 
 ```bash 
 sudo pacman -S hyprpolkitagent btop code nfs-utils xdg-portal-hyprland xdg-portal-gtk xdg-portal-gnome meson waybar

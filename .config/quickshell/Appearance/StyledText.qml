@@ -5,4 +5,7 @@ Text
     font.family: AppearanceProvider.primaryFont
     font.pointSize: AppearanceProvider.primaryFontSize
     color: baseModule ? baseModule.textColor : AppearanceProvider.textColorSecondary
+    horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
+
 }

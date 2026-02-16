@@ -27,6 +27,7 @@ Variants {
         PackagesInfo.initService()
         SystemInfo.initService()
         MprisHandler.initService()
+        VPNHandler.initService()
         }
     }
 
@@ -53,14 +54,7 @@ Variants {
            SpacerModule {
         
         } ,
-      //  TimeModule {
-      //     bPopupOnHover:true
-      //     textColor:AppearanceProvider.textColorSecondary
-      //     usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-      //     orientation:2
-      //   },
         ApplicationRunnerModule{
-          // bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           orientation:2
@@ -86,7 +80,11 @@ Variants {
         },
         SpacerModule {
         } ,
-               DividerModule {},
+        WireguardModule {
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+
+        },
+        DividerModule {},
         CpuModule {
           textColor:AppearanceProvider.textColorSecondary
         },

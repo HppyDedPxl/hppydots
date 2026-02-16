@@ -12,7 +12,6 @@ Singleton {
     }
 
     function getColorDifference(cA,cB){
-        console.log((Math.abs(cA.r - cB.r) +  Math.abs(cA.b - cB.b) +  Math.abs(cA.g - cB.g)));
         return ( Math.abs(cA.r - cB.r) +  Math.abs(cA.b - cB.b) +  Math.abs(cA.g - cB.g))  ;
     }
 

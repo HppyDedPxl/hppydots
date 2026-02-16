@@ -1,0 +1,25 @@
+polkit.addRule(function(action, subject) {
+    polkit.log("action=" + action);
+    polkit.log("subject=" + subject);
+    if (action.id == "org.freedesktop.policykit.exec" &&
+        action.lookup("program") == "/usr/bin/wg-quick" &&
+        subject.isInGroup("wheel")) { // Ersetzen Sie 'wheel' durch Ihre Gruppe
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec" &&
+        action.lookup("command_line") == "/usr/bin/ls /etc/wireguard" &&
+        subject.isInGroup("wheel")) { // Ersetzen Sie 'wheel' durch Ihre Gruppe
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec" &&
+        action.lookup("command_line") == "/usr/bin/wg show" &&
+        subject.isInGroup("wheel")) { // Ersetzen Sie 'wheel' durch Ihre Gruppe
+        return polkit.Result.YES;
+    }
+});

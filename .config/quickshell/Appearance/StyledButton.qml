@@ -8,9 +8,13 @@ Rectangle {
     property var onClick: ()=>{}
     radius: AppearanceProvider.rounding / 2
     color: AppearanceProvider.accentColor
+    property var hoverColor: AppearanceProvider.accentColorLighter
+    property var padding: 10
     property var bIsHovered : false;
     property var fontSize: 16
     property alias textColor : innerText.color
+    property var hoverTextColor;
+    width:innerText.paintedWidth+padding*2
 
     StyledText {
         id: innerText
@@ -22,6 +26,7 @@ Rectangle {
         anchors.fill:parent
         enabled:true
         hoverEnabled:true
+        cursorShape: Qt.PointingHandCursor
         onEntered: {
             bIsHovered = true
         }
@@ -39,7 +44,10 @@ Rectangle {
             when: bIsHovered
             PropertyChanges{
                 button {
-                    color: AppearanceProvider.accentColorLighter
+                    color: hoverColor
+                }
+                innerText {
+                    color: hoverTextColor
                 }
             }
         }

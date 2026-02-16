@@ -3,4 +3,5 @@ NotificationPopup 1.0 NotificationPopup.qml
 OverlayNotificationArea 1.0 OverlayNotificationArea.qml
 NotificationList 1.0 NotificationList.qml
 DesktopEntryWidget 1.0 DesktopEntry.qml
+WireguardEntryWidget 1.0 WireguardEntry.qml
 Wallpaper 1.0 Wallpaper.qml
