@@ -16,15 +16,12 @@ Rectangle {
         anchors.right : parent.right
         anchors.top : parent.top
         anchors.bottom : parent.bottom
-        anchors.topMargin : 5
-        anchors.leftMargin : 5
-        anchors.rightMargin : 15
-        anchors.bottomMargin: 5
         radius: AppearanceProvider.rounding / 2
-        color: AppearanceProvider.backgroundColor
+        color: AppearanceProvider.inactiveColor
         RowLayout {
             anchors.left : parent.left
             anchors.right : parent.right
+            anchors.top : parent.top
             anchors.leftMargin : 15
             anchors.rightMargin : 0
             height:parent.height
@@ -39,9 +36,9 @@ Rectangle {
             }
             StyledButton {
                 Layout.fillHeight:true
-                color:AppearanceProvider.inactiveColor
+                color:AppearanceProvider.backgroundColor
                 hoverColor:AppearanceProvider.activeColor
-                textColor:AppearanceProvider.inactiveTextColor
+                textColor:AppearanceProvider.textColor
                 hoverTextColor:AppearanceProvider.activeTextColor
                 text: VPNHandler.isConnected() ? "Disconnect" : "Connect"
                 fontSize:12

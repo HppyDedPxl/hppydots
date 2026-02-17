@@ -43,14 +43,21 @@ BaseModule {
     Component {
         id: _popupContent
         Rectangle {
-            height: VPNHandler.isConnected() ? 110 : 300
-            width: 300
+            height: VPNHandler.isConnected() ? 125 : 300
+            width: 330
             color: 'transparent'
             ColumnLayout {
-                anchors.fill:parent
+                anchors.top:parent.top
+                anchors.bottom:parent.bottom
+                anchors.right:parent.right
+                anchors.left:parent.left
+                anchors.topMargin: 15
+                anchors.bottomMargin: 15
+                anchors.leftMargin: 15
+                anchors.rightMargin: 15
                 StyledText{
                     Layout.fillWidth:true
-                    Layout.preferredWidth:30
+                    //Layout.preferredWidth:30
                     text: VPNHandler.isConnected() ? "Connected to:" : "Not connected."
                 }
                 WireguardEntryWidget {
@@ -60,7 +67,7 @@ BaseModule {
                 ScrollView {
                     visible : !VPNHandler.isConnected()
                     width:parent.width
-                    Layout.preferredHeight:270
+                    Layout.fillHeight:true
                     contentWidth: parent.width
                     contentHeight: content.height
                     ColumnLayout {

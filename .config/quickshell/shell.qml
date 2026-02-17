@@ -82,6 +82,7 @@ Variants {
         } ,
         DividerModule {},
         WireguardModule {
+          textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
 
         },
