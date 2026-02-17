@@ -131,7 +131,8 @@ BaseModule {
                             }     
                         }
                         StyledText {
-                            anchors.centerIn : parent
+                            Layout.fillWidth:true
+                            horizontalAlignment: Text.AlignHCenter
                             text: base.player.identity
                             color: AppearanceProvider.textColorSecondary
                             font.pointSize:15
@@ -169,7 +170,7 @@ BaseModule {
                         anchors.right:parent.right
                         anchors.topMargin:10
                         anchors.rightMargin:0
-                        height:childrenRect.height
+                       
                         StyledText {
                             anchors.centerIn : parent
                             text: base.player.trackTitle
@@ -331,7 +332,7 @@ BaseModule {
                                 when: audioArea.bHovered
                                 PropertyChanges {
                                     audioIcon {
-                                        color: AppearanceProvider.highlightColor
+                                        color:AppearanceProvider.textColorSecondary
                                     }
                                 }
                             }
@@ -351,6 +352,8 @@ BaseModule {
                         StyledText {
                             id: audioIcon
                             text: getAudioIcon(player.volume)
+                            color:AppearanceProvider.textColorSecondary
+        
                         }
                     }
                         StyledSlider {
@@ -367,6 +370,8 @@ BaseModule {
                         StyledText {
                             Layout.minimumWidth: 25
                             text: Math.floor(player.volume * 100) + "%"
+                            color:AppearanceProvider.textColorSecondary
+    
                         }
 
                     }
