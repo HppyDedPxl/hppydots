@@ -41,6 +41,11 @@ Rectangle {
     property var onPopupStartClosing : null
     property var onPopupClosed: null
 
+
+    function hasPopupContent(){
+        return popupContent != null;
+    }
+
     function isOnActiveMonitor(){
         return Hyprland.focusedMonitor.name == modelData.name;
     }
@@ -69,15 +74,18 @@ Rectangle {
     property var mainContentLoader: mainContent
 
     function openPopup() {
-        popup.visible=true
-        popup.openOnClick()
+        console.log(popupContent)
+        if( popupContent != null){
+            popup.visible=true
+            popup.openOnClick()
+        }
     }
 
     function closePopup() {
         popup.hyprlandGrabber.active=false
     }
     
-    height: parent.height
+    height: orientation % 2 == 0 ? parent.height : width
     width: mainContent.item.childrenRect.width
     color: "transparent"
     

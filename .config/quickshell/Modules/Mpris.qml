@@ -14,67 +14,24 @@ BaseModule {
     dbgName: "mprisModule"
     content: _content
     popupContent: _popupContent
-
     visible: MprisHandler.getPrimaryPlayer() != null
-
-
     Component {
         id: _content
-        Rectangle {
-            height: parent.height
-            width: parent.width
-            color:'transparent'
-            radius:AppearanceProvider.rounding
-            // callbacks for fade timing aniamted with behavior further down
-            property var onPopupStartOpen:()=>{
-                iconRect.opacity = 0
-            }
-            property var onPopupOpened:()=>{
-                iconRect.visible = false
-            }
-            property var onPopupClosed: ()=>{
-                iconRect.visible = true
-                iconRect.opacity = 1
-            }
-            WrapperMouseArea{
-                visible: baseModule.orientation % 2
-                width: 35
-                y:-5
+        StyledSidebarDock {
+            content: Rectangle {
+                id: innerRect
+                visible: true
+                color : 'transparent'
+                anchors.centerIn:parent
+                width: parent.width-10
                 height: width
-                Rectangle {
-                    id: iconRect
-                    visible: true
-                    color : AppearanceProvider.backgroundColorSecondary
-                    width: parent.width         
-                    height: parent.width
-                    radius:parent.width/2
-                    clip:true
-                    Rectangle {
-                        id: innerRect
-                        visible: true
-                        color : AppearanceProvider.backgroundColorSecondary
-                        anchors.centerIn:parent
-                        width: parent.width-10
-                        y:-5
-                        height: width
-                        radius:width/2
-                        Image {
-                            anchors.fill:parent
-                            source: Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayer().identity).icon)
-                        }
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 150
-                        }
-                    }      
+                radius:width/2
+                clip: true
+                Image {
+                    anchors.fill:parent
+                    source: Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayer().identity).icon)
                 }
-                cursorShape: Qt.PointingHandCursor
-                onClicked:{
-                    baseModule.openPopup()
-                }
-            }
+            }            
         }
     }
 
@@ -168,9 +125,9 @@ BaseModule {
                         anchors.top:albumArt.bottom
                         anchors.left:parent.left
                         anchors.right:parent.right
-                        anchors.topMargin:10
+                        anchors.topMargin:20
                         anchors.rightMargin:0
-                       
+                        height: 8
                         StyledText {
                             anchors.centerIn : parent
                             text: base.player.trackTitle
@@ -179,6 +136,7 @@ BaseModule {
                             elide: Text.ElideRight
                             horizontalAlignment: Text.AlignHCenter
                             width:parent.width
+                            maximumLineCount:1
                         }
                     }
                     Item {
@@ -188,7 +146,7 @@ BaseModule {
                         anchors.right:parent.right
                         anchors.topMargin:20
                         anchors.rightMargin:0
-                     
+                        height:8
                         StyledText {
                             anchors.centerIn : parent
                             text: base.player.trackArtist
@@ -197,6 +155,7 @@ BaseModule {
                             elide: Text.ElideRight
                             horizontalAlignment: Text.AlignHCenter
                             width:parent.width
+                            maximumLineCount:1
                         }
                     }
                     Rectangle {

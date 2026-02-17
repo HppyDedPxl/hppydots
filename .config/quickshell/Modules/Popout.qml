@@ -54,8 +54,9 @@ PopupWindow {
         if (root.orientation == 2)
             return -calculateImplicitHeight() + calculateParentPadding();
 
-        if (root.orientation == 1 || root.orientation == 3)
-            return -(baseModule.y + (height/2) - (baseModule.height*1.5))
+        if (root.orientation == 1 || root.orientation == 3){
+            return   -targetBar.height + (baseModule.y + margin*2 + baseModule.height) -  calculateImplicitHeight()/2
+        }
     }
 
     function getContentSizeSetForOrientation(){
@@ -106,20 +107,15 @@ PopupWindow {
             return 0
         if(root.orientation == 1)
             return root.width - AppearanceProvider.rounding
-
-        return 0
-        
+        return 0  
     }
 
     function calculateShapeGroupPopoutTargetY() {
         if (root.orientation == 0)
             return 0;
-
         if (root.orientation == 2)
             return root.height - AppearanceProvider.rounding ;
-
         return 0
-
     }
 
     function calculatePopupGroupPopoutTargetX() {
@@ -214,7 +210,7 @@ PopupWindow {
         if (orientation % 2 == 0){
             return 0;
         }
-        else return root.height/2
+        else return calculateImplicitHeight()/2
     }
 
     function calculateTravelShapeGroup(){

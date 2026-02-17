@@ -37,12 +37,18 @@ Variants {
       id:leftBar
       content:[
         SpacerModule{},
-        MprisModule{
-          width:AppearanceProvider.leftBarWidth
+         ControlCenterModule {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          height:30
+          width:40
           orientation:3
         },
+                MprisModule{
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          width:40
+          orientation:3
+        },
+       
+
         SpacerModule{}
       ]
     }
@@ -79,7 +85,7 @@ Variants {
           bDoHighlight:false;
         },
         SpacerModule {
-        } ,
+        },
         DividerModule {},
         WireguardModule {
           textColor:AppearanceProvider.textColorSecondary

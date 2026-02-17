@@ -16,3 +16,4 @@ DividerModule 1.0 Divider.qml
 ApplicationRunnerModule 1.0 ApplicationRunner.qml
 MprisModule 1.0 Mpris.qml
 WireguardModule 1.0 Wireguard.qml
+ControlCenterModule 1.0 ControlCenter.qml

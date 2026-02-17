@@ -69,7 +69,6 @@ BaseModule{
             }
             function calcContentY(){
                 let y = baseModule.selectedAppIndex * (elementHeight + elementSpacing)
-                console.log(innerRect.height,listView.height)
                 if(innerRect.height < listView.height)
                     return 0;
                 if (y > innerRect.height - listView.height/2)
