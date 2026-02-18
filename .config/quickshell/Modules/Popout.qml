@@ -93,13 +93,13 @@ PopupWindow {
         if(orientation == 0 || orientation == 2)
             return  (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2;
         else{
-            return c.width + calculateParentPadding() * 2;
+            return c.width + AppearanceProvider.shadowBlur;
         }
     }
 
     function calculateImplicitHeight() {
         if(orientation == 0 || orientation == 2)
-            return c.height + calculateParentPadding() * 2;
+            return c.height + AppearanceProvider.shadowBlur;
         else{
             return (overrideWidth > 0 ? overrideWidth : c.height) + margin * 2;
         }
