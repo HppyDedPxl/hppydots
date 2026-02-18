@@ -6,3 +6,6 @@
 .config/qutebrowser/autoconfig.yml
 .config/hypr/custom/*
 .config/qutebrowser/test.py
+.config/qutebrowser/bookmarks/urls
+.config/qutebrowser/bookmarks/*
+.config/oh-my-posh/themes/dynamic_autogen.omp.json
