@@ -7,13 +7,16 @@ Rectangle {
     property var text: ""
     property var onClick: ()=>{}
     radius: AppearanceProvider.rounding / 2
-    color: AppearanceProvider.accentColor
-    property var hoverColor: AppearanceProvider.accentColorLighter
+    border.width:4
+    property var buttonPrimaryColor : AppearanceProvider.accentColor
+    border.color:buttonPrimaryColor
+    color: Qt.darker(buttonPrimaryColor)
+    property var hoverColor: Qt.lighter(buttonPrimaryColor)
     property var padding: 10
     property var bIsHovered : false;
     property var fontSize: 16
     property alias textColor : innerText.color
-    property var hoverTextColor : innerText.color
+    property var hoverTextColor : Qt.lighter(innerText.color)
     width:innerText.paintedWidth+padding*2
     
 
@@ -22,6 +25,7 @@ Rectangle {
         anchors.centerIn:parent
         text:button.text
         font.pointSize: button.fontSize
+        color: buttonPrimaryColor
     }
     MouseArea{
         anchors.fill:parent
@@ -45,7 +49,7 @@ Rectangle {
             when: bIsHovered
             PropertyChanges{
                 button {
-                    color: hoverColor
+                    border.color: hoverColor
                 }
                 innerText {
                     color: hoverTextColor
@@ -56,10 +60,6 @@ Rectangle {
     transitions:[
         Transition{
             id: hoverTransition
-            PropertyAnimation {
-                duration: 100
-                easing.type: Easing.InOutQuad
-            }
         }
     ]
 

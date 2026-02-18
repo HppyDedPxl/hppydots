@@ -74,7 +74,6 @@ Rectangle {
     property var mainContentLoader: mainContent
 
     function openPopup() {
-        console.log(popupContent)
         if( popupContent != null){
             popup.visible=true
             popup.openOnClick()

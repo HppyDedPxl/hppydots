@@ -9,7 +9,7 @@ import Quickshell.Wayland
 
 PopupWindow {
     id: root
-
+    
     property var margin: AppearanceProvider.rounding
     property var bIsHovered: hoverHandler.hovered
     property Component content
@@ -22,7 +22,6 @@ PopupWindow {
     property var targetBar: null
     property var orientation: 0
     property var _autoFocusItem: null
-
 
     property var onPopupStartOpen: ()=>{}
     property var onPopupOpened: ()=>{}
@@ -41,8 +40,11 @@ PopupWindow {
     }
 
     function calculateAnchorX() {
-        if (root.orientation == 0 || root.orientation == 2)
+        
+        if (root.orientation == 0 || root.orientation == 2) 
             return baseModule.x + (baseModule.width / 2) - (width / 2);
+        else if (root.orientation == 1)
+            return AppearanceProvider.getEffectiveScreenWidth(targetBar.screen)-root.width
         else if (root.orientation  == 3)
             return 0
     }
@@ -78,7 +80,8 @@ PopupWindow {
     function getRadiusSetForOrientation() {
         if (orientation == 0)
             return [0, 0, AppearanceProvider.rounding, AppearanceProvider.rounding];
-
+        if (orientation == 1)
+            return [AppearanceProvider.rounding,0,0,AppearanceProvider.rounding]
         if (orientation == 2)
             return [AppearanceProvider.rounding, AppearanceProvider.rounding, 0, 0];
         if (orientation == 3)
@@ -139,6 +142,9 @@ PopupWindow {
         if(root.orientation == 0 || root.orientation == 2){
             return 0
         }
+
+        if(root.orientation == 1)
+            return root.width + AppearanceProvider.rounding * 4;
         if(root.orientation == 3)
             return -AppearanceProvider.rounding * 2;
 
@@ -158,31 +164,23 @@ PopupWindow {
     }
 
     function calculatePopupGroupBaseX () {
-        if(root.orientation == 0 || root.orientation == 2){
-            return 0
-        }
         if(root.orientation == 3) {
             return -c.width + AppearanceProvider.rounding + (AppearanceProvider.rounding / 2)
         }
+        return 0
     }
 
     function calculatePopupGroupBaseY() {
         if (root.orientation == 0)
             return -c.height + AppearanceProvider.rounding + (AppearanceProvider.rounding / 2);
-
-        if (root.orientation == 2)
-            return 0;
-
-        if (root.orientation == 3)
-            return 0
-
+        return 0
     }
 
     function calculateLeftShapeRotation() {
         if (root.orientation == 0)
             return 0;
         if (root.orientation == 1)
-            return 270
+            return 90; 
         if (root.orientation == 2)
             return 90;
         if(root.orientation == 3)
@@ -202,7 +200,17 @@ PopupWindow {
 
     function calculateXOriginForOrientation(){
         if (orientation % 2 == 0)
+        {
+            if(baseModule.x+(root.width/2) > targetBar.width)
+            {
+                return baseModule.x - (targetBar.width - root.width)
+            }
+            if(baseModule.x - (root.width/2) < 0)
+            {
+                return baseModule.x
+            }
             return root.width/2
+        }      
         else
             return 0;
     }
@@ -210,7 +218,18 @@ PopupWindow {
         if (orientation % 2 == 0){
             return 0;
         }
-        else return calculateImplicitHeight()/2
+        else
+        {
+            if(baseModule.y + (root.height/2) > targetBar.height)
+            {
+                return baseModule.y - (targetBar.height - root.height)
+            }
+            if(baseModule.y - (root.height/2) < 0)
+            {
+                return baseModule.y
+            }
+            return calculateImplicitHeight()/2
+        } 
     }
 
     function calculateTravelShapeGroup(){
@@ -296,10 +315,12 @@ PopupWindow {
                                 }
                                 if(state == "open"){
                                     root.onPopupStartOpen()
+                                    PopupObserver.registerOpenPopup(root)
                                 }
                                 if(state == "closed")
                                 {
                                     root.onPopupClosed()
+                                    PopupObserver.deregisterOpenPopup(root)
                                 }
                             }
                         }

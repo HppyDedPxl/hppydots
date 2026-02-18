@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Effects
 import Quickshell
+import QtQuick.Layouts
 import "../Appearance"
 PanelWindow {
     id: rightBar
@@ -31,6 +32,7 @@ PanelWindow {
         color: AppearanceProvider.shadowColor
     }
     Rectangle{
+        id:baseRect
         anchors.top:parent.top
         anchors.left:parent.left
         anchors.right:parent.right
@@ -38,9 +40,20 @@ PanelWindow {
         anchors.leftMargin: AppearanceProvider.rightBarPadding
        color: AppearanceProvider.backgroundColorSecondary
        clip:true
-
-       
-       
-        
+    }
+     Rectangle {
+        id: contentRect
+        anchors.fill: baseRect
+        color:'transparent'
+        property var screen : rightBar.screen
+        ColumnLayout {
+            id: barWidgets
+            anchors.fill: parent
+            spacing: 1
+            children: rightBar.content  
+            Rectangle {
+                anchors.fill:parent
+            }       
+        }     
     }
 }

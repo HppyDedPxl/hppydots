@@ -4,3 +4,4 @@ singleton PackagesInfo 1.0 PackagesInfo.qml
 singleton SystemInfo 1.0 SystemInfo.qml
 singleton MprisHandler 1.0 MprisHandler.qml
 singleton VPNHandler 1.0 VPNHandler.qml
+singleton PopupObserver 1.0 PopupObserver.qml

@@ -79,10 +79,15 @@ PanelWindow {
         }
        }
     }
+    // todo:
+    // property var screen : rightBar.screen 
+    // needs to be in every bar... bars need to be unified in a single bar object with orientation
+
     Rectangle {
         id: contentRect
         anchors.fill: baseRect
         color:'transparent'
+        property var screen : leftBar.screen
         ColumnLayout {
             id: barWidgets
             anchors.fill: parent

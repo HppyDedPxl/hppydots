@@ -81,6 +81,7 @@ BaseModule {
                             color: 'transparent'
                             textColor: AppearanceProvider.textColorSecondary
                             text : ""
+                            border.width:0
                             fontSize:18
                             radius: 20
                             onClick:()=>{
@@ -95,19 +96,19 @@ BaseModule {
                             font.pointSize:15
                         }
                         StyledButton {
-                                visible:MprisHandler.hasNextPlayer();
-                                Layout.preferredWidth:20
-                                Layout.preferredHeight:20
-                                color: 'transparent'
-                                textColor: AppearanceProvider.textColorSecondary
-                                text : ""
-                                fontSize:18
-                                radius: 20
-                                onClick:()=>{
-                                    MprisHandler.nextPlayer();
-                                }
-                                
-                            }
+                            visible:MprisHandler.hasNextPlayer();
+                            Layout.preferredWidth:20
+                            Layout.preferredHeight:20
+                            border.width:0
+                            color: 'transparent'
+                            textColor: AppearanceProvider.textColorSecondary
+                            text : ""
+                            fontSize:18
+                            radius: 20
+                            onClick:()=>{
+                                MprisHandler.nextPlayer();
+                            }              
+                        }
                     }
                     Image {
                         id:albumArt

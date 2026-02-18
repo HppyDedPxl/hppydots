@@ -1,24 +1,15 @@
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import "../Services"
 
 Rectangle {
     height: parent.height
     width: parent.width
+    x: baseModule.orientation == 1 ? -parent.width/2 : 0
     color:'transparent'
     radius:AppearanceProvider.rounding
     required property var content
-    // callbacks for fade timing aniamted with behavior further down
-    property var onPopupStartOpen:()=>{
-        iconRect.opacity = 0
-    }
-    property var onPopupOpened:()=>{
-        iconRect.visible = false
-    }
-    property var onPopupClosed: ()=>{
-        iconRect.visible = true
-        iconRect.opacity = 1
-    }
     WrapperMouseArea {
         width: parent.width
         height: width
@@ -32,6 +23,7 @@ Rectangle {
             radius: parent.width/2
             clip:true
             children: content
+            opacity: !PopupObserver.isAnyPopupOpenOnBar(targetBar) || targetBar.width >= width ? 1 : 0
             Behavior on opacity {
                 NumberAnimation {
                     duration: 150

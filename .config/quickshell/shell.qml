@@ -19,7 +19,7 @@ Variants {
   Scope {
     id: scope
     required property ShellScreen modelData
-    Timer{
+    Timer {
       interval:1
       running:true
       repeat:false
@@ -28,69 +28,59 @@ Variants {
         SystemInfo.initService()
         MprisHandler.initService()
         VPNHandler.initService()
-        }
+      }
     }
-
-   // Wallpaper{}
 
     LeftBar{
       id:leftBar
       content:[
-        SpacerModule{},
-         ControlCenterModule {
+        SpacerModule{}, 
+        MprisModule{
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           width:40
           orientation:3
         },
-                MprisModule{
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          width:40
-          orientation:3
-        },
-       
-
         SpacerModule{}
       ]
     }
 
-    RightBar{id:rightBar}
+    RightBar{
+      id:rightBar
+      content:[
+        SpacerModule{},
+        SpacerModule{},
+        SpacerModule{},
+      ]
+    }
     
-    BottomBar{id:bottomBar
+    BottomBar{
+    id:bottomBar
     content:[
-           SpacerModule {
-        
-        } ,
+        SpacerModule {} ,
         ApplicationRunnerModule{
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           orientation:2
           hyprlandOpenShortcut:"open_app_launcher"
         },
-        SpacerModule {  
-        } ,
+        SpacerModule {} ,
     ]}  
 
     Bar {
       id:topBar
       content:[
+        SpacerModule {} ,
         SpacerModule {
-          
-          
-        } ,
-        SpacerModule {
-          preferredWidth:500
-          
+          preferredWidth:500      
         } ,
         WorkspacesModule {
           bDoHighlight:false;
         },
-        SpacerModule {
-        },
+        SpacerModule {},
         DividerModule {},
         WireguardModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-
         },
         DividerModule {},
         CpuModule {
@@ -101,73 +91,62 @@ Variants {
           textColor:AppearanceProvider.textColorSecondary
         },
         DividerModule {},
-
         TemperaturesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
         DividerModule {},
-
         PackagesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
         DividerModule {},
-
         NotificationsModule{
           bDoHighlight:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
         DividerModule {},
-
         AudioModule{
           bDoHighlight:true
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
-        DividerModule {},
-
-        
+        DividerModule {}, 
         TimeModule {
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
-
         DividerModule {},
-
         BatteryModule {
           id: batteryModule
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           
         },
-
         DividerModule {
           visible: batteryModule.visible
         },
-
-
         TrayModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           bPopupOnHover:true
         },
         DividerModule {},
-
+         ControlCenterModule {
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+         // width:40
+         // orientation:1
+        },   
+        DividerModule {},
         SpacerModule {
           preferredWidth:20
         }      
       ]
     }
-
-
-
     OverlayNotificationArea{
       id:notificationArea
       visible:true         
     }
-
-  
   }
 }
