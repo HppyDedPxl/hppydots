@@ -17,3 +17,4 @@ ApplicationRunnerModule 1.0 ApplicationRunner.qml
 MprisModule 1.0 Mpris.qml
 WireguardModule 1.0 Wireguard.qml
 ControlCenterModule 1.0 ControlCenter.qml
+KeyboardLayoutModule 1.0 KeyboardLayout.qml

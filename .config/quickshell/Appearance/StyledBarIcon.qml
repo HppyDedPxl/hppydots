@@ -8,6 +8,7 @@ Rectangle{
     width:height
     color:'transparent'
     property var dynFontSize: Math.round(parent.height * 0.45)
+    clip:true
     StyledText{
         id: icon
         anchors.centerIn:parent

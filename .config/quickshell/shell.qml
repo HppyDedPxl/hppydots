@@ -56,6 +56,7 @@ Variants {
     BottomBar{
     id:bottomBar
     content:[
+
         SpacerModule {} ,
         ApplicationRunnerModule{
           textColor:AppearanceProvider.textColorSecondary
@@ -64,14 +65,16 @@ Variants {
           hyprlandOpenShortcut:"open_app_launcher"
         },
         SpacerModule {} ,
+          
     ]}  
 
     Bar {
       id:topBar
       content:[
         SpacerModule {} ,
+         
         SpacerModule {
-          preferredWidth:500      
+          preferredWidth:800      
         } ,
         WorkspacesModule {
           bDoHighlight:false;
@@ -112,12 +115,13 @@ Variants {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
         DividerModule {}, 
-        TimeModule {
-          bPopupOnHover:true
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+        KeyboardLayoutModule {
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            textColor:AppearanceProvider.textColorSecondary
+            bPopupOnHover:true
         },
-        DividerModule {},
+        DividerModule{},
+        
         BatteryModule {
           id: batteryModule
           textColor:AppearanceProvider.textColorSecondary
@@ -141,6 +145,13 @@ Variants {
          // orientation:1
         },   
         DividerModule {},
+        TimeModule {
+          bPopupOnHover:true
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+        },
+        DividerModule {},
+
         SpacerModule {
           preferredWidth:20
         }      

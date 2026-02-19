@@ -20,6 +20,7 @@ Singleton {
     property var currentBacklightBrightness : 0
 
     property var bHasBattery : true
+    property var currentKeymap : ""
 
     function initService() {
         timer.running = true;
@@ -115,6 +116,8 @@ Singleton {
         repeat: true
         onTriggered: {
             getActiveWindowData.running = true
+            getKeyboardLayout.running = true
+
             if(bSupportsBacklightControl){
                 getBacklightData.running = true
             }
@@ -210,6 +213,24 @@ Singleton {
             onStreamFinished: {
                 if(this.text !== "") {
                     bSupportsBacklightControl = false
+                }
+            }
+        }
+    }
+
+    Process {
+        id: getKeyboardLayout
+        command : ["hyprctl","-j","devices"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                if(this.text !== ""){
+                    const data = JSON.parse(this.text)
+                    for (const kbd of data['keyboards']){
+                        if(kbd['main']){
+                            currentKeymap = kbd['active_keymap']
+                        }
+                    }
                 }
             }
         }
