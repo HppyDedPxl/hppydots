@@ -17,6 +17,7 @@ These dotfiles require certain programs to be installed and configured to have a
 * qutebrowser
 * code
 * wireguard-tools + running the install_polkit_policy.sh (for wireguard applet)
+* brightnessctl (for easier laptop brightness backlight control)
 
 ```bash 
 sudo pacman -S hyprpolkitagent btop code nfs-utils xdg-portal-hyprland xdg-portal-gtk xdg-portal-gnome meson waybar

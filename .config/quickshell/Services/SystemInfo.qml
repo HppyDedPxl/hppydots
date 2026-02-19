@@ -16,6 +16,9 @@ Singleton {
     property var batteryPercentage: 100
     property var activeWindow : {}
 
+    property var bSupportsBacklightControl : true
+    property var currentBacklightBrightness : 0
+
     property var bHasBattery : true
 
     function initService() {
@@ -32,6 +35,12 @@ Singleton {
             batteryStatusCheck.running = true
             batteryCapacityCheck.running = true
         }
+    }
+
+    function setBacklightBrightness(pct){
+        currentBacklightBrightness = pct
+        sendProcess.command = ["brightnessctl","-c","backlight","set",pct+"%"]
+        sendProcess.running = true
     }
 
     function getListOfValuesFromRegex(regex, input) {
@@ -82,6 +91,12 @@ Singleton {
         memFree = mem[1];
     }
 
+    function evaluateBrightnessOutput(input){
+        const regExp_brightness = /\((\d*)\%\)/gm
+        let b = getListOfValuesFromRegex(regExp_brightness,input)
+        currentBacklightBrightness = b[0]
+    }
+
     Timer {
         id: timer
         interval: 2000 // check every 2 seconds
@@ -100,6 +115,9 @@ Singleton {
         repeat: true
         onTriggered: {
             getActiveWindowData.running = true
+            if(bSupportsBacklightControl){
+                getBacklightData.running = true
+            }
         }
     }
 
@@ -174,5 +192,31 @@ Singleton {
                 activeWindow = JSON.parse(this.text)
             }
         }
+    }
+
+    Process {
+        id: getBacklightData
+        command: ["brightnessctl","-c","backlight","info"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                if(this.text !== ""){
+                    bSupportsBacklightControl = true
+                    evaluateBrightnessOutput(this.text)
+                }
+            }
+        }
+        stderr: StdioCollector {
+            onStreamFinished: {
+                if(this.text !== "") {
+                    bSupportsBacklightControl = false
+                }
+            }
+        }
+    }
+
+    Process {
+        id: sendProcess
+        running: false
     }
 }

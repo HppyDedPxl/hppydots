@@ -135,6 +135,8 @@ Variants {
         DividerModule {},
          ControlCenterModule {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          textColor:AppearanceProvider.textColorSecondary
+
          // width:40
          // orientation:1
         },   

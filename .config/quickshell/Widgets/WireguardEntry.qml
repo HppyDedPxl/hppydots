@@ -40,6 +40,7 @@ Rectangle {
                 hoverColor:AppearanceProvider.activeColor
                 textColor:AppearanceProvider.textColor
                 hoverTextColor:AppearanceProvider.activeTextColor
+                border.width:0
                 text: VPNHandler.isConnected() ? "Disconnect" : "Connect"
                 fontSize:12
                 onClick:()=>{
