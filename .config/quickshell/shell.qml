@@ -31,8 +31,53 @@ Variants {
       }
     }
 
+    Component { 
+        id:overlayDecoration
+
+      Rectangle {
+            height: 1000
+            width: 1000
+            x:900
+            y:500
+            rotation: 235
+            gradient: Gradient {
+                orientation: Gradient.Horizontal
+                GradientStop {
+                    position: 0
+                    color: AppearanceProvider.backgroundColor
+                }
+                GradientStop {
+                    position: 0.17
+                    color: AppearanceProvider.backgroundColor
+                }
+                GradientStop {
+                    position: 0.170001
+                    color: AppearanceProvider.accentColor
+                }
+                GradientStop {
+                    position: 0.18
+                    color: AppearanceProvider.accentColor
+                }
+                GradientStop {
+                    position: 0.180001
+                    color: AppearanceProvider.accentColorLighter
+                }
+                GradientStop {
+                    position: 0.19
+                    color: AppearanceProvider.accentColorLighter
+                }
+                GradientStop {
+                    position: 0.190001
+                    color: AppearanceProvider.backgroundColorSecondary
+                }
+            }
+        }
+    }
+
     LeftBar{
       id:leftBar
+      overlayDecorator: overlayDecoration
+
       content:[
         SpacerModule{}, 
         MprisModule{
@@ -46,6 +91,8 @@ Variants {
 
     RightBar{
       id:rightBar
+      overlayDecorator: overlayDecoration
+
       content:[
         SpacerModule{},
         SpacerModule{},
@@ -55,6 +102,8 @@ Variants {
     
     BottomBar{
     id:bottomBar
+      overlayDecorator: overlayDecoration
+
     content:[
 
         SpacerModule {} ,
@@ -70,18 +119,15 @@ Variants {
 
     Bar {
       id:topBar
+      overlayDecorator: overlayDecoration
       content:[
-        SpacerModule {} ,
-         
         SpacerModule {
-          preferredWidth:800      
+          preferredWidth:20
         } ,
-        WorkspacesModule {
-          bDoHighlight:false;
-        },
-        SpacerModule {},
+
         DividerModule {},
-        WireguardModule {
+
+                 WireguardModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
@@ -97,6 +143,15 @@ Variants {
         TemperaturesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
+        DividerModule {},
+        SpacerModule {} ,
+
+        
+        WorkspacesModule {
+          bDoHighlight:false;
+        },
+        SpacerModule {},
+
         DividerModule {},
         PackagesModule {
           textColor:AppearanceProvider.textColorSecondary

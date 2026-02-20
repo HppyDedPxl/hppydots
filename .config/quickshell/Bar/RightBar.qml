@@ -6,6 +6,8 @@ import "../Appearance"
 PanelWindow {
     id: rightBar
     property list<Item> content
+    property var overlayDecorator
+
     screen: scope.modelData
     implicitWidth: AppearanceProvider.rightBarWidth + AppearanceProvider.rightBarPadding
     color: 'transparent'
@@ -40,20 +42,32 @@ PanelWindow {
         anchors.leftMargin: AppearanceProvider.rightBarPadding
        color: AppearanceProvider.backgroundColorSecondary
        clip:true
+       children: [
+            Loader {
+                id: loader
+                x: -screen.width+AppearanceProvider.rightBarWidth
+                y : -AppearanceProvider.topBarWidth
+                active: true
+                sourceComponent: overlayDecorator
+            }
+        ]
     }
-     Rectangle {
+
+    Rectangle {
         id: contentRect
+
+        property var screen: rightBar.screen
+
         anchors.fill: baseRect
-        color:'transparent'
-        property var screen : rightBar.screen
+        color: 'transparent'
+
         ColumnLayout {
             id: barWidgets
             anchors.fill: parent
             spacing: 1
-            children: rightBar.content  
-            Rectangle {
-                anchors.fill:parent
-            }       
-        }     
+            children: rightBar.content
+
+        }
+
     }
 }

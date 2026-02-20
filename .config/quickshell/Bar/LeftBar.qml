@@ -1,16 +1,19 @@
+import "../Appearance"
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell
-import "../Appearance"
+
 PanelWindow {
     id: leftBar
+
     property list<Item> content
+    property var overlayDecorator
+
     screen: scope.modelData
     implicitWidth: AppearanceProvider.leftBarWidth + AppearanceProvider.leftBarPadding
     color: 'transparent'
     exclusiveZone: AppearanceProvider.leftBarWidth
-
 
     anchors {
         top: true
@@ -19,10 +22,10 @@ PanelWindow {
     }
 
     RectangularShadow {
-        anchors.top:parent.top
-        anchors.left:parent.left
-        anchors.right:parent.right
-        anchors.bottom:parent.bottom
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
         anchors.rightMargin: AppearanceProvider.leftBarPadding
         radius: 0
         offset.x: AppearanceProvider.shadowOffsetX
@@ -31,72 +34,49 @@ PanelWindow {
         spread: AppearanceProvider.shadowSpread
         color: AppearanceProvider.shadowColor
     }
-    Rectangle{
+
+    Rectangle {
         id: baseRect
-        anchors.top:parent.top
-        anchors.left:parent.left
-        anchors.right:parent.right
-        anchors.bottom:parent.bottom
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
         anchors.rightMargin: AppearanceProvider.leftBarPadding
-       //color: AppearanceProvider.backgroundColor
+        color: AppearanceProvider.backgroundColorSecondary
         clip:true
-       Rectangle{
-            rotation:-45
-            height:parent.height
-            width:parent.height
-            anchors.centerIn:parent
-            
-            gradient: Gradient{
-            orientation: Gradient.Vertical
-            GradientStop {
-                    position: 0
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.20
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.200001
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.22
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.220001
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.24
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.240001
-                    color: AppearanceProvider.backgroundColorSecondary
-                }
-        }
-       }
+        children: [
+            Loader {
+                id: loader
+
+                active: true
+                sourceComponent: overlayDecorator
+            }
+        ]
     }
-    // todo:
-    // property var screen : rightBar.screen 
-    // needs to be in every bar... bars need to be unified in a single bar object with orientation
 
     Rectangle {
         id: contentRect
+
+        property var screen: leftBar.screen
+
         anchors.fill: baseRect
-        color:'transparent'
-        property var screen : leftBar.screen
+        color: 'transparent'
+
         ColumnLayout {
             id: barWidgets
+
             anchors.fill: parent
             spacing: 1
-            children: leftBar.content  
+            children: leftBar.content
+
             Rectangle {
-                anchors.fill:parent
+                anchors.fill: parent
                 color: 'red'
-            }       
-        }     
+            }
+
+        }
+
     }
+
 }
