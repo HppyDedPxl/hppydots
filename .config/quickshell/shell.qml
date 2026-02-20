@@ -35,10 +35,10 @@ Variants {
         id:overlayDecoration
 
       Rectangle {
-            height: 1000
-            width: 1000
-            x:900
-            y:500
+            height: 1200
+            width: 600
+            x:modelData.width-(width/1.7)
+            y:modelData.height-(height/1.7)
             rotation: 235
             gradient: Gradient {
                 orientation: Gradient.Horizontal
@@ -47,27 +47,27 @@ Variants {
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.17
+                    position: 0.5
                     color: AppearanceProvider.backgroundColor
                 }
                 GradientStop {
-                    position: 0.170001
+                    position: 0.50000001
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.18
+                    position: 0.7
                     color: AppearanceProvider.accentColor
                 }
                 GradientStop {
-                    position: 0.180001
+                    position: 0.70000001
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.19
+                    position: 0.9
                     color: AppearanceProvider.accentColorLighter
                 }
                 GradientStop {
-                    position: 0.190001
+                    position: 0.90000001
                     color: AppearanceProvider.backgroundColorSecondary
                 }
             }

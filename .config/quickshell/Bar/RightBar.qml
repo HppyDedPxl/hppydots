@@ -46,7 +46,7 @@ PanelWindow {
             Loader {
                 id: loader
                 x: -screen.width+AppearanceProvider.rightBarWidth
-                y : -AppearanceProvider.topBarWidth
+                y: 0
                 active: true
                 sourceComponent: overlayDecorator
             }
