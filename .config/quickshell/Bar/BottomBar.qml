@@ -101,9 +101,6 @@ PanelWindow {
                 y:-screen.height+AppearanceProvider.bottomBarWidth
                 active : true
                 sourceComponent: overlayDecorator  
-                onLoaded:{
-                    console.log(-screen.width)
-                }
             },
             RowLayout {
                 id: barWidgets

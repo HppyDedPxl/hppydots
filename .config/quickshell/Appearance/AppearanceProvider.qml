@@ -44,14 +44,14 @@ Singleton {
     property var rightBarWidth: 15
     property var bottomBarWidth:15
     property var topBarPadding: 60
-    property var leftBarPadding : 40
+    property var leftBarPadding : 60
     property var bottomBarPadding: 45
-    property var rightBarPadding : 40
+    property var rightBarPadding : 60
 
     property var slimBarWidth : 10
     property var rounding: 20
     property var topBarAdornmentSize: 35
-    property var bottomBarAdornmentSize: 35
+    property var bottomBarAdornmentSize: 35 
 
     property var shadowColor: 'black'
     property var shadowBlur : 10

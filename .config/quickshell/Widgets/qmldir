@@ -5,3 +5,4 @@ NotificationList 1.0 NotificationList.qml
 DesktopEntryWidget 1.0 DesktopEntry.qml
 WireguardEntryWidget 1.0 WireguardEntry.qml
 Wallpaper 1.0 Wallpaper.qml
+MusicViz 1.0 MusicViz.qml

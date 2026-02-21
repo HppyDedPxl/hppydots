@@ -2,7 +2,9 @@ import "../Appearance"
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
+import QtQuick.Shapes
 import Quickshell
+import "../Widgets"
 
 PanelWindow {
     id: leftBar
@@ -54,15 +56,41 @@ PanelWindow {
             }
         ]
     }
+          Rectangle {
+          id:rect
+          x:-width/2+height/2+AppearanceProvider.leftBarWidth
+          y:width/2+AppearanceProvider.rounding*2
+          height:AppearanceProvider.leftBarPadding
+          width:screen.height-AppearanceProvider.topBarWidth-AppearanceProvider.bottomBarWidth-AppearanceProvider.rounding*2
+          color:'transparent'
+          rotation:90
+          MusicViz {
+            id:visualizer
+            anchors.fill:parent
+            color:AppearanceProvider.backgroundColorSecondary
+            gradient:LinearGradient {
+                orientation:Gradient.Vertical
+                x1:0
+                y1:0
+                x2:0
+                y2:visualizer.innerShape.height
+                spread: ShapeGradient.RepeatSpread
+                stops: [
+                    GradientStop{
+                   
+                    position: 1
+                    color: AppearanceProvider.backgroundColorSecondary
+                }
+                ]         
+            }
+          }
+      }
 
     Rectangle {
         id: contentRect
-
         property var screen: leftBar.screen
-
         anchors.fill: baseRect
         color: 'transparent'
-
         ColumnLayout {
             id: barWidgets
 
@@ -74,9 +102,7 @@ PanelWindow {
                 anchors.fill: parent
                 color: 'red'
             }
-
         }
-
     }
 
 }

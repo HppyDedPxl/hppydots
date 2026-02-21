@@ -73,7 +73,6 @@ Variants {
             }
         }
     }
-
     LeftBar{
       id:leftBar
       overlayDecorator: overlayDecoration
@@ -104,18 +103,32 @@ Variants {
     id:bottomBar
       overlayDecorator: overlayDecoration
 
-    content:[
+      content:[
 
-        SpacerModule {} ,
-        ApplicationRunnerModule{
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          orientation:2
-          hyprlandOpenShortcut:"open_app_launcher"
-        },
-        SpacerModule {} ,
-          
-    ]}  
+          SpacerModule {} ,
+          ApplicationRunnerModule{
+            textColor:AppearanceProvider.textColorSecondary
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            orientation:2
+            hyprlandOpenShortcut:"open_app_launcher"
+          },
+          SpacerModule {} ,
+            
+      ]}  
+
+
+    PopupWindow {
+      anchor.rect.x: 300
+      anchor.rect.y: 300
+      anchor.window: bottomBar
+      implicitWidth:500
+      implicitHeight:300
+      color:'red'
+      
+    }
+
+    
+
 
     Bar {
       id:topBar
@@ -127,7 +140,7 @@ Variants {
 
         DividerModule {},
 
-                 WireguardModule {
+        WireguardModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
@@ -216,5 +229,6 @@ Variants {
       id:notificationArea
       visible:true         
     }
+
   }
 }

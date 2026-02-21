@@ -3,6 +3,8 @@ import QtQuick.Effects
 import Quickshell
 import QtQuick.Layouts
 import "../Appearance"
+import "../Widgets"
+import "QtQuick.Shapes"
 PanelWindow {
     id: rightBar
     property list<Item> content
@@ -33,6 +35,7 @@ PanelWindow {
         spread: AppearanceProvider.shadowSpread
         color: AppearanceProvider.shadowColor
     }
+
     Rectangle{
         id:baseRect
         anchors.top:parent.top
