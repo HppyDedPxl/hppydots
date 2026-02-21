@@ -39,7 +39,7 @@ Item {
     //     }
     // }
     Shape{
-        visible:MprisHandler.getPrimaryPlayer().isPlaying
+        visible:true
         id:shape
         width:parent.width
         height:parent.height
@@ -57,7 +57,7 @@ Item {
             id: insti
             model: CavaListener.bucketAmount+2
             onObjectAdded: viz.pathElements.push(object)
-            active:MprisHandler.getPrimaryPlayer().isPlaying      
+            active:true    
             PathCurve {
                 required property var index
                 x: (shape.width / (CavaListener.bucketAmount+1)) * index
