@@ -1,4 +1,5 @@
 import QtQuick
+import "./"
 Rectangle {
     property var targetIcon
     property var count
@@ -20,7 +21,7 @@ Rectangle {
         font.pointSize: {
             amountSize > 0 ? amountSize : 2;
         }
-        color: AppearanceProvider.textColor
+        color: AppearanceProvider.accentTextColor
     }
 
 }

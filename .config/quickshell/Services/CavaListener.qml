@@ -7,18 +7,22 @@ import "./"
 Singleton {
     id: cavaListener
     readonly property var bucketAmount:16
-    property list<double> audioData:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    property list<double> audioData:[bucketAmount]
     readonly property var valueRange:1000
     function startListening() {
         cavaProc.running=true;
     }
     function stopListening() {
         cavaProc.running=false;
+        audioData=[bucketAmount]
+    }
+    function isListening(){
+        return cavaProc.running;
     }
 
     Process {
         id: cavaProc
-        running: MprisHandler.getPrimaryPlayer().isPlaying
+        running: true
         command: ["sh","-c",
 `cava -p /dev/stdin <<EOF
 [general]

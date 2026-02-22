@@ -14,13 +14,13 @@ BaseModule {
     dbgName: "mprisModule"
     content: _content
     popupContent: _popupContent
-    visible: MprisHandler.getPrimaryPlayer() != null
+    visible: true
     Component {
         id: _content
         StyledSidebarDock {
             content: Rectangle {
                 id: innerRect
-                visible: true
+                visible: MprisHandler.getPrimaryPlayerUnsafe() != null
                 color : 'transparent'
                 anchors.centerIn:parent
                 width: parent.width-10
@@ -29,7 +29,7 @@ BaseModule {
                 clip: true
                 Image {
                     anchors.fill:parent
-                    source: Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayer().identity).icon)
+                    source: MprisHandler.getPrimaryPlayerUnsafe() ? Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayerUnsafe().identity).icon) : ""
                 }
             }            
         }
@@ -176,10 +176,6 @@ BaseModule {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
                                 width:undefined
-                                border.width: 3
-                                border.color: AppearanceProvider.textColorSecondary
-                                color: AppearanceProvider.accentColor
-                                textColor: AppearanceProvider.textColorSecondary
                                 text : ""
                                 fontSize:30
                                 radius: controls.width/4
@@ -192,10 +188,6 @@ BaseModule {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
                                 width:undefined
-                                border.width: 3
-                                border.color: AppearanceProvider.textColorSecondary
-                                color: AppearanceProvider.accentColor
-                                textColor: AppearanceProvider.textColorSecondary
                                 text : player.isPlaying ? "" : ""
                                 fontSize:30
                                 radius: controls.width/4
@@ -211,10 +203,6 @@ BaseModule {
                                 Layout.preferredWidth:controls.width/4
                                 Layout.preferredHeight:controls.width/4
                                 width:undefined
-                                border.width: 3
-                                border.color: AppearanceProvider.textColorSecondary
-                                color: AppearanceProvider.accentColor
-                                textColor: AppearanceProvider.textColorSecondary
                                 text : ""
                                 fontSize:30
                                 radius: controls.width/4
@@ -335,7 +323,27 @@ BaseModule {
                         }
 
                     }
+                    StyledButton {
+                        width:40
+                        height:40
+                        anchors.bottom:root.bottom
+                        anchors.right:root.right
+                        anchors.bottomMargin:10
+                        anchors.rightMargin:70
+                        color:'transparent'
+                        opacity: CavaListener.isListening() ? 1 : 0.25
+                        text: '󰺢'
+                        buttonPrimaryColor:AppearanceProvider.textColorSecondary
+                        border.width:0
+                        fontSize:23
 
+                        onClick:()=>{
+                            if(CavaListener.isListening())
+                                CavaListener.stopListening()
+                            else
+                                CavaListener.startListening()
+                        }
+                    }
                     Rectangle {
                         width:40
                         height:40

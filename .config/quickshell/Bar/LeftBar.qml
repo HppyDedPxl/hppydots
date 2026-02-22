@@ -16,7 +16,7 @@ PanelWindow {
     implicitWidth: AppearanceProvider.leftBarWidth + AppearanceProvider.leftBarPadding
     color: 'transparent'
     exclusiveZone: AppearanceProvider.leftBarWidth
-
+    mask : Region {regions: {barWidgets.children.map(x=>x.region)}}
     anchors {
         top: true
         bottom: true
@@ -59,15 +59,17 @@ PanelWindow {
           Rectangle {
           id:rect
           x:-width/2+height/2+AppearanceProvider.leftBarWidth
-          y:width/2+AppearanceProvider.rounding*2
+          y:width/2
           height:AppearanceProvider.leftBarPadding
-          width:screen.height-AppearanceProvider.topBarWidth-AppearanceProvider.bottomBarWidth-AppearanceProvider.rounding*2
+          width:screen.height
           color:'transparent'
           rotation:90
           MusicViz {
             id:visualizer
             anchors.fill:parent
             color:AppearanceProvider.backgroundColorSecondary
+            beginPadding:AppearanceProvider.rounding*2
+            endPadding:AppearanceProvider.rounding*3 + AppearanceProvider.bottomBarWidth
             gradient:LinearGradient {
                 orientation:Gradient.Vertical
                 x1:0

@@ -4,6 +4,7 @@ import Quickshell.Io
 import "../Appearance"
 import "../Services"
 import QtQuick.Shapes
+import QtQuick.Effects
 
 
 Item {
@@ -13,37 +14,21 @@ Item {
     property var color
     property var gradient
     property var innerShape: shape
+    property var beginPadding : 0
+    property var endPadding : 0
     
     Rectangle {
         anchors.fill : parent
         color: 'transparent'
     }
 
-    // StyledButton {
-    //     anchors.centerIn : parent
-    //     width: 50
-    //     height: 50
-    //     text : base.running?"stop":"start"
-    //     onClick: ()=>{
-    //         base.running = !base.running;
-    //         if(base.running){
-    //             CavaListener.startListening()
-    //             shape.visible = true;
-    //             insti.active=true
-    //         }
-    //         else{
-    //             CavaListener.stopListening()
-    //             insti.active=true
-
-    //         }
-    //     }
-    // }
     Shape{
         visible:true
         id:shape
         width:parent.width
         height:parent.height
         y:shape.height    
+        antialiasing:true
         ShapePath{
             id: viz
             capStyle: ShapePath.RoundCap
@@ -56,31 +41,14 @@ Item {
         Instantiator {
             id: insti
             model: CavaListener.bucketAmount+2
-            onObjectAdded: viz.pathElements.push(object)
+            onObjectAdded: (idx,obj)=>{viz.pathElements.push(obj)}
             active:true    
             PathCurve {
                 required property var index
-                x: (shape.width / (CavaListener.bucketAmount+1)) * index
+                x: (beginPadding) + ((shape.width  - (beginPadding + endPadding)) / (CavaListener.bucketAmount+1)) * index
                 y:  -((index == 0 || index == CavaListener.bucketAmount+1) ? 0 : ((CavaListener.audioData[index-1]/CavaListener.valueRange)*shape.height))
                 Behavior on y { NumberAnimation { duration: 50 } }
             }
         }
     }
-
-    // Repeater {
-    //     model : 10
-    //     Rectangle {
-    //         id:bar
-    //         required property var modelData
-    //         required property var index
-    //         x: (parent.width / 10) * index
-    //         y: 0
-    //         width: (parent.width / 10)
-    //         height: CavaListener.audioData[index]
-    //         color: 'green'
-    //         Behavior on height { NumberAnimation { duration: 50 } }
-    //     }
-    // }
-    
-    
 }

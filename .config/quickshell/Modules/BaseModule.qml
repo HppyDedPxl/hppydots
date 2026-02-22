@@ -28,6 +28,7 @@ Rectangle {
     property var orientation : 0
     property var targetBar : parent.parent
     property var hyprlandOpenShortcut: ""
+    property var region: Region {}
     
     property var isPopupOpen:()=>{
         return popup.bOpen
@@ -85,7 +86,7 @@ Rectangle {
     }
     
     height: orientation % 2 == 0 ? parent.height : width
-    width: mainContent.item.childrenRect.width
+    width: mainContent.item ? mainContent.item.width : 0
     color: "transparent"
     
     states: [
@@ -208,6 +209,9 @@ Rectangle {
         anchors.fill: parent
         active: true
         sourceComponent: content
+        onLoaded: {
+            baseModule.region.item = mainContent.item
+        }
     }
     Process {
         id: onClickAction

@@ -31,48 +31,180 @@ Variants {
       }
     }
 
-    Component { 
-        id:overlayDecoration
+  // PanelWindow {
+  //   color:'transparent'
+  //   anchors {
+  //       top: true
+  //       bottom: true
+  //       right: true
+  //       left:true
+  //   }
+  //   exclusiveZone:0
+  //   mask: Region{id:msk;regions:[]}
+  //   Rectangle{
+  //     anchors.fill:parent
+  //     opacity:0.1
+  //     Shape {
+  //       ShapePath {
+  //         strokeColor:white
+  //         fillGradient: LinearGradient {
+  //               orientation: Gradient.Horizontal
+  //               GradientStop {
+  //                   position: 0
+  //                   color: AppearanceProvider.backgroundColor
+  //               }
+  //               GradientStop {
+  //                   position: 0.5
+  //                   color: AppearanceProvider.backgroundColor
+  //               }
+  //               GradientStop {
+  //                   position: 0.50000001
+  //                   color: AppearanceProvider.accentColor
+  //               }
+  //               GradientStop {
+  //                   position: 0.7
+  //                   color: AppearanceProvider.accentColor
+  //               }
+  //               GradientStop {
+  //                   position: 0.70000001
+  //                   color: AppearanceProvider.accentColorLighter
+  //               }
+  //               GradientStop {
+  //                   position: 0.9
+  //                   color: AppearanceProvider.accentColorLighter
+  //               }
+  //               GradientStop {
+  //                   position: 0.90000001
+  //                   color: AppearanceProvider.backgroundColorSecondary
+  //               }
+  //           }
+  //         startX:modelData.width
+  //         startY :modelData.height/1.5
 
-      Rectangle {
-            height: 1200
-            width: 600
-            x:modelData.width-(width/1.7)
-            y:modelData.height-(height/1.7)
-            rotation: 235
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop {
-                    position: 0
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.5
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.50000001
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.7
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.70000001
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.9
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.90000001
-                    color: AppearanceProvider.backgroundColorSecondary
-                }
-            }
+  //         PathLine {
+  //           x: modelData.width
+  //           y: modelData.height/1.5
+  //         }
+  //         PathLine{
+  //           x:modelData.width
+  //           y:modelData.height
+  //         }
+  //         PathLine{
+  //            x:modelData.width/1.5
+  //             y:modelData.height
+  //         }
+
+  //       }
+  //   }
+    
+  // }
+    Component { 
+      id:overlayDecoration
+      Shape {
+        layer.enabled:true
+        ShapePath {
+          strokeColor:'transparent'
+          strokeWidth:0
+          fillColor: AppearanceProvider.highlightColor
+          startX:modelData.width
+          startY :modelData.height/1.3
+          PathLine {
+            x: modelData.width
+            y: modelData.height/1.3
+          }
+          PathLine{
+            x:modelData.width
+            y:modelData.height
+          }
+          PathLine{
+            x:modelData.width/1.2
+              y:modelData.height
+          }
         }
+        Shape {
+          ShapePath {
+            strokeColor:'transparent'
+            strokeWidth:0
+            fillColor: AppearanceProvider.accentColor
+            startX:modelData.width
+            startY :modelData.height/1.2
+            PathLine {
+              x: modelData.width
+              y: modelData.height/1.2
+            }
+            PathLine{
+              x:modelData.width
+              y:modelData.height
+            }
+            PathLine{
+              x:modelData.width/1.1
+              y:modelData.height
+            }
+          }
+          Shape {
+            ShapePath {
+              strokeColor:'transparent'
+              strokeWidth:0
+              fillColor: AppearanceProvider.backgroundColor
+              startX:modelData.width
+              startY :modelData.height/1.1
+              PathLine {
+                x: modelData.width
+                y: modelData.height/1.1
+              }
+              PathLine{
+                x:modelData.width
+                y:modelData.height
+              }
+              PathLine{
+                x:modelData.width/1.05
+                y:modelData.height
+              }
+            }
+          }
+        }
+      }
     }
+
+      // Rectangle {
+      //       height: 1200
+      //       width: 600
+      //       x:modelData.width-(width/1.7)
+      //       y:modelData.height-(height/1.7)
+      //       rotation: 235
+      //       gradient: Gradient {
+      //           orientation: Gradient.Horizontal
+      //           GradientStop {
+      //               position: 0
+      //               color: AppearanceProvider.backgroundColor
+      //           }
+      //           GradientStop {
+      //               position: 0.5
+      //               color: AppearanceProvider.backgroundColor
+      //           }
+      //           GradientStop {
+      //               position: 0.50000001
+      //               color: AppearanceProvider.accentColor
+      //           }
+      //           GradientStop {
+      //               position: 0.7
+      //               color: AppearanceProvider.accentColor
+      //           }
+      //           GradientStop {
+      //               position: 0.70000001
+      //               color: AppearanceProvider.accentColorLighter
+      //           }
+      //           GradientStop {
+      //               position: 0.9
+      //               color: AppearanceProvider.accentColorLighter
+      //           }
+      //           GradientStop {
+      //               position: 0.90000001
+      //               color: AppearanceProvider.backgroundColorSecondary
+      //           }
+      //       }
+      //   }
+    
     LeftBar{
       id:leftBar
       overlayDecorator: overlayDecoration
@@ -115,17 +247,6 @@ Variants {
           SpacerModule {} ,
             
       ]}  
-
-
-    PopupWindow {
-      anchor.rect.x: 300
-      anchor.rect.y: 300
-      anchor.window: bottomBar
-      implicitWidth:500
-      implicitHeight:300
-      color:'red'
-      
-    }
 
     
 
