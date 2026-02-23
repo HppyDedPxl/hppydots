@@ -113,7 +113,6 @@ Variants {
         MprisModule{
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           width:40
-          orientation:3
         },
         SpacerModule{}
       ]
@@ -152,7 +151,6 @@ Variants {
           ApplicationRunnerModule{
             textColor:AppearanceProvider.textColorSecondary
             usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-            orientation:2
             hyprlandOpenShortcut:"open_app_launcher"
           },
           SpacerModule {} ,

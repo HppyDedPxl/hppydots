@@ -25,8 +25,8 @@ Rectangle {
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
-    property var orientation : 0
-    property var targetBar : parent.parent
+    readonly property var targetBar : parent.parent
+    readonly property var orientation : targetBar.orientation
     property var hyprlandOpenShortcut: ""
     property var region: Region {}
     

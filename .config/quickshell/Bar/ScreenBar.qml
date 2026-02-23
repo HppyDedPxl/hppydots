@@ -40,7 +40,6 @@ PanelWindow {
             [0,barPadding,0,0],
     ];
 
-
     readonly property var adornmentRotationL: [270,90,180,270]
     readonly property var adornmentRotationR: [0,0,90,180]
 
@@ -56,7 +55,7 @@ PanelWindow {
         [bar.width - adornmentSize, barPadding - adornmentSize ],
         [barWidth,bar.height-adornmentSize]
     ]
-    // Todo: determine offsets for all orientations
+
     readonly property var decorationLoaderXPreset: [0,-screen.width+barWidth,0,0]
     readonly property var decorationLoaderYPreset: [0,0,-screen.height+barWidth,0]
 
@@ -120,7 +119,6 @@ PanelWindow {
             color:bar.debug?'red':'transparent'
             anchors.fill:parent
             opacity:0.3
-
         }
     }
 
@@ -172,6 +170,7 @@ PanelWindow {
     Rectangle {
         id: contentRect
         property var screen: bar.screen
+        property var orientation : bar.orientation
         anchors.fill: baseRect
         width: baseRect.width
         height: baseRect.height
