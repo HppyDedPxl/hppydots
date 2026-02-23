@@ -171,6 +171,7 @@ PanelWindow {
         id: contentRect
         property var screen: bar.screen
         property var orientation : bar.orientation
+        property var barWidth : bar.barWidth
         anchors.fill: baseRect
         width: baseRect.width
         height: baseRect.height

@@ -45,7 +45,7 @@ Singleton {
     property var rightBarWidth: 15
     property var bottomBarWidth:15
     property var topBarPadding: 60
-    property var leftBarPadding : 55
+    property var leftBarPadding : 65
     property var bottomBarPadding: 60
     property var rightBarPadding : 40
 

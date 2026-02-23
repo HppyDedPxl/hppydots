@@ -4,16 +4,23 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
-
+import QtQuick.Shapes
+import QtQuick.Effects
 import "./"
 import "../Services"
 import "../Appearance"
+import "../Widgets"
 
 BaseModule {
     id:baseModule
     dbgName: "mprisModule"
     content: _content
     popupContent: _popupContent
+    doPopupScaleAnimation:false
+    bPopupSupportsAttachment:true
+    popupAttachmentSlotSize:60
+    popupAttachment : musicViz
+
     visible: true
     Component {
         id: _content
@@ -369,6 +376,24 @@ BaseModule {
   
                 }
             }
+        }
+    }
+
+    Component {
+        id:musicViz
+        Rectangle {
+            id:rec
+            color:'transparent'
+            MusicViz {
+                width:parent.width
+                height:parent.height
+                orientation: baseModule.orientation
+                gradient: LinearGradient {
+                    GradientStop {
+                        color: AppearanceProvider.backgroundColorSecondary
+                    }
+                }
+            }   
         }
     }
 }

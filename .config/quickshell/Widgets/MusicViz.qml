@@ -10,23 +10,33 @@ import QtQuick.Effects
 Item {
     id: base
     property var running: false
-    anchors.fill:parent
     property var color
     property var gradient
     property var innerShape: shape
     property var beginPadding : 0
     property var endPadding : 0  
+    property var orientation : 0
+
+
+
     Rectangle {
         anchors.fill : parent
         color: 'transparent'
     }
+
     Shape{
         id:shape
         visible:true
-        width:parent.width
-        height:parent.height
-        y:shape.height    
+        width:orientation % 2 == 0 ? parent.width : parent.height
+        height:orientation % 2 == 0 ? parent.height : parent.width
+        y:0  
         antialiasing:true
+        transform:Rotation{
+            origin.x:0
+            origin.y:0
+            angle: 360 - orientation * 90
+        }
+ 
         ShapePath{
             id: viz
             capStyle: ShapePath.RoundCap
@@ -34,7 +44,7 @@ Item {
             strokeWidth: 3
             strokeColor: AppearanceProvider.backgroundColorSecondary
             strokeStyle: ShapePath.SolidLine
-            fillGradient:gradient
+            fillGradient:gradient      
         }
         Instantiator {
             id: insti
