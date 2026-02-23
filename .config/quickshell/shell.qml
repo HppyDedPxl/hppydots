@@ -31,76 +31,10 @@ Variants {
       }
     }
 
-  // PanelWindow {
-  //   color:'transparent'
-  //   anchors {
-  //       top: true
-  //       bottom: true
-  //       right: true
-  //       left:true
-  //   }
-  //   exclusiveZone:0
-  //   mask: Region{id:msk;regions:[]}
-  //   Rectangle{
-  //     anchors.fill:parent
-  //     opacity:0.1
-  //     Shape {
-  //       ShapePath {
-  //         strokeColor:white
-  //         fillGradient: LinearGradient {
-  //               orientation: Gradient.Horizontal
-  //               GradientStop {
-  //                   position: 0
-  //                   color: AppearanceProvider.backgroundColor
-  //               }
-  //               GradientStop {
-  //                   position: 0.5
-  //                   color: AppearanceProvider.backgroundColor
-  //               }
-  //               GradientStop {
-  //                   position: 0.50000001
-  //                   color: AppearanceProvider.accentColor
-  //               }
-  //               GradientStop {
-  //                   position: 0.7
-  //                   color: AppearanceProvider.accentColor
-  //               }
-  //               GradientStop {
-  //                   position: 0.70000001
-  //                   color: AppearanceProvider.accentColorLighter
-  //               }
-  //               GradientStop {
-  //                   position: 0.9
-  //                   color: AppearanceProvider.accentColorLighter
-  //               }
-  //               GradientStop {
-  //                   position: 0.90000001
-  //                   color: AppearanceProvider.backgroundColorSecondary
-  //               }
-  //           }
-  //         startX:modelData.width
-  //         startY :modelData.height/1.5
-
-  //         PathLine {
-  //           x: modelData.width
-  //           y: modelData.height/1.5
-  //         }
-  //         PathLine{
-  //           x:modelData.width
-  //           y:modelData.height
-  //         }
-  //         PathLine{
-  //            x:modelData.width/1.5
-  //             y:modelData.height
-  //         }
-
-  //       }
-  //   }
-    
-  // }
     Component { 
       id:overlayDecoration
       Shape {
+        id:deco
         layer.enabled:true
         ShapePath {
           strokeColor:'transparent'
@@ -166,49 +100,14 @@ Variants {
       }
     }
 
-      // Rectangle {
-      //       height: 1200
-      //       width: 600
-      //       x:modelData.width-(width/1.7)
-      //       y:modelData.height-(height/1.7)
-      //       rotation: 235
-      //       gradient: Gradient {
-      //           orientation: Gradient.Horizontal
-      //           GradientStop {
-      //               position: 0
-      //               color: AppearanceProvider.backgroundColor
-      //           }
-      //           GradientStop {
-      //               position: 0.5
-      //               color: AppearanceProvider.backgroundColor
-      //           }
-      //           GradientStop {
-      //               position: 0.50000001
-      //               color: AppearanceProvider.accentColor
-      //           }
-      //           GradientStop {
-      //               position: 0.7
-      //               color: AppearanceProvider.accentColor
-      //           }
-      //           GradientStop {
-      //               position: 0.70000001
-      //               color: AppearanceProvider.accentColorLighter
-      //           }
-      //           GradientStop {
-      //               position: 0.9
-      //               color: AppearanceProvider.accentColorLighter
-      //           }
-      //           GradientStop {
-      //               position: 0.90000001
-      //               color: AppearanceProvider.backgroundColorSecondary
-      //           }
-      //       }
-      //   }
-    
-    LeftBar{
+    ScreenBar{
       id:leftBar
       overlayDecorator: overlayDecoration
-
+      barWidth: AppearanceProvider.leftBarWidth
+      barPadding: AppearanceProvider.leftBarPadding
+      orientation: 3
+      withAdornments: false
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
       content:[
         SpacerModule{}, 
         MprisModule{
@@ -220,21 +119,33 @@ Variants {
       ]
     }
 
-    RightBar{
+    ScreenBar{
       id:rightBar
+      barWidth: AppearanceProvider.rightBarWidth
+      barPadding: AppearanceProvider.rightBarPadding
+      orientation: 1
       overlayDecorator: overlayDecoration
-
+      withAdornments:false
+      leftDecoratorColor: AppearanceProvider.backgroundColor
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
+      debug:false
       content:[
         SpacerModule{},
         SpacerModule{},
         SpacerModule{},
       ]
     }
-    
-    BottomBar{
-    id:bottomBar
-      overlayDecorator: overlayDecoration
 
+    
+    ScreenBar{
+      id:bottomBar
+      overlayDecorator: overlayDecoration
+      barWidth: AppearanceProvider.bottomBarWidth
+      barPadding: AppearanceProvider.bottomBarPadding
+      withAdornments:true
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
+      rightDecoratorColor: AppearanceProvider.backgroundColor
+      orientation: 2
       content:[
 
           SpacerModule {} ,
@@ -248,12 +159,15 @@ Variants {
             
       ]}  
 
-    
-
-
-    Bar {
+    ScreenBar {
       id:topBar
       overlayDecorator: overlayDecoration
+      barWidth: AppearanceProvider.topBarWidth
+      barPadding: AppearanceProvider.topBarPadding
+      adornmentSize: AppearanceProvider.topBarAdornmentSize
+      withAdornments:true
+      orientation : 0
+
       content:[
         SpacerModule {
           preferredWidth:20
@@ -329,9 +243,6 @@ Variants {
          ControlCenterModule {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           textColor:AppearanceProvider.textColorSecondary
-
-         // width:40
-         // orientation:1
         },   
         DividerModule {},
         TimeModule {
@@ -346,6 +257,7 @@ Variants {
         }      
       ]
     }
+
     OverlayNotificationArea{
       id:notificationArea
       visible:true         

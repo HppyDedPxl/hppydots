@@ -9,7 +9,6 @@ import Quickshell
 
 Item {
     id: root
-
     property alias color: rect.color
     property var content : []
     property var isLeftAligned: false
@@ -28,7 +27,6 @@ Item {
 
     MultiEffect {
         id: shadowEffect
-
         source: shapeL
         anchors.fill: shapeL
         shadowBlur: 1
@@ -42,7 +40,6 @@ Item {
 
     MultiEffect {
         id: shadowEffect2
-
         source: shapeR
         anchors.fill: shapeR
         shadowBlur: 1
@@ -71,21 +68,18 @@ Item {
 
     Shape {
         id: shapeL
-
         preferredRendererType: Shape.CurveRenderer
         x: rect.x + rect.width + AppearanceProvider.rounding
         y: 0
         width: AppearanceProvider.rounding
         height: AppearanceProvider.rounding
         visible: !root.isLeftAligned
-
         ShapePath {
             strokeWidth: 0
             strokeColor: 'red'
             fillColor: rect.color
             startX: 0
             startY: 0
-
             PathArc {
                 x: -AppearanceProvider.rounding
                 y: AppearanceProvider.rounding
@@ -94,31 +88,24 @@ Item {
                 useLargeArc: false
                 direction: PathArc.Counterclockwise
             }
-
             PathLine {
                 x: -AppearanceProvider.rounding
                 y: -AppearanceProvider.rounding
             }
-
             PathLine {
                 x: -AppearanceProvider.rounding
                 y: 0
             }
-
         }
-
     }
-
     Shape {
         id: shapeR
-
         preferredRendererType: Shape.CurveRenderer
         x: rect.x
         y: 0
         width: AppearanceProvider.rounding
         height: AppearanceProvider.rounding
         visible: !isRightAligned
-
         ShapePath {
             strokeWidth: 0
             strokeColor: 'red'
@@ -134,19 +121,14 @@ Item {
                 useLargeArc: false
                 direction: PathArc.Clockwise
             }
-
             PathLine {
                 x: 0
                 y: -AppearanceProvider.rounding
             }
-
             PathLine {
                 x: 0
                 y: 0
             }
-
         }
-
     }
-
 }

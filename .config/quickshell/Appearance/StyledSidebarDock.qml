@@ -6,7 +6,7 @@ import "../Services"
 Rectangle {
     height: parent.height
     width: parent.width
-    x: baseModule.orientation == 1 ? -parent.width/2 : 0
+    x: baseModule.orientation % 2 != 0 ? ( (baseModule.orientation == 1 ? -1:1) * parent.width/3) : 0
     color:'transparent'
     radius:AppearanceProvider.rounding
     required property var content

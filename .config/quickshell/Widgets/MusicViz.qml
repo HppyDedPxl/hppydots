@@ -15,16 +15,14 @@ Item {
     property var gradient
     property var innerShape: shape
     property var beginPadding : 0
-    property var endPadding : 0
-    
+    property var endPadding : 0  
     Rectangle {
         anchors.fill : parent
         color: 'transparent'
     }
-
     Shape{
-        visible:true
         id:shape
+        visible:true
         width:parent.width
         height:parent.height
         y:shape.height    
@@ -33,11 +31,11 @@ Item {
             id: viz
             capStyle: ShapePath.RoundCap
             joinStyle: ShapePath.RoundJoin
-            strokeWidth: 0
+            strokeWidth: 3
+            strokeColor: AppearanceProvider.backgroundColorSecondary
             strokeStyle: ShapePath.SolidLine
             fillGradient:gradient
         }
-
         Instantiator {
             id: insti
             model: CavaListener.bucketAmount+2

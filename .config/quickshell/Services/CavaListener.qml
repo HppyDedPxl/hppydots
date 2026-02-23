@@ -36,10 +36,10 @@ data_format = ascii
 ascii_max_range = ${valueRange}
 bar_delimiter = 59
 [smoothing]
-monstercat = 1.5
+monstercat = 1
 waves = 0
-gravity = 100
-noise_reduction = 0.20
+gravity = 70
+noise_reduction = 0.60
 EOF`]
 
         stdout: SplitParser {
