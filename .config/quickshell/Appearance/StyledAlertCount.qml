@@ -3,7 +3,7 @@ import "./"
 Rectangle {
     property var targetIcon
     property var count
-    width: targetIcon.width/2.3
+    width: count >= 100 ? targetIcon.width/1.6 : targetIcon.width/2.3
     height: targetIcon.width/2.3
     radius: targetIcon.width / 2.3
     anchors.bottom: targetIcon.bottom
