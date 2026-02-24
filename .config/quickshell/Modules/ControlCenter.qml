@@ -54,7 +54,7 @@ BaseModule {
                         text: "󰍃"
                         fontSize: 30
                         onClick:()=>{
-                            sendProcess.command=["logout"]
+                            sendProcess.command=["sh","-c","logout"]
                             sendProcess.running=true
                         }
                     }
@@ -69,7 +69,7 @@ BaseModule {
                         text: ""
                         fontSize: 30
                         onClick:()=>{
-                            sendProcess.command=["hyprlock"]
+                            sendProcess.command=["sh","-c","hyprlock"]
                             sendProcess.running=true
                         }
                     }
@@ -84,7 +84,7 @@ BaseModule {
                         text: "󰑓"
                         fontSize: 30
                         onClick:()=>{
-                            sendProcess.command=["reboot"]
+                            sendProcess.command=["sh","-c","systemctl reboot"]
                             sendProcess.running=true
                         }
                     }
@@ -99,7 +99,7 @@ BaseModule {
                         text: ""
                         fontSize: 30
                         onClick:()=>{
-                            sendProcess.command=["shutdown"]
+                            sendProcess.command=["sh","-c","systemctl poweroff"]
                             sendProcess.running=true
                         }
                     }
