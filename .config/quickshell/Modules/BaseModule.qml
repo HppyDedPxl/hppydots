@@ -25,9 +25,14 @@ Rectangle {
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
-    property var orientation : 0
-    property var targetBar : parent.parent
+    readonly property var targetBar : parent.parent
+    readonly property var orientation : targetBar.orientation
     property var hyprlandOpenShortcut: ""
+    property var region: Region {}
+    property var doPopupScaleAnimation : true
+    property var bPopupSupportsAttachment : false
+    property var popupAttachmentSlotSize : 0
+    property var popupAttachment : null
     
     property var isPopupOpen:()=>{
         return popup.bOpen
@@ -70,7 +75,6 @@ Rectangle {
         }
     }
     
-
     property var mainContentLoader: mainContent
 
     function openPopup() {
@@ -85,7 +89,8 @@ Rectangle {
     }
     
     height: orientation % 2 == 0 ? parent.height : width
-    width: mainContent.item.childrenRect.width
+    width: mainContent.item ? mainContent.item.width : 0
+    
     color: "transparent"
     
     states: [
@@ -102,7 +107,7 @@ Rectangle {
         State {
             name: "open"
             when: (bPopupOnHover && (baseModule.bIsHovered == true || popup.bIsHovered == true)) || bInhibitClose == true || popup.hyprlandGrabber.active
-
+            
             PropertyChanges {
                 popup {
                     bOpen: true
@@ -160,12 +165,35 @@ Rectangle {
         ]
     }
 
+    Rectangle {
+        id:rect
+        color:'transparent'
+        // Todo: for all orientations... 
+        x: -baseModule.x + targetBar.barWidth
+        y: -popup.attachmentRect.height / 2
+        width: {return popup.attachmentRect.width}
+        height: {return popup.attachmentRect.height}
+        Loader {
+            id: attachmentLoader
+            active: !baseModule.isPopupOpen()
+            anchors.fill:parent
+            sourceComponent: popupAttachment
+        }
+    }
+
+
     Popout {
         id: popup
+        visible: true && !doPopupScaleAnimation
         content: popupContent
         overrideWidth: popupOverrideWidth
         orientation: baseModule.orientation
         targetBar:baseModule.targetBar
+        doScaling: doPopupScaleAnimation
+        supportsAttachment:bPopupSupportsAttachment
+        attachmentSize:popupAttachmentSlotSize
+        attachment:popupAttachment
+
         onPopupStartOpen: ()=>{
             if(baseModule.onPopupStartOpen)
                 baseModule.onPopupStartOpen();
@@ -201,13 +229,21 @@ Rectangle {
             if(loadedPopupContent && loadedPopupContent.onPopupClosed)
                 loadedPopupContent.onPopupClosed()
         }
+
+        onReady:{
+        }
     }
+
+
 
     Loader {
         id: mainContent
         anchors.fill: parent
         active: true
         sourceComponent: content
+        onLoaded: {
+            baseModule.region.item = mainContent.item
+        }
     }
     Process {
         id: onClickAction
@@ -240,6 +276,8 @@ Rectangle {
             }
         }
     }
+
+    
 }
 
 

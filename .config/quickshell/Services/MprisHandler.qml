@@ -39,6 +39,11 @@ Singleton {
             primaryActivePlayerIndex = 0;      
     }
 
+
+    function getPrimaryPlayerUnsafe(){
+        return Mpris.players.values[primaryActivePlayerIndex];
+    }
+
     function getPrimaryPlayer() {
         if (Mpris.players.values.length == 0) {
             primaryActivePlayerIndex = -1

@@ -8,7 +8,7 @@ Rectangle {
     property var onClick: ()=>{}
     radius: AppearanceProvider.rounding / 2
     border.width:4
-    property var buttonPrimaryColor : AppearanceProvider.accentColor
+    property var buttonPrimaryColor : AppearanceProvider.backgroundColor
     border.color:buttonPrimaryColor
     color: Qt.darker(buttonPrimaryColor)
     property var hoverColor: Qt.lighter(buttonPrimaryColor)

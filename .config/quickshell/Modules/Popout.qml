@@ -9,7 +9,6 @@ import Quickshell.Wayland
 
 PopupWindow {
     id: root
-    
     property var margin: AppearanceProvider.rounding
     property var bIsHovered: hoverHandler.hovered
     property Component content
@@ -22,6 +21,9 @@ PopupWindow {
     property var targetBar: null
     property var orientation: 0
     property var _autoFocusItem: null
+    
+    property var supportsAttachment : false
+    property var attachmentSize : 0
 
     property var onPopupStartOpen: ()=>{}
     property var onPopupOpened: ()=>{}
@@ -29,7 +31,31 @@ PopupWindow {
     property var onPopupClosed: ()=>{}    
     property alias loadedContent : c.item
 
-    
+    property var doScaling : true
+    property var attachment : null
+    property var isClosing : false;
+
+    signal ready
+
+    readonly property alias attachmentRect : attachment
+
+    color: 'transparent'
+
+
+    function updateMask() {
+        root.mask = root.bOpen ? noReg : fullReg
+    }
+
+    Region {
+        id:noReg
+        item:attachment
+        intersection:Intersection.Xor
+    }
+    Region {
+        id:fullReg
+        item : null
+    }
+
     function openOnClick() {
         grab.active = true;
     }
@@ -93,13 +119,13 @@ PopupWindow {
         if(orientation == 0 || orientation == 2)
             return  (overrideWidth > 0 ? overrideWidth : c.width) + margin * 2;
         else{
-            return c.width + AppearanceProvider.shadowBlur;
+            return c.width + AppearanceProvider.shadowBlur + (supportsAttachment ? root.attachmentSize : 0);
         }
     }
 
     function calculateImplicitHeight() {
         if(orientation == 0 || orientation == 2)
-            return c.height + AppearanceProvider.shadowBlur;
+            return c.height + AppearanceProvider.shadowBlur + (supportsAttachment ? root.attachmentSize : 0);
         else{
             return (overrideWidth > 0 ? overrideWidth : c.height) + margin * 2;
         }
@@ -260,13 +286,38 @@ PopupWindow {
         }
     }
 
+    function calculateAttachmentSize(){
+
+        if(orientation % 2 == 0)
+            return {x:c.width-AppearanceProvider.rounding*2, y:root.attachmentSize}
+        else
+            return {x:root.attachmentSize,y:c.height-AppearanceProvider.rounding*2}
+        
+    }
+
+    function calculateAttachmentOffset(){
+        if(orientation % 2 == 0)
+            return {x:AppearanceProvider.rounding*2, y:0}
+        else
+            return {x:0,y:AppearanceProvider.rounding*2}
+        
+    }
+
+    function setPopupAttachmentAnchors(attachmentRect){
+        if(orientation == 0)
+            attachmentRect.anchors.top = rect.bottom
+        if(orientation == 3)
+            attachmentRect.anchors.left = rect.right
+    }
+
+
     // todo, everything for side bars left right :) this will be fun
     anchor.window: orientation == 0 ? topBar : bottomBar
     anchor.rect.x: calculateAnchorX()
     anchor.rect.y: calculateAnchorY()
     implicitWidth: calculateImplicitWidth()
     implicitHeight: calculateImplicitHeight()
-    color: 'transparent'
+    
 
     Item {
         states: [
@@ -291,12 +342,15 @@ PopupWindow {
                     }
 
                 }
-
+            },
+            State {
+                name: "closed"
+                when: root.bOpen == false
             }
         ]
         transitions: [
             Transition {
-                from: "*"
+                from: "closed"
                 to: "open"
                 reversible: true
 
@@ -317,10 +371,13 @@ PopupWindow {
                                     root.onPopupStartOpen()
                                     PopupObserver.registerOpenPopup(root)
                                 }
-                                if(state == "closed")
-                                {
+                                if(state == "closed" && isClosing)
+                                {   
+
                                     root.onPopupClosed()
+                                    root.updateMask();
                                     PopupObserver.deregisterOpenPopup(root)
+                                    isClosing=false
                                 }
                             }
                         }
@@ -351,12 +408,14 @@ PopupWindow {
                             script: {
                                 if(state == "closed")
                                 {
+                                    isClosing = true
                                     root.onPopupStartClosing()
 
                                 }
                                 if(state == "open")
                                 {
                                     root.onPopupOpened()
+                                    root.updateMask()
                                 }
                             }
                         }
@@ -423,21 +482,43 @@ PopupWindow {
 
                 Loader {
                     id: c
-
-                    active: root.visible
+                    active: true
                     anchors.centerIn: parent
                     sourceComponent: content !== null ? content : dummyContent
+                    onLoaded:{
+                        root.updateMask()
+                        root.ready()
+                    }
                 }
+            }
 
+            Rectangle {
+                id: attachment
+                visible: supportsAttachment
+                x: calculateAttachmentOffset().x
+                y: calculateAttachmentOffset().y
+                width: calculateAttachmentSize().x
+                height:calculateAttachmentSize().y
+                color:'transparent'
+                opacity:1
+                Component.onCompleted:()=>{
+                    setPopupAttachmentAnchors(attachment);
+                }
+                Loader {
+                    id: attachmentLoader
+                    active: bPopupSupportsAttachment && root.attachment != null
+                    anchors.fill:parent
+                    sourceComponent: root.attachment
+                }
             }
 
         }
+        // * Horizontal Adornments
         Item{
             id: adornmentShapesHorizontal
             visible: root.orientation % 2 == 0
             StyledCurveConnector {
                 id: shapeL
-
                 size: AppearanceProvider.rounding
                 rotation: calculateLeftShapeRotation()
             }
@@ -451,6 +532,7 @@ PopupWindow {
                 anchors.leftMargin: root.width - AppearanceProvider.rounding
             }
         }
+        // * Vertical Adornments
         Item{
             id: adornmentShapesVertical
             visible: root.orientation % 2 != 0
@@ -474,8 +556,8 @@ PopupWindow {
             id: scale
             origin.x: calculateXOriginForOrientation()//root.width / 2
             origin.y: calculateYOriginForOrientation()
-            xScale: 0
-            yScale: 0
+            xScale: doScaling ? 0 : 1
+            yScale: doScaling ? 0 : 1
         }
 
     }

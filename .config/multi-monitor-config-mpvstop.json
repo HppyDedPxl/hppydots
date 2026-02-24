@@ -1,19 +1,22 @@
 {
     "monitors" : 
     [
-        {
-            "name":"HDMI-A-1",
-            "mpvsocket":"/tmp/mpv-socket-HDMI-A-1",
-            "stopOnPctScreenCovered": true,
-            "maxPctScreenCovered": 0.33
-        },
-        {
+          {
             "name":"DP-1",
             "mpvsocket":"/tmp/mpv-socket-DP-1",
             "stopOnPctScreenCovered": true,
             "maxPctScreenCovered": 0.15
         }
-        ,
+        
+    ],
+    "inactive":
+    [
+{
+            "name":"HDMI-A-1",
+            "mpvsocket":"/tmp/mpv-socket-HDMI-A-1",
+            "stopOnPctScreenCovered": true,
+            "maxPctScreenCovered": 0.33
+        },
         {
             "name":"DP-2",
             "mpvsocket":"/tmp/mpv-socket-DP-2",

@@ -4,6 +4,8 @@ import QtQuick
 import QtQuick.Layouts
 
 Rectangle{
+    id: rect
+    function getRectForClickRegion() { return rect; }
     property var preferredWidth: -1
     property var preferredHeight: -1
     Layout.preferredWidth: preferredWidth

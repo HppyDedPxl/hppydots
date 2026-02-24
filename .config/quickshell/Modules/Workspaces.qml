@@ -8,7 +8,7 @@ import "../Appearance"
 
 BaseModule{
     function getAmountVisible(){
-        let c = mainContentLoader.item.innerRepeater.model.values.length
+        let c = mainContentLoader.item ? mainContentLoader.item.innerRepeater.model.values.length : 0
         let vis = 0
         for(let i = 0; i < c; i++){
             if ( mainContentLoader.item.innerRepeater.itemAt(i).visible)

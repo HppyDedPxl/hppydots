@@ -26,7 +26,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     color: 'transparent'
     mask: Region { id: cutoutRegion; regions: activeRegions; }
-    property var isOnFocusedWindow: Hyprland.focusedMonitor.name == modelData.name
+    property var isOnFocusedWindow: Hyprland.focusedMonitor ? Hyprland.focusedMonitor.name == modelData.name : false
     function updateMask(){
         activeRegions = []     
         for (var i = 0; i < activePopups.length; i++){

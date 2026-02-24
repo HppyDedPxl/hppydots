@@ -32,94 +32,140 @@ Variants {
     }
 
     Component { 
-        id:overlayDecoration
-
-      Rectangle {
-            height: 1000
-            width: 1000
-            x:900
-            y:500
-            rotation: 235
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop {
-                    position: 0
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.17
-                    color: AppearanceProvider.backgroundColor
-                }
-                GradientStop {
-                    position: 0.170001
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.18
-                    color: AppearanceProvider.accentColor
-                }
-                GradientStop {
-                    position: 0.180001
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.19
-                    color: AppearanceProvider.accentColorLighter
-                }
-                GradientStop {
-                    position: 0.190001
-                    color: AppearanceProvider.backgroundColorSecondary
-                }
-            }
+      id:overlayDecoration
+      Shape {
+        id:deco
+        layer.enabled:true
+        ShapePath {
+          strokeColor:'transparent'
+          strokeWidth:0
+          fillColor: AppearanceProvider.highlightColor
+          startX:modelData.width
+          startY :modelData.height/1.3
+          PathLine {
+            x: modelData.width
+            y: modelData.height/1.3
+          }
+          PathLine{
+            x:modelData.width
+            y:modelData.height
+          }
+          PathLine{
+            x:modelData.width/1.2
+              y:modelData.height
+          }
         }
+        Shape {
+          ShapePath {
+            strokeColor:'transparent'
+            strokeWidth:0
+            fillColor: AppearanceProvider.accentColor
+            startX:modelData.width
+            startY :modelData.height/1.2
+            PathLine {
+              x: modelData.width
+              y: modelData.height/1.2
+            }
+            PathLine{
+              x:modelData.width
+              y:modelData.height
+            }
+            PathLine{
+              x:modelData.width/1.1
+              y:modelData.height
+            }
+          }
+          Shape {
+            ShapePath {
+              strokeColor:'transparent'
+              strokeWidth:0
+              fillColor: AppearanceProvider.backgroundColor
+              startX:modelData.width
+              startY :modelData.height/1.1
+              PathLine {
+                x: modelData.width
+                y: modelData.height/1.1
+              }
+              PathLine{
+                x:modelData.width
+                y:modelData.height
+              }
+              PathLine{
+                x:modelData.width/1.05
+                y:modelData.height
+              }
+            }
+          }
+        }
+      }
     }
 
-    LeftBar{
+    ScreenBar{
       id:leftBar
       overlayDecorator: overlayDecoration
-
+      barWidth: AppearanceProvider.leftBarWidth
+      barPadding: AppearanceProvider.leftBarPadding
+      orientation: 3
+      withAdornments: false
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
       content:[
         SpacerModule{}, 
         MprisModule{
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           width:40
-          orientation:3
         },
         SpacerModule{}
       ]
     }
 
-    RightBar{
+    ScreenBar{
       id:rightBar
+      barWidth: AppearanceProvider.rightBarWidth
+      barPadding: AppearanceProvider.rightBarPadding
+      orientation: 1
       overlayDecorator: overlayDecoration
-
+      withAdornments:false
+      leftDecoratorColor: AppearanceProvider.backgroundColor
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
+      debug:false
       content:[
         SpacerModule{},
         SpacerModule{},
         SpacerModule{},
       ]
     }
+
     
-    BottomBar{
-    id:bottomBar
+    ScreenBar{
+      id:bottomBar
       overlayDecorator: overlayDecoration
+      barWidth: AppearanceProvider.bottomBarWidth
+      barPadding: AppearanceProvider.bottomBarPadding
+      withAdornments:true
+      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
+      rightDecoratorColor: AppearanceProvider.backgroundColor
+      orientation: 2
+      content:[
 
-    content:[
+          SpacerModule {} ,
+          ApplicationRunnerModule{
+            textColor:AppearanceProvider.textColorSecondary
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            hyprlandOpenShortcut:"open_app_launcher"
+          },
+          SpacerModule {} ,
+            
+      ]}  
 
-        SpacerModule {} ,
-        ApplicationRunnerModule{
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          orientation:2
-          hyprlandOpenShortcut:"open_app_launcher"
-        },
-        SpacerModule {} ,
-          
-    ]}  
-
-    Bar {
+    ScreenBar {
       id:topBar
       overlayDecorator: overlayDecoration
+      barWidth: AppearanceProvider.topBarWidth
+      barPadding: AppearanceProvider.topBarPadding
+      adornmentSize: AppearanceProvider.topBarAdornmentSize
+      withAdornments:true
+      orientation : 0
+
       content:[
         SpacerModule {
           preferredWidth:20
@@ -127,7 +173,7 @@ Variants {
 
         DividerModule {},
 
-                 WireguardModule {
+        WireguardModule {
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
@@ -195,9 +241,6 @@ Variants {
          ControlCenterModule {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           textColor:AppearanceProvider.textColorSecondary
-
-         // width:40
-         // orientation:1
         },   
         DividerModule {},
         TimeModule {
@@ -212,9 +255,11 @@ Variants {
         }      
       ]
     }
+
     OverlayNotificationArea{
       id:notificationArea
       visible:true         
     }
+
   }
 }
