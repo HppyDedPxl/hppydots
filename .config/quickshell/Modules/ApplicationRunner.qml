@@ -28,7 +28,7 @@ BaseModule{
     function findByName(in_name){
         let entries = [];
         selectedAppIndex = 0
-        if(in_name.length == 0){
+        if(in_name.length <= 1){
             return entries
         }
 
@@ -134,6 +134,20 @@ BaseModule{
                     displayDesktopEntries.values = findByName(this.text)
                 }
             }
+
+            // StyledText {
+            //     id:button
+            //     width:50
+            //     height:50
+            //     anchors.top:textInput.bottom
+            //     text:displayDesktopEntries.values[baseModule.selectedAppIndex].execString
+            //     // onClicked:{
+            //     //     Quickshell.execDetached({
+            //     //         command: ["sh","-c","xdg-open", displayDesktopEntries.values[baseModule.selectedAppIndex].]
+
+            //     //     })
+            //     // }
+            // }
 
             ScrollView {
                 id: listView

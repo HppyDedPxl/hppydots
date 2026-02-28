@@ -13,6 +13,7 @@ import "./Widgets"
 import Quickshell.Hyprland
 
 
+
 Variants {
   
   model: Quickshell.screens
@@ -100,6 +101,19 @@ Variants {
       }
     }
 
+    // PanelWindow{
+    //   anchors {
+    //     top:true
+    //     left:true
+    //     bottom:false
+    //     right:true
+    //   }
+    //   height: 100
+    //   WebView {
+    //     anchors.fill:parent
+    //   }
+    // }
+
     ScreenBar{
       id:leftBar
       overlayDecorator: overlayDecoration
@@ -152,6 +166,7 @@ Variants {
             textColor:AppearanceProvider.textColorSecondary
             usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
             hyprlandOpenShortcut:"open_app_launcher"
+            doPopupScaleAnimation:false
           },
           SpacerModule {} ,
             

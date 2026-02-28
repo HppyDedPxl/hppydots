@@ -25,9 +25,9 @@ BaseModule {
     Component {
         id: _content
         StyledSidebarDock {
+            visible: MprisHandler.getPrimaryPlayerUnsafe() != null
             content: Rectangle {
                 id: innerRect
-                visible: MprisHandler.getPrimaryPlayerUnsafe() != null
                 color : 'transparent'
                 anchors.centerIn:parent
                 width: parent.width-10

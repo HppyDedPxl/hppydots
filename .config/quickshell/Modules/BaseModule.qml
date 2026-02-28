@@ -91,7 +91,7 @@ Rectangle {
     height: orientation % 2 == 0 ? parent.height : width
     width: mainContent.item ? mainContent.item.width : 0
     
-    color: "transparent"
+    color: 'transparent'
     
     states: [
         State {
