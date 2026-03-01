@@ -36,7 +36,7 @@ BaseModule {
                 clip: true
                 Image {
                     anchors.fill:parent
-                    source: MprisHandler.getPrimaryPlayerUnsafe() ? Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayerUnsafe().identity).icon) : ""
+                    source: Quickshell.iconPath(DesktopEntries.heuristicLookup(MprisHandler.getPrimaryPlayerUnsafe().identity).icon)
                 }
             }            
         }
