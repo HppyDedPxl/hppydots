@@ -34,21 +34,20 @@ Rectangle {
                 Layout.fillHeight:true
                 Layout.fillWidth:true
             }
-            StyledButton {
-                Layout.fillHeight:true
-                color:AppearanceProvider.backgroundColor
-                hoverColor:AppearanceProvider.activeColor
-                textColor:AppearanceProvider.textColor
-                hoverTextColor:AppearanceProvider.activeTextColor
-                border.width:0
-                text: VPNHandler.isConnected() ? "Disconnect" : "Connect"
-                fontSize:12
-                onClick:()=>{
-                    if(VPNHandler.isConnected())
-                        VPNHandler.disconnect()
-                    else
-                        VPNHandler.connectToInterface(interfaceName)
+            StyledToggle {
+                Layout.preferredHeight:parent.height/2
+                onToggledOn:()=>{
+                    VPNHandler.connectToInterface(interfaceName)
                 }
+                onToggledOff:()=>{
+                    VPNHandler.disconnect()
+                }
+                bIsEnabled: !VPNHandler.isConnected() || VPNHandler.connectedInterface == interfaceName 
+                bIsToggledPersistent: VPNHandler.connectedInterface == interfaceName 
+                Layout.preferredWidth:height*2
+            }
+            Item{
+                Layout.preferredWidth:5
             }
         }
         

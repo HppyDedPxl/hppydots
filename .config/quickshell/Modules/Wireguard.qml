@@ -43,7 +43,7 @@ BaseModule {
     Component {
         id: _popupContent
         Rectangle {
-            height: VPNHandler.isConnected() ? 125 : 300
+            height:  500
             width: 330
             color: 'transparent'
             ColumnLayout {
@@ -60,12 +60,12 @@ BaseModule {
                     //Layout.preferredWidth:30
                     text: VPNHandler.isConnected() ? "Connected to:" : "Not connected."
                 }
-                WireguardEntryWidget {
-                    visible : VPNHandler.isConnected()
-                    interfaceName: VPNHandler.connectedInterface
-                }
+                // WireguardEntryWidget {
+                //     visible : VPNHandler.isConnected()
+                //     interfaceName: VPNHandler.connectedInterface
+                // }
                 ScrollView {
-                    visible : !VPNHandler.isConnected()
+                    visible : true
                     width:parent.width
                     Layout.fillHeight:true
                     contentWidth: parent.width
@@ -73,7 +73,7 @@ BaseModule {
                     ColumnLayout {
                         id: content
                         width:parent.width
-                        property var buttonHeight : 65
+                        property var buttonHeight : 40
                         spacing:5
                         height: (repeater.count) * (buttonHeight+spacing)
                         Repeater {
@@ -82,16 +82,13 @@ BaseModule {
                             WireguardEntryWidget {
                                 required property var modelData
                                 interfaceName: modelData
-                            }
-                            
+                            }       
                         }
                     }
-
                 }
                 Item {
                     Layout.fillHeight:true
-                }
-                
+                }               
             }
             property var onPopupOpened : ()=>{
                 VPNHandler.loadWireguardConfs()

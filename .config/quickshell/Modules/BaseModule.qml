@@ -67,7 +67,7 @@ Rectangle {
                     // mode. Firstly we dont need to have the popup on an overlay layer then, but secondly
                     // when starting a new application that will then not disappear behind the fullscreen
                     // window
-                    if(SystemInfo.activeWindow['fullscreen'] > 0)
+                    if(SystemInfo.activeWindow != null && SystemInfo.activeWindow['fullscreen'] > 0)
                         Hyprland.dispatch("fullscreen")
                     openPopup()
                 }

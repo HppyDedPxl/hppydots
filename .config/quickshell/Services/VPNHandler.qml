@@ -65,11 +65,13 @@ Singleton {
                             vpnConfigNames.values.push(result[i].substring(0,result[i].length - 5))
                         }
                     }
-                }    
+                }
+                getWgConfs.running=false;   
             }
         }
         stderr: StdioCollector {
             onStreamFinished: {
+                console.log(this.text);
                 if(this.text !== "")
                     console.log("error! " + this.text)
             }
@@ -86,6 +88,7 @@ Singleton {
                 } else {
                     connectedInterface = ""
                 }
+                getWgConfs.running=false;   
             }
         }
         stderr: StdioCollector {
@@ -94,6 +97,7 @@ Singleton {
                     connectedInterface = ""
                     console.log("error! " + this.text)
                 }
+                getWgConfs.running=false;   
             }
         }
     }

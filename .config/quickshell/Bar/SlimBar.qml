@@ -75,46 +75,6 @@ PanelWindow {
             rotation: -45
             containmentMask: topBarGeometry
 
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-
-                GradientStop {
-                    position: 0
-                    color: AppearanceProvider.backgroundColor
-                }
-
-                GradientStop {
-                    position: 0.25
-                    color: AppearanceProvider.backgroundColor
-                }
-
-                GradientStop {
-                    position: 0.250001
-                    color: AppearanceProvider.accentColor
-                }
-
-                GradientStop {
-                    position: 0.26
-                    color: AppearanceProvider.accentColor
-                }
-
-                GradientStop {
-                    position: 0.260001
-                    color: AppearanceProvider.accentColorLighter
-                }
-
-                GradientStop {
-                    position: 0.27
-                    color: AppearanceProvider.accentColorLighter
-                }
-
-                GradientStop {
-                    position: 0.270001
-                    color: AppearanceProvider.backgroundColorSecondary
-                }
-
-            }
-
         }
 
     }
