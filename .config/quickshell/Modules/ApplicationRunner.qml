@@ -141,12 +141,12 @@ BaseModule{
             //     height:50
             //     anchors.top:textInput.bottom
             //     text:displayDesktopEntries.values[baseModule.selectedAppIndex].execString
-            //     // onClicked:{
-            //     //     Quickshell.execDetached({
-            //     //         command: ["sh","-c","xdg-open", displayDesktopEntries.values[baseModule.selectedAppIndex].]
+            //     onClicked:{
+            //         Quickshell.execDetached({
+            //             command: ["sh","-c","xdg-open", displayDesktopEntries.values[baseModule.selectedAppIndex].]
 
-            //     //     })
-            //     // }
+            //         })
+            //     }
             // }
 
             ScrollView {

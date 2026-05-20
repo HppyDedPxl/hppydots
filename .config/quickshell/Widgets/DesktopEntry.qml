@@ -48,6 +48,15 @@ Rectangle{
                 color: desktopEntry.isFocused ? AppearanceProvider.highlightTextColor : AppearanceProvider.textColor
                 Layout.fillWidth:true
             }
+
+            
+            StyledText {
+                text: _data.execString
+                clip:true
+                elide: Text.ElideRight
+                color: desktopEntry.isFocused ? AppearanceProvider.highlightTextColor : AppearanceProvider.textColor
+                Layout.fillWidth:true
+            }
         }
     }
 }

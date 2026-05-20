@@ -22,7 +22,7 @@ BaseModule{
     property var blipSpacing : 15
     property var verticalMargins: 2
     width: getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
-
+    height: parent.height
     Behavior on width {
         NumberAnimation {
             duration:200
