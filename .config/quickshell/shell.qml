@@ -34,7 +34,7 @@ Variants {
       }
     }
 
-  BorderedTheme{}
-  //AeroTheme{}
+  //BorderedTheme{}
+  AeroTheme{}
   }
 }

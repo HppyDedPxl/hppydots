@@ -10,6 +10,7 @@ Rectangle {
     color:'transparent'
     radius:AppearanceProvider.rounding
     required property var content
+    property var isTransparent : false
     WrapperMouseArea {
         width: parent.width
         height: width
@@ -17,7 +18,7 @@ Rectangle {
         Rectangle {
             id: iconRect
             visible: true
-            color : AppearanceProvider.backgroundColorSecondary
+            color : isTransparent ? 'transparent' : AppearanceProvider.backgroundColorSecondary
             width: parent.width         
             height: parent.width
             radius: parent.width/2

@@ -20,7 +20,7 @@ BaseModule{
     content: workspaceBar
     color:'transparent'
     property var blipSpacing : 15
-    property var verticalMargins: 2
+    property var verticalMargins: 4
     width: getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
     height: parent.height
     Behavior on width {

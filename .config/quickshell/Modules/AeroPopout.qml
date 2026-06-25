@@ -311,12 +311,14 @@ PopupWindow {
             attachmentRect.anchors.left = rect.right
     }
 
+
     // todo, everything for side bars left right :) this will be fun
     anchor.window: orientation == 0 ? topBar : bottomBar
     anchor.rect.x: calculateAnchorX()
     anchor.rect.y: calculateAnchorY()
     implicitWidth: calculateImplicitWidth()
-    implicitHeight: calculateImplicitHeight()   
+    implicitHeight: calculateImplicitHeight()
+    
 
     Item {
         states: [

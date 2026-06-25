@@ -17,12 +17,11 @@ BaseModule {
         id: _content
 
         StyledSidebarDock {
-
             content: StyledBarIcon {
                 anchors.fill: parent
                 text: ""
             }
-
+            isTransparent : true
         }
 
     }

@@ -43,22 +43,22 @@ BaseModule {
 
     // Dummy Elements to Anchor the context menu for the tray icons in
     // ~~ Begin
-    QsMenuAnchor {
-        id: menuAnchor
-        onClosed: {
-            win.visible = false;
-            baseModule.bInhibitClose = false;
-        }
-    }
-
     PopupWindow {
         id: win
         anchor.window: topBar
         implicitWidth: 1
         implicitHeight: 1
         visible: false
-        color: 'transparent'
+        color: 'red'
         Text {
+        }
+    }
+    QsMenuAnchor {
+        id: menuAnchor
+        anchor.window: win
+        onClosed: {
+            win.visible = false;
+            baseModule.bInhibitClose = false;
         }
     }
     // ~~ End
@@ -105,12 +105,14 @@ BaseModule {
                             hoverEnabled: true
                             visible: true
                             acceptedButtons: Qt.LeftButton | Qt.RightButton
-                            onClicked: {
+                            onClicked: (mouse)=>{
                                 if (mouse.button == Qt.RightButton && SystemTray.items.values[index].hasMenu) {
                                     baseModule.bInhibitClose = true;
                                     menuAnchor.menu = SystemTray.items.values[index].menu;
-                                    menuAnchor.anchor.window = win;
                                     var global = image.mapToGlobal(image.x, image.y);
+                                    console.log(scope.modelData.x)
+                                    global.x-=scope.modelData.x
+                                    global.y-=scope.modelData.y
                                     win.anchor.rect.x = global.x;
                                     win.anchor.rect.y = global.y;
                                     win.visible = true;

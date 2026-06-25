@@ -20,7 +20,7 @@ PanelWindow {
     exclusiveZone: barWidth
     mask : Region {regions: {barWidgets.children.map(x=>x.region)}}
 
-    property var baseColor: Qt.rgba(0,0.7,.2,1)
+    property var baseColor:  AppearanceProvider.backgroundColor// Qt.rgba(0,0.7,.2,1)
     anchors {
         top: true
         left: true
@@ -47,14 +47,14 @@ PanelWindow {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.bottomMargin: barPadding
-
+        property var alphaScale: .7
         width: parent.width
         height: barWidth
         gradient: Gradient {
-            GradientStop { position: 0.0; color:  modAlpha(baseColor,0.2)}
-            GradientStop { position: .48; color:    modHsvValue(modAlpha(baseColor,.2),0.1)}
-            GradientStop { position: .52; color:  modHsvValue(modAlpha(baseColor,.3),0.05)}
-            GradientStop { position: 1.0; color:  modHsvValue(modAlpha(baseColor,.4),-0.25)}
+            GradientStop { position: 0.0; color:  modHsvValue(modAlpha(baseColor,0.05 * baseRect.alphaScale),0.05)}
+            GradientStop { position: .48; color:    modHsvValue(modAlpha(baseColor,.2* baseRect.alphaScale),0.05)}
+            GradientStop { position: .52; color:  modHsvValue(modAlpha(baseColor,.3* baseRect.alphaScale),0.05 )}
+            GradientStop { position: 1.0; color:  modHsvValue(modAlpha(baseColor,.4* baseRect.alphaScale),-0.25 )}
         }
         clip:true
        
@@ -63,6 +63,7 @@ PanelWindow {
         id: contentRect
         property var screen: bar.screen
         property var barWidth : bar.barWidth
+        property var orientation : bar.orientation
         anchors.fill: baseRect
         width: baseRect.width
         height: baseRect.height

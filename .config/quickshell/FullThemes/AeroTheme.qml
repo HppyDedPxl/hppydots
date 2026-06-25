@@ -6,10 +6,11 @@ import "../Modules"
 
 Scope {
     ScreenBarAero {
+      id: topBar
         barWidth: AppearanceProvider.topBarWidth
         barPadding: AppearanceProvider.topBarPadding
         debug: false
-              content:[
+        content:[
         SpacerModule {
           preferredWidth:20
         } ,
@@ -39,6 +40,12 @@ Scope {
         WorkspacesModule {
           bDoHighlight:false;
         },
+          ApplicationRunnerModule{
+            textColor:AppearanceProvider.textColorSecondary
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            hyprlandOpenShortcut:"open_app_launcher"
+            doPopupScaleAnimation:false
+          },
         SpacerModule {},
 
         DividerModule {},
