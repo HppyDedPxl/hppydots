@@ -6,7 +6,7 @@ import "../Modules"
 
 Scope {
     ScreenBarAero {
-      id: topBar
+        id: topBar
         barWidth: AppearanceProvider.topBarWidth
         barPadding: AppearanceProvider.topBarPadding
         debug: false
@@ -40,12 +40,7 @@ Scope {
         WorkspacesModule {
           bDoHighlight:false;
         },
-          ApplicationRunnerModule{
-            textColor:AppearanceProvider.textColorSecondary
-            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-            hyprlandOpenShortcut:"open_app_launcher"
-            doPopupScaleAnimation:false
-          },
+
         SpacerModule {},
 
         DividerModule {},
@@ -105,4 +100,22 @@ Scope {
         }      
       ]
     }
+
+     ScreenBarAero {
+      id: bottomBar
+        barWidth: 0
+        barPadding: 0
+        debug: false
+        orientation: 2
+        content:[
+                  SpacerModule {} ,
+            ApplicationRunnerModule{
+            textColor:AppearanceProvider.textColorSecondary
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            hyprlandOpenShortcut:"open_app_launcher"
+            doPopupScaleAnimation:false
+          },
+                  SpacerModule {} ,
+        ]
+     }
 }

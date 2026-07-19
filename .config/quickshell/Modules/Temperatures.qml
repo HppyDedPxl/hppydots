@@ -14,8 +14,8 @@ BaseModule {
 
         }
     }
-
-    dbgName: "PackagesModule"
+    targetBar: null
+    dbgName: "TemperaturesModule"
     content: _content
     popupContent: null
     bHasClickAction: true

@@ -82,50 +82,13 @@ Scope {
         }
       }
     }
-
-    ScreenBar{
-      id:leftBar
-      overlayDecorator: overlayDecoration
-      barWidth: AppearanceProvider.leftBarWidth
-      barPadding: AppearanceProvider.leftBarPadding
-      orientation: 3
-      withAdornments: false
-      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
-      content:[
-        SpacerModule{}, 
-        MprisModule{
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          width:40
-        },
-        SpacerModule{}
-      ]
-    }
-
-    ScreenBar{
-      id:rightBar
-      barWidth: AppearanceProvider.rightBarWidth
-      barPadding: AppearanceProvider.rightBarPadding
-      orientation: 1
-      overlayDecorator: overlayDecoration
-      withAdornments:false
-      leftDecoratorColor: AppearanceProvider.backgroundColor
-      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
-      debug:false
-      content:[
-        SpacerModule{},
-        SpacerModule{},
-        SpacerModule{},
-      ]
-    }
     
     ScreenBar{
       id:bottomBar
-      overlayDecorator: overlayDecoration
       barWidth: AppearanceProvider.bottomBarWidth
       barPadding: AppearanceProvider.bottomBarPadding
       withAdornments:true
       adornmentSize: AppearanceProvider.bottomBarAdornmentSize
-      //rightDecoratorColor: AppearanceProvider.backgroundColor
       orientation: 2
       content:[
 
@@ -140,102 +103,61 @@ Scope {
             
       ]}  
 
-    ScreenBar {
+    ScreenBarNotch {
       id:topBar
-      overlayDecorator: overlayDecoration
       barWidth: AppearanceProvider.topBarWidth
       barPadding: AppearanceProvider.topBarPadding
       adornmentSize: AppearanceProvider.topBarAdornmentSize
       withAdornments:true
       orientation : 0
-
-      content:[
-        SpacerModule {
-          preferredWidth:20
-        } ,
-
-        DividerModule {},
-
-        WireguardModule {
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-        },
-        DividerModule {},
-        CpuModule {
+      contentLeft:[
+      SpacerModule{
+        preferredWidth: 20
+      },
+      TemperaturesModule {
           textColor:AppearanceProvider.textColorSecondary
         },
-        DividerModule {},
-         MemoryModule {
-          textColor:AppearanceProvider.textColorSecondary
-        },
-        DividerModule {},
-        TemperaturesModule {
-          textColor:AppearanceProvider.textColorSecondary
-        },
-        DividerModule {},
-        SpacerModule {} ,
-
-        
-        WorkspacesModule {
-          bDoHighlight:false;
-        },
-        SpacerModule {},
-
-        DividerModule {},
-        PackagesModule {
-          textColor:AppearanceProvider.textColorSecondary
-        },
-        DividerModule {},
-        NotificationsModule{
+          NotificationsModule{
           bDoHighlight:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
-        DividerModule {},
+          KeyboardLayoutModule {
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            textColor:AppearanceProvider.textColorSecondary
+            bPopupOnHover:true
+        },
+                BatteryModule {
+          id: batteryModule
+          textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          
+        },
+      ]
+      content:[
+
+        WorkspacesModule {
+          bDoHighlight:false
+          fullsizeMode : true
+          
+        },
+
+      ]
+      contentRight: [
         AudioModule{
           bDoHighlight:true
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
-        DividerModule {}, 
-        KeyboardLayoutModule {
-            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-            textColor:AppearanceProvider.textColorSecondary
-            bPopupOnHover:true
-        },
-        DividerModule{},
-        
-        BatteryModule {
-          id: batteryModule
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          
-        },
-        DividerModule {
-          visible: batteryModule.visible
-        },
-        TrayModule {
-          textColor:AppearanceProvider.textColorSecondary
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          bPopupOnHover:true
-        },
-        DividerModule {},
-         ControlCenterModule {
-          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-          textColor:AppearanceProvider.textColorSecondary
-        },   
-        DividerModule {},
         TimeModule {
           bPopupOnHover:true
           textColor:AppearanceProvider.textColorSecondary
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
         },
-        DividerModule {},
-
-        SpacerModule {
-          preferredWidth:20
-        }      
+        SpacerModule{
+          preferredWidth: 20
+        },
       ]
     }
 

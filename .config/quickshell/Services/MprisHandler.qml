@@ -41,6 +41,7 @@ Singleton {
 
 
     function getPrimaryPlayerUnsafe(){
+        console.log("hi!")
         return Mpris.players.values[primaryActivePlayerIndex];
     }
 

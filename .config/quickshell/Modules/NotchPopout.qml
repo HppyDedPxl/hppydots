@@ -9,13 +9,14 @@ import Quickshell.Wayland
 
 Item {
     
-    property var shadow: shadowEffect
     property alias loadedContent : c.item
     readonly property alias loader : c
     property var attachmentRect : attachment
-
+    property var root : null
     function getContentSizeSetForOrientation(){
+        console.log("root is: " + root)
         if(root.orientation == 0 || root.orientation == 2){
+            console.log("returning this here")
             return [margin - 1,0,(root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2,c.height]
         }
         else{
@@ -24,7 +25,8 @@ Item {
     }
 
     function calculateParentPadding() {
-        if (orientation == 0 || orientation == 2)
+
+        if (root.orientation == 0 || root.orientation == 2)
             return root.targetBar.parent.height - root.targetBar.height;
         else
             return root.targetBar.parent.width - root.targetBar.width;
@@ -32,13 +34,13 @@ Item {
 
     function getRadiusSetForOrientation() {
 
-        if (orientation == 0 || undefined)
+        if (root.orientation == 0 || undefined)
             return [0, 0, AppearanceProvider.rounding, AppearanceProvider.rounding];
-        if (orientation == 1)
+        if (root.orientation == 1)
             return [AppearanceProvider.rounding,0,0,AppearanceProvider.rounding]
-        if (orientation == 2)
+        if (root.orientation == 2)
             return [AppearanceProvider.rounding, AppearanceProvider.rounding, 0, 0];
-        if (orientation == 3)
+        if (root.orientation == 3)
             return [0, AppearanceProvider.rounding, AppearanceProvider.rounding, 0];
 
     }
@@ -77,6 +79,7 @@ Item {
     }
 
     function calculateShapeGroupBaseX(){
+        console.log(root.orientation)
         if(root.orientation == 0 || root.orientation == 2){
             return 0
         }
@@ -137,6 +140,9 @@ Item {
     }
 
     function calculateXOriginForOrientation(){
+        if(root.bFixedAttachment != null){
+            return root.bFixedAttachment[0]  - (targetBar.width/2 ) + root.width /2
+        }
         if (orientation % 2 == 0)
         {
             if(baseModule.x+(root.width/2) > targetBar.width)
@@ -153,6 +159,9 @@ Item {
             return 0;
     }
     function calculateYOriginForOrientation(){
+        if(root.bFixedAttachment != null){
+            return 0
+        }
         if (orientation % 2 == 0){
             return 0;
         }
@@ -315,12 +324,11 @@ Item {
                                 {
                                     isClosing = true
                                     root.onPopupStartClosing()
-
                                 }
                                 if(state == "open")
                                 {
                                     root.onPopupOpened()
-                                    root.updateMask()
+                                    baseModule.updateMask()
                                 }
                             }
                         }
@@ -347,17 +355,6 @@ Item {
             x: calculatePopupGroupBaseX()
             y: calculatePopupGroupBaseY()
 
-            MultiEffect {
-                id: shadowEffect
-                source: rect
-                anchors.fill: rect
-                shadowBlur: 1
-                shadowEnabled: true
-                shadowColor: AppearanceProvider.shadowColor
-                shadowScale: 1.03
-                shadowVerticalOffset: 3
-                visible: true
-            }
 
             Rectangle {
                 id: rect
@@ -365,7 +362,7 @@ Item {
                 property var sizeSet: getContentSizeSetForOrientation()
                 property var roundingSet: getRadiusSetForOrientation()
 
-                color: baseModule.usedBackgroundColor
+                color: AppearanceProvider.nativeBackgroundColor
 
                 x: sizeSet[0]
                 y: sizeSet[1]
@@ -385,7 +382,7 @@ Item {
                     anchors.centerIn: parent
                     sourceComponent: content !== null ? content : root.dummyContent
                     onLoaded:{
-                        root.updateMask()
+                        baseModule.updateMask()
                         root.ready()
                     }
                 }
@@ -420,6 +417,7 @@ Item {
                 id: shapeL
                 size: AppearanceProvider.rounding
                 rotation: calculateLeftShapeRotation()
+                explicitColor: AppearanceProvider.nativeBackgroundColor
             }
 
             StyledCurveConnector {
@@ -429,6 +427,8 @@ Item {
                 size: AppearanceProvider.rounding
                 anchors.left: parent.left
                 anchors.leftMargin: root.width - AppearanceProvider.rounding
+                explicitColor: AppearanceProvider.nativeBackgroundColor
+
             }
         }
         // * Vertical Adornments
@@ -439,6 +439,8 @@ Item {
                 id: shapeT
                 size: AppearanceProvider.rounding
                 rotation: calculateLeftShapeRotation()
+                explicitColor: AppearanceProvider.nativeBackgroundColor
+
             }
 
             StyledCurveConnector {
@@ -448,6 +450,8 @@ Item {
                 size: AppearanceProvider.rounding
                 anchors.top: parent.top
                 anchors.topMargin: root.height - AppearanceProvider.rounding
+                explicitColor: AppearanceProvider.nativeBackgroundColor
+
             }
         }
 

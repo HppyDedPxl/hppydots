@@ -33,8 +33,9 @@ Variants {
         VPNHandler.initService()
       }
     }
-
   //BorderedTheme{}
-  AeroTheme{}
+  //AeroTheme{}
+  NotchTheme{}
+  
   }
 }

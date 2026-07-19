@@ -3,3 +3,4 @@ SlimBar 1.0 SlimBar.qml
 BarContentSegment 1.0 BarContentSegment.qml
 
 ScreenBarAero 1.0 ScreenBarAero.qml
+ScreenBarNotch 1.0 ScreenBarNotch.qml

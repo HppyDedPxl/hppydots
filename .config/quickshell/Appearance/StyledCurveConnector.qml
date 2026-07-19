@@ -8,10 +8,11 @@ Item{
     property var size :0
     property var rotation : 0
     property var overlay : null
-    property var explicitColor : AppearanceProvider.backgroundColorSecondary
+    property var explicitColor : null
     transform : Rotation {origin.x:size/2; origin.y:size/2;angle:rotation}
     height:size
     width:size
+    property var direction: PathArc.Clockwise
 
     Shape {
         id: shape1
@@ -25,7 +26,7 @@ Item{
         ShapePath {
             id:shape2
             strokeWidth: 0
-            fillColor: baseModule ? baseModule.usedBackgroundColor : explicitColor
+            fillColor: baseModule != null && explicitColor == null ? baseModule.usedBackgroundColor : explicitColor
             startX: 0
             startY: 0
 
@@ -34,6 +35,8 @@ Item{
                 y: size
                 radiusX: size
                 radiusY: size
+                direction:connector.direction
+
             }
 
             PathLine {

@@ -25,7 +25,7 @@ Rectangle {
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
-    readonly property var targetBar : parent.parent
+    property var targetBar : parent.targetBar // now needs to be set from outside
     readonly property var orientation : targetBar.orientation
     property var hyprlandOpenShortcut: ""
     property var region: Region {}
@@ -45,6 +45,22 @@ Rectangle {
     property var onPopupOpened: null
     property var onPopupStartClosing : null
     property var onPopupClosed: null
+    
+
+    function updateMask() {
+        //root.mask = root.bOpen ? noReg : fullReg
+    }
+
+    Region {
+        id:noReg
+        item: null // formerly attachment Rect
+        intersection:Intersection.Xor
+    }
+
+    Region {
+        id:fullReg
+        item : null
+    }
 
 
     function hasPopupContent(){
@@ -88,7 +104,7 @@ Rectangle {
         popup.hyprlandGrabber.active=false
     }
     
-    height: orientation % 2 == 0 ? parent.height : width
+    height: baseModule.targetBar.orientation % 2 == 0 ? parent.height : width
     width: mainContent.item ? mainContent.item.width : 0
     
     color: 'transparent'
@@ -165,14 +181,16 @@ Rectangle {
         ]
     }
 
+
     Rectangle {
         id:rect
         color:'transparent'
         // Todo: for all orientations... 
-        x: -baseModule.x + targetBar.barWidth
-        y: -popup.attachmentRect.height / 2
-        width: {return popup.attachmentRect.width}
-        height: {return popup.attachmentRect.height}
+        x: targetBar ? -baseModule.x + targetBar.barWidth : 0
+        y: popup.attachmentRect ?  -popup.attachmentRect.height / 2 : 0
+        width: {return popup.attachmentRect ? popup.attachmentRect.width : 0}
+        height: {return popup.attachmentRect ? popup.attachmentRect.height : 0}
+
         Loader {
             id: attachmentLoader
             active: !baseModule.isPopupOpen()
@@ -182,17 +200,18 @@ Rectangle {
     }
 
 
-    Popout {
+    PopoutInterface {
         id: popup
         visible: true && !doPopupScaleAnimation
         content: popupContent
         overrideWidth: popupOverrideWidth
-        orientation: baseModule.orientation
+        orientation: baseModule.targetBar.orientation
         targetBar:baseModule.targetBar
         doScaling: doPopupScaleAnimation
         supportsAttachment:bPopupSupportsAttachment
         attachmentSize:popupAttachmentSlotSize
         attachment:popupAttachment
+        bFixedAttachment:targetBar.bFixedAttachmentPoint
 
         onPopupStartOpen: ()=>{
             if(baseModule.onPopupStartOpen)

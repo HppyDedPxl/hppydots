@@ -7,6 +7,7 @@ import "../Services"
 import "../Appearance"
 
 BaseModule{
+    property var fullsizeMode :false
     function getAmountVisible(){
         let c = mainContentLoader.item ? mainContentLoader.item.innerRepeater.model.values.length : 0
         let vis = 0
@@ -16,12 +17,17 @@ BaseModule{
         }
         return vis;
     }
+
+    function getDesiredWidth(){
+        return getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
+    }
     id: baseModule
     content: workspaceBar
     color:'transparent'
     property var blipSpacing : 15
-    property var verticalMargins: 4
-    width: getAmountVisible() * (parent.height - (verticalMargins*2)) + (getAmountVisible()-1) * blipSpacing
+    property var verticalMargins: 2
+    width: fullsizeMode ? parent.width : getDesiredWidth()
+    Layout.fillWidth:fullsizeMode?true:false
     height: parent.height
     Behavior on width {
         NumberAnimation {
@@ -31,6 +37,7 @@ BaseModule{
 
     Component {
         id: workspaceBar
+        
         Rectangle {
             id: root
             color:'transparent'
@@ -39,10 +46,26 @@ BaseModule{
             border.color:AppearanceProvider.activeColor
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+            anchors.left:parent.left
+            anchors.right:parent.right
             anchors.topMargin: verticalMargins
             anchors.bottomMargin:verticalMargins
-            property var margins : 2
-            anchors.margins:margins
+            
+            anchors.rightMargin: parent.width/2 - getDesiredWidth()/2
+            anchors.leftMargin: parent.width/2 - getDesiredWidth()/2
+
+            Behavior on anchors.rightMargin { 
+                NumberAnimation {
+                    id: "rAnim"
+                    duration:150
+                }
+            }
+            Behavior on anchors.leftMargin { 
+                NumberAnimation {
+                    id: "lAnim"
+                    duration:150
+                }
+            }
             property var innerRepeater : repeater
             Row {
                 id:row

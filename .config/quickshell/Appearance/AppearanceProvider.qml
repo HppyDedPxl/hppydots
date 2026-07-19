@@ -37,13 +37,16 @@ Singleton {
     property var accentTextColor: getPercievedLuminance(accentColor) < luminanceFlipPoint ? Pywal.foreground : Pywal.background;
     property var accentColorLighter: Pywal.color3
 
+    property var nativeBackgroundColor : Pywal.background
+    property var nativeForegroundcolor : Pywal.foreground
+
     property var primaryFont : "JetBrainsMono Nerd Font"
     property var primaryFontSize : 12
 
-    property var topBarWidth : 40
+    property var topBarWidth : 45
     property var leftBarWidth: 15
     property var rightBarWidth: 15
-    property var bottomBarWidth:15
+    property var bottomBarWidth:1
     property var topBarPadding: 60
     property var leftBarPadding : 65
     property var bottomBarPadding: 60

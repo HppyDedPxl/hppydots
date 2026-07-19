@@ -21,11 +21,19 @@ PanelWindow {
     mask : Region {regions: {barWidgets.children.map(x=>x.region)}}
 
     property var baseColor:  AppearanceProvider.backgroundColor// Qt.rgba(0,0.7,.2,1)
-    anchors {
-        top: true
-        left: true
-        right: true
-        bottom: false
+
+    readonly property var anchorPresets : [
+        [true,true,false,true],
+        [true,true,true,false],
+        [false,true,true,true],
+        [true,false,true,true],
+    ];
+
+     anchors {
+        top: anchorPresets[bar.orientation][0]
+        right:anchorPresets[bar.orientation][1]
+        bottom: anchorPresets[bar.orientation][2]
+        left: anchorPresets[bar.orientation][3]
     }
 
     function modAlpha(color, alphaChange){
@@ -51,8 +59,8 @@ PanelWindow {
         width: parent.width
         height: barWidth
         gradient: Gradient {
-            GradientStop { position: 0.0; color:  modHsvValue(modAlpha(baseColor,0.05 * baseRect.alphaScale),0.05)}
-            GradientStop { position: .48; color:    modHsvValue(modAlpha(baseColor,.2* baseRect.alphaScale),0.05)}
+            GradientStop { position: 0.0; color:  modHsvValue(modAlpha(baseColor,0.05 * baseRect.alphaScale),0.15)}
+            GradientStop { position: .48; color:    modHsvValue(modAlpha(baseColor,.05* baseRect.alphaScale),0.13)}
             GradientStop { position: .52; color:  modHsvValue(modAlpha(baseColor,.3* baseRect.alphaScale),0.05 )}
             GradientStop { position: 1.0; color:  modHsvValue(modAlpha(baseColor,.4* baseRect.alphaScale),-0.25 )}
         }

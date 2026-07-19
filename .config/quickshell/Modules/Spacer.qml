@@ -17,4 +17,5 @@ Rectangle{
     Layout.fillWidth:true
     Layout.fillHeight:true
     color : 'transparent'
+    property var targetBar : null
 }

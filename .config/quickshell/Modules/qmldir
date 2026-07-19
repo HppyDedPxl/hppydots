@@ -1,4 +1,6 @@
 BaseModule 1.0 BaseModule.qml
+PopoutInterface 1.0 PopoutInterface.qml
+AeroPopout 1.0 AeroPopout.qml
 Popout 1.0 Popout.qml
 TimeModule 1.0 Time.qml
 WorkspacesModule 1.0 Workspaces.qml
@@ -18,3 +20,4 @@ MprisModule 1.0 Mpris.qml
 WireguardModule 1.0 Wireguard.qml
 ControlCenterModule 1.0 ControlCenter.qml
 KeyboardLayoutModule 1.0 KeyboardLayout.qml
+NotchPopout 1.0 NotchPopout.qml
