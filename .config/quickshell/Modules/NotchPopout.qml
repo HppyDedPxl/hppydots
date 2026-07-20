@@ -13,6 +13,7 @@ Item {
     readonly property alias loader : c
     property var attachmentRect : attachment
     property var root : null
+    
     function getContentSizeSetForOrientation(){
         console.log("root is: " + root)
         if(root.orientation == 0 || root.orientation == 2){
@@ -459,8 +460,8 @@ Item {
             id: scale
             origin.x: calculateXOriginForOrientation()//root.width / 2
             origin.y: calculateYOriginForOrientation()
-            xScale: doScaling ? 0 : 1
-            yScale: doScaling ? 0 : 1
+            xScale: 1
+            yScale: 1
         }
 
     }

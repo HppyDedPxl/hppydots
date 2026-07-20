@@ -82,26 +82,6 @@ Scope {
         }
       }
     }
-    
-    ScreenBar{
-      id:bottomBar
-      barWidth: AppearanceProvider.bottomBarWidth
-      barPadding: AppearanceProvider.bottomBarPadding
-      withAdornments:true
-      adornmentSize: AppearanceProvider.bottomBarAdornmentSize
-      orientation: 2
-      content:[
-
-          SpacerModule {} ,
-          ApplicationRunnerModule{
-            textColor:AppearanceProvider.textColorSecondary
-            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
-            hyprlandOpenShortcut:"open_app_launcher"
-            doPopupScaleAnimation:false
-          },
-          SpacerModule {} ,
-            
-      ]}  
 
     ScreenBarNotch {
       id:topBar
@@ -138,9 +118,15 @@ Scope {
 
         WorkspacesModule {
           bDoHighlight:false
-          fullsizeMode : true
-          
+          fullsizeMode : true   
         },
+         ApplicationRunnerModule{
+          width:0
+            textColor:AppearanceProvider.textColorSecondary
+            usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+            hyprlandOpenShortcut:"open_app_launcher"
+            doPopupScaleAnimation:false
+          },
 
       ]
       contentRight: [
