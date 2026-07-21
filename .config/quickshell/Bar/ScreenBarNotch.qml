@@ -169,6 +169,7 @@ PanelWindow {
                 color:"transparent"
                 RowLayout {
                     anchors.fill:parent
+                    // ----------- MPRIS
                     Rectangle {
                         function getAudioIcon(volume) {
                             if (volume > .7)
@@ -200,10 +201,16 @@ PanelWindow {
                             }
                         }
                     }
-                    Rectangle{
-                        color:"transparent"
+                    // MPRIS END -------------------------
+                    Rectangle {
+                        Layout.preferredWidth: 200
+                    }
+                    ControlCenterWidget {
                         Layout.fillHeight:true
                         Layout.fillWidth:true
+                    }
+                    Rectangle{
+                        Layout.preferredWidth: 20
                     }
 
                 }

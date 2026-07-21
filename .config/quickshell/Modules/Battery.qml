@@ -49,7 +49,7 @@ BaseModule{
     Component {
         id: _content
 
-    Rectangle{
+        Rectangle{
         anchors.fill : parent
         color: 'transparent'
             StyledText {
@@ -57,9 +57,7 @@ BaseModule{
                 color:baseModule.textColorOnBar
                 text: SystemInfo.batteryPercentage + "% " + getBatteryStateIcon()
             }
-    }
-            
-        
+        }    
     }
 
 }

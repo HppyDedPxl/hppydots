@@ -113,6 +113,17 @@ Scope {
           usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
           
         },
+        BluetoothModule {
+          id: bluetootModule
+           textColor:AppearanceProvider.textColorSecondary
+          usedBackgroundColor:AppearanceProvider.backgroundColorSecondary
+          
+        },
+        NetworkModule {
+          id: networkModule
+          textColor: AppearanceProvider.textColorSecondary
+          usedBackgroundColor: AppearanceProvider.backgroundColorSecondary
+        },
       ]
       content:[
 

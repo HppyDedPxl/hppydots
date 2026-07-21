@@ -7,6 +7,7 @@ Rectangle{
     height:parent.height
     width:height
     color:'transparent'
+    property alias fontColor : icon.color
     property var dynFontSize: Math.round(parent.height * 0.45)
     clip:true
     StyledText{

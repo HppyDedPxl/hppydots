@@ -1,5 +1,6 @@
 import "../Appearance"
 import "../Services"
+import "../Widgets"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -29,10 +30,7 @@ BaseModule {
     Component {
         id: _popupContent
 
-        Item {
-            width: 300
-            height: 400
-
+        ControlCenterWidget {
             Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom

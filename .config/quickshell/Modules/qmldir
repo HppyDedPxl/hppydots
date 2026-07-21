@@ -21,3 +21,5 @@ WireguardModule 1.0 Wireguard.qml
 ControlCenterModule 1.0 ControlCenter.qml
 KeyboardLayoutModule 1.0 KeyboardLayout.qml
 NotchPopout 1.0 NotchPopout.qml
+BluetoothModule 1.0 BluetoothModule.qml
+NetworkModule 1.0 NetworkModule.qml

@@ -22,6 +22,7 @@ Rectangle {
     property bool bOpenClicked:false
     property bool bHasClickAction:false
     property list<string> onClickExecCommand : []
+    property var onClickDelegate : null
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
@@ -273,7 +274,7 @@ Rectangle {
         id: mouse
         cursorShape: bHasClickAction || (!bPopupOnHover  && popupContent !== null) ? Qt.PointingHandCursor : Qt.ArrowCursor
         
-
+        propagateComposedEvents: true
         anchors.fill: baseModule
         enabled: {
             popupContent !== null || bHasClickAction;
@@ -285,9 +286,12 @@ Rectangle {
         onExited: {
             bIsHovered = false;
         }
-        onClicked: {
-
+        onClicked: (mouse)=>{
+            mouse.accepted = false
             if (bHasClickAction){
+                if(onClickDelegate != null){
+                    onClickDelegate();
+                }
                 onClickAction.startDetached();
             }
             else if(!bPopupOnHover){

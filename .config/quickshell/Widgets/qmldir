@@ -7,3 +7,4 @@ WireguardEntryWidget 1.0 WireguardEntry.qml
 Wallpaper 1.0 Wallpaper.qml
 MusicViz 1.0 MusicViz.qml
 MprisWidget 1.0 MprisWidget.qml
+ControlCenterWidget 1.0 ControlCenterWidget.qml
