@@ -16,7 +16,7 @@
           "foreground": "p:col-user-segment-text",
           "powerline_symbol": "\ue0b0",
           "style": "powerline",
-          "template": " \uf26c  {{ if .SSHSession }}\ueba9  {{ end }}{{ .UserName }}@{{ .HostName }} ",
+          "template": " \uf26c  {{ if .SSHSession }}\ueba9  {{ end }}{{ .UserName }}  ",
           "type": "session"
         },
         {
