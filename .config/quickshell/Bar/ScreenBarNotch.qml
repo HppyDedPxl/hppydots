@@ -6,6 +6,7 @@ import QtQuick.Shapes
 import Quickshell
 import "../Widgets"
 import "../Services"
+import Quickshell.Hyprland
 import QtQuick.Controls
 
 PanelWindow {
@@ -68,6 +69,8 @@ PanelWindow {
     readonly property var decorationLoaderXPreset: [0,-screen.width+barWidth,0,0]
     readonly property var decorationLoaderYPreset: [0,0,-screen.height+barWidth,0]
 
+    property var hyprlandGrabber: focusGrab
+
     anchors {
         top: anchorPresets[bar.orientation][0]
         right:anchorPresets[bar.orientation][1]
@@ -93,6 +96,13 @@ PanelWindow {
         }
     }
    
+    HyprlandFocusGrab {
+        id: focusGrab
+        windows: [bar]
+        onCleared: {
+            bar.bOpen = false
+        }
+    }
 
     StyledCurveConnector{
         id: shapeRR
@@ -283,6 +293,12 @@ PanelWindow {
                     anchors.fill:parent
                     onClicked: {
                         bar.bOpen = !bar.bOpen
+                        if(bar.bOpen){
+                            focusGrab.active=true;
+                        }
+                        else{
+                            focusGrab.active=false;
+                        }
                     }
                     onEntered: {
                         dropButton.bHovered = true
