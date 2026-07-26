@@ -55,7 +55,6 @@ PopupWindow {
     }
 
     function calculateAnchorX() {
-        console.log(bFixedAttachment)
         if(bFixedAttachment != null)
             return bFixedAttachment[0] + - (width / 2)
         if (root.orientation == 0 || root.orientation == 2) 
@@ -96,7 +95,7 @@ PopupWindow {
         }
     }
 
-        // todo, everything for side bars left right :) this will be fun
+    // todo, everything for side bars left right :) this will be fun
     anchor.window: orientation == 0 ? topBar : bottomBar
     anchor.rect.x: calculateAnchorX()
     anchor.rect.y: calculateAnchorY()

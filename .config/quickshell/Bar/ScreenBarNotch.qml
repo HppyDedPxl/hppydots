@@ -271,11 +271,13 @@ PanelWindow {
                      FlexboxLayout {
                         id: barWidgetsRight
                         anchors.fill:parent
-                        direction:bar.orientation % 2 == 0 ? FlexboxLayout.Row : FlexboxLayout.Column
-                        alignItems: FlexboxLayout.AlignCenter
+                        alignItems: FlexboxLayout.AlignEnd
+                        direction : FlexboxLayout.RowReversed
+                        justifyContent: FlexboxLayout.JustifyEnd
                         property var targetBar : bar
                         children: bar.contentRight
                         gap:2
+                        
                     }     
                 }
             }

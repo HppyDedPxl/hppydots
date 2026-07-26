@@ -9,7 +9,8 @@ import Quickshell.Widgets
 
 BaseModule {
     id: baseModule
-    width: 150
+    property var bMinimalDisplay : false
+    width: bMinimalDisplay ? 40 : 150
 
     property var audioSink: Pipewire.defaultAudioSink
     property int volume: (audioSink && audioSink.audio) ? Math.round(audioSink.audio.volume * 100) : 0
@@ -60,7 +61,7 @@ BaseModule {
             StyledText {
                 anchors.centerIn: parent
                 color: baseModule.textColorOnBar
-                text: volume + "% " + getAudioIcon() + "  " + sensitivity + "% " + getMicIcon()
+                text: bMinimalDisplay ?  getAudioIcon() : volume + "% " + getAudioIcon() + "  " + sensitivity + "% " + getMicIcon()
             }
 
         }
