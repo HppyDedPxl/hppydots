@@ -6,14 +6,10 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 
-Item {
-    
 
-    Item {
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+    Rectangle {
+        width:childrenRect.width
+        height:childrenRect.height
         anchors.margins: 10
 
         RowLayout {
@@ -21,7 +17,7 @@ Item {
 
             width: parent.width
             spacing: 0
-            height: width / 5
+            height: childrenRect.height
 
             StyledButton {
                 Layout.preferredWidth: parent.width / 5
@@ -131,7 +127,7 @@ Item {
                     }
                 }
             }
-        }
+        
     }
 
     Process {

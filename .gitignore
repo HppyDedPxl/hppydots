@@ -11,3 +11,7 @@
 .config/oh-my-posh/themes/dynamic_autogen.omp.json
 .config/qutebrowser/quickmarks
 .config/qutebrowser/qsettings/QtProject.conf
+.config/quickshell/config/*
+.config/oh-my-posh/themes/1_shell.omp.json
+.config/oh-my-posh/themes/dynamic_autogen.omp.json
+.config/qutebrowser/qsettings/QtProject.conf

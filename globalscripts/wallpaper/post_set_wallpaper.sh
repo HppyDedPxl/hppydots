@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "wtf"
 echo $1
 echo $2
 # Set the file in a cache file for persistence

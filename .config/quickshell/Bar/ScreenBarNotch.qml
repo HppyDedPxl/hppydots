@@ -6,6 +6,7 @@ import QtQuick.Shapes
 import Quickshell
 import "../Widgets"
 import "../Services"
+import "../Modules"
 import Quickshell.Hyprland
 import QtQuick.Controls
 
@@ -26,7 +27,7 @@ PanelWindow {
     property var debug : false
     property var hiddenContentSize: 450
     screen: scope.modelData
-                    property var bFixedAttachmentPoint : [baseRect.x+baseRect.width/2,baseRect.height-baseRect.yOffset]
+    property var bFixedAttachmentPoint : [baseRect.x+baseRect.width/2,baseRect.height-baseRect.yOffset]
 
     property var bOpen : false
 
@@ -35,6 +36,7 @@ PanelWindow {
 
     color: debug?'magenta':'transparent'
     exclusiveZone: barWidth
+    
     //mask : Region {regions: {barWidgets.children.map(x=>x.region)}}
     mask: Region{item: baseRect}
     readonly property var anchorPresets : [
@@ -215,10 +217,43 @@ PanelWindow {
                     Rectangle {
                         Layout.preferredWidth: 200
                     }
-                    ControlCenterWidget {
+                    ColumnLayout {
                         Layout.fillHeight:true
                         Layout.fillWidth:true
+                        
+                        ControlCenterWidget {
+                            Layout.alignment: Qt.AlignTop
+                            Layout.fillWidth:true
+                            color:"transparent"
+                        }
+
+                        ////////////// wallpaper widget TODO make cool
+                        WallpaperPickerFull {
+                            id:_wallpaperPicker
+                        }
+                        Rectangle {
+                            id: wallpaper
+                            Layout.fillWidth:true
+                            Layout.preferredHeight:width/(16/9)
+                            color:'transparent'
+                            Image {
+                                anchors.fill:parent
+                                fillMode: Image.PreserveAspectFit
+                                source: WallpaperProvider.getWallpaperThumbnailPathForScreen(screen)
+                            }
+                            MouseArea{
+                                anchors.fill:parent
+                                onClicked:{
+                                    focusGrab.active = false
+                                    bar.bOpen = false
+                                    ModalWindowProvider.showModalOnScreen(screen,_wallpaperPicker)
+                                }
+                            }
+
+                        }
+                        //// wallpaper widget end
                     }
+
                     Rectangle{
                         Layout.preferredWidth: 20
                     }

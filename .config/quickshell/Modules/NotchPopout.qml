@@ -15,9 +15,7 @@ Item {
     property var root : null
     
     function getContentSizeSetForOrientation(){
-        console.log("root is: " + root)
         if(root.orientation == 0 || root.orientation == 2){
-            console.log("returning this here")
             return [margin - 1,0,(root.overrideWidth > 0 ? root.overrideWidth : c.width) + 2,c.height]
         }
         else{
@@ -80,7 +78,6 @@ Item {
     }
 
     function calculateShapeGroupBaseX(){
-        console.log(root.orientation)
         if(root.orientation == 0 || root.orientation == 2){
             return 0
         }

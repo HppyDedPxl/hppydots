@@ -14,73 +14,9 @@ import Quickshell.Hyprland
 
 
 Scope {
-    Component { 
-      id:overlayDecoration2
-      Shape {
-        id:deco
-        layer.enabled:true
-        ShapePath {
-          strokeColor:'transparent'
-          strokeWidth:0
-          fillColor: AppearanceProvider.highlightColor
-          startX:modelData.width
-          startY :modelData.height/1.3
-          PathLine {
-            x: modelData.width
-            y: modelData.height/1.3
-          }
-          PathLine{
-            x:modelData.width
-            y:modelData.height
-          }
-          PathLine{
-            x:modelData.width/1.2
-              y:modelData.height
-          }
-        }
-        Shape {
-          ShapePath {
-            strokeColor:'transparent'
-            strokeWidth:0
-            fillColor: AppearanceProvider.accentColor
-            startX:modelData.width
-            startY :modelData.height/1.2
-            PathLine {
-              x: modelData.width
-              y: modelData.height/1.2
-            }
-            PathLine{
-              x:modelData.width
-              y:modelData.height
-            }
-            PathLine{
-              x:modelData.width/1.1
-              y:modelData.height
-            }
-          }
-          Shape {
-            ShapePath {
-              strokeColor:'transparent'
-              strokeWidth:0
-              fillColor: AppearanceProvider.backgroundColor
-              startX:modelData.width
-              startY :modelData.height/1.1
-              PathLine {
-                x: modelData.width
-                y: modelData.height/1.1
-              }
-              PathLine{
-                x:modelData.width
-                y:modelData.height
-              }
-              PathLine{
-                x:modelData.width/1.05
-                y:modelData.height
-              }
-            }
-          }
-        }
-      }
+
+    Wallpaper{
+      themeExclusionZonesTop: AppearanceProvider.topBarWidth
     }
 
     ScreenBarNotch {
@@ -169,5 +105,17 @@ Scope {
     OverlayNotificationArea{
       id:notificationArea
       visible:true         
+    }
+
+    WallpaperPickerFull{
+      id: _picker
+    }
+
+    ModalWindow{
+      id:modalWindow
+    }
+
+    Component.onCompleted: {
+        ModalWindowProvider.registerModalComponent(scope.modelData,modalWindow)
     }
 }

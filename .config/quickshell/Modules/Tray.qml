@@ -110,7 +110,6 @@ BaseModule {
                                     baseModule.bInhibitClose = true;
                                     menuAnchor.menu = SystemTray.items.values[index].menu;
                                     var global = image.mapToGlobal(image.x, image.y);
-                                    console.log(scope.modelData.x)
                                     global.x-=scope.modelData.x
                                     global.y-=scope.modelData.y
                                     win.anchor.rect.x = global.x;

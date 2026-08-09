@@ -39,7 +39,6 @@ BaseModule{
         // Find a device that is currently connected:
         for(var i = 0; i < Networking.devices.values.length; i++){
             if(Networking.devices.values[i].state == ConnectionState.Connected){
-                console.log("sadjasd")
                 device = Networking.devices.values[i];
                 break;
             }
