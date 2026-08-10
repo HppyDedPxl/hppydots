@@ -8,153 +8,147 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 
+Rectangle {
+    id: r
+
+    required property string fileName
+    required property var fileIsDir
+    required property var fileUrl
+    required property var filePath
+    required property var baseFolderPath
+    property var bHovered: false
+
+    signal pressed(var wallpaperUrl)
+
+    visible: fileName != "."
+    height: 108
+    width: 192
+    color: 'transparent'
+    radius: AppearanceProvider.rounding
+    clip: true
+    states: [
+        State {
+            name: "hovered"
+            when: r.bHovered
+
+            PropertyChanges {
+                button {
+                    bgColor: AppearanceProvider.highlightColor
+                    textColor: AppearanceProvider.highlightTextColor
+                }
+
+                r {
+                    height: 108 + 4
+                    width: 192 + 4
+                }
+
+            }
+
+        },
+        State {
+            name: "unhovered"
+            when: !r.bHovered
+        }
+    ]
+    transitions: [
+        Transition {
+            from: "unhovered"
+            to: "hovered"
+            reversible: true
+
+            NumberAnimation {
+                properties: "r.height, r.width, r.x,r.y"
+                duration: 250
+            }
+
+            ColorAnimation {
+                properties: "button.bgColor, button.textcolor"
+                duration: 250
+            }
+
+        }
+    ]
 
     Rectangle {
-        id: r
+        id: button
 
-        required property string fileName
-        required property var fileIsDir
-        required property var fileUrl
-        required property var filePath
-        property var parentPicker
+        property var bgColor: "transparent"
+        property var textColor: AppearanceProvider.textColor
 
-        property var bHovered: false
-
-        visible: fileName != "."
-        height: 108
-        width: 192
-        color: 'transparent'
+        anchors.fill: parent
         radius: AppearanceProvider.rounding
-        clip: true
-        states: [
-            State {
-                name: "hovered"
-                when: r.bHovered
+        color: bgColor
 
-                PropertyChanges {
-                    button {
-                        bgColor: AppearanceProvider.highlightColor
-                        textColor: AppearanceProvider.highlightTextColor
-                    }
-
-                    r {
-                        height: 108 + 4
-                        width: 192 + 4
-                    }
-
-                }
-
-            },
-            State {
-                name: "unhovered"
-                when: !r.bHovered
-            }
-        ]
-        transitions: [
-            Transition {
-                from: "unhovered"
-                to: "hovered"
-                reversible: true
-
-                NumberAnimation {
-                    properties: "r.height, r.width, r.x,r.y"
-                    duration: 250
-                }
-
-                ColorAnimation {
-                    properties: "button.bgColor, button.textcolor"
-                    duration: 250
-                }
-
-            }
-        ]
-
-        Rectangle {
-            id: button
-
-            property var bgColor: "transparent"
-            property var textColor: AppearanceProvider.textColor
-
+        ColumnLayout {
             anchors.fill: parent
-            radius: AppearanceProvider.rounding
-            color: bgColor
 
-            ColumnLayout {
-                anchors.fill: parent
+            Rectangle {
+                color: "transparent"
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                Rectangle {
-                    color: "transparent"
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    
-                    Text {
-                        anchors.centerIn: parent
-                        text: "󱇑"
-                        font.pointSize: 35
-                        color: button.textColor
-                    }
-                    
-
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    color: "transparent"
-
-                    Text {
-                        anchors.centerIn: parent
-                        visible: true
-                        text: "No Thumb"
-                        color: button.textColor
-                        font.pointSize: 12
-                    }
-
-                }
-
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    color: "transparent"
-
-                    Text {
-                        anchors.centerIn: parent
-                        visible: true
-                        text: fileName
-                        color: button.textColor
-                        font.pointSize: 13
-                    }
-
+                Text {
+                    anchors.centerIn: parent
+                    text: "󱇑"
+                    font.pointSize: 35
+                    color: button.textColor
                 }
 
             }
 
-        }
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
 
-        Image {
-            anchors.fill: parent
-            visible: fileIsDir == false
-            source: wallpaperFolder + "/thumbs/" + fileName + ".thumb"
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: {
-                if (r.fileIsDir)
-                    wallpaperFolder = r.fileUrl;
-                else{
-                    WallpaperProvider.setWallpaper(screen, r.fileUrl, mainPicker.bApplyColorScheme);
+                Text {
+                    anchors.centerIn: parent
+                    visible: true
+                    text: "No Thumb"
+                    color: button.textColor
+                    font.pointSize: 12
                 }
+
             }
-            onEntered: {
-                r.bHovered = true;
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+
+                Text {
+                    anchors.centerIn: parent
+                    visible: true
+                    text: fileName
+                    color: button.textColor
+                    font.pointSize: 13
+                }
+
             }
-            onExited: {
-                r.bHovered = false;
-            }
-            cursorShape: Qt.PointingHandCursor
+
         }
 
     }
 
+    Image {
+        anchors.fill: parent
+        visible: fileIsDir == false
+        source: r.baseFolderPath + "/thumbs/" + fileName + ".thumb"
+    }
 
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onClicked: {
+            r.onPressed(r.fileUrl);
+        }
+        onEntered: {
+            r.bHovered = true;
+        }
+        onExited: {
+            r.bHovered = false;
+        }
+        cursorShape: Qt.PointingHandCursor
+    }
+
+}

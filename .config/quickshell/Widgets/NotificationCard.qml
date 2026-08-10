@@ -114,7 +114,7 @@ Item {
                 implicitWidth: headerRect.width
 
                 Image {
-                    source: notification.image
+                    source: notification.image ?? ""
                     Layout.leftMargin: 5
                     Layout.topMargin: 5
                     Layout.bottomMargin: 5

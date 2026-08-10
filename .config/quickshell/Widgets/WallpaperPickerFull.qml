@@ -15,9 +15,8 @@ Component {
         id: mainPicker
         property var padding: 8
         property alias wallpaperFolder: base.wallpaperFolder
-        property var bApplyColorScheme : true
 
-        width: padding + (192 + padding) * 6 + 20
+        width: padding + (192 + padding) * 5 + 60
         height: (padding + (108 + padding) * 4) + 200
         color: AppearanceProvider.nativeBackgroundColor
         radius: AppearanceProvider.rounding
@@ -43,21 +42,19 @@ Component {
             }
 
             Rectangle {
-
                 id: base
-
                 property var padding: 8
-                property var baseColor: Qt.lighter(Qt.lighter(Qt.lighter(AppearanceProvider.nativeBackgroundColor)))
-                property var wallpaperFolder: Qt.resolvedUrl(WallpaperProvider.config.defaultWallpaperFolder)
-                
+                property var baseColor: Qt.lighter(AppearanceProvider.nativeBackgroundColor)
+                property var wallpaperFolder: Qt.resolvedUrl(WallpaperProvider.config.defaultWallpaperFolder)        
                 property var pendingLoading : false;
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                x: 10
-                y: 10
+                Layout.leftMargin: 20
+                Layout.rightMargin: 20
+
                 clip: true
-                border.width: 2
+  
                 color: baseColor
                 radius: AppearanceProvider.rounding
 
@@ -107,7 +104,10 @@ Component {
                             role:"fileIsDir"
                             DelegateChoice{ roleValue: true; delegate: WallpaperGridFolderEntry{} }
                             DelegateChoice{ roleValue: false; delegate: Component { WallpaperGridImageEntry {
-                                parentPicker : mainPicker
+                                baseFolderPath : wallpaperFolder
+                                onPressed:(path)=>{
+                                    WallpaperProvider.setWallpaper(screen, path, applyColorScheme.checked);
+                                }
                             } }}
                         }
 
@@ -134,7 +134,8 @@ Component {
                     anchors.leftMargin:100
                     anchors.rightMargin:100
                     CheckBox{
-                        checked: bApplyColorScheme
+                        id: applyColorScheme
+                        checked: false
                         text: "Apply Color Scheme"
                         Layout.fillWidth :false
                     }

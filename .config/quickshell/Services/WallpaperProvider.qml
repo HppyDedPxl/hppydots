@@ -14,6 +14,7 @@ Singleton {
     property var configFileName: "wallpaper.json"
     property var postSetScript: "/home/Alexander/dotfiles/globalscripts/wallpaper/post_set_wallpaper.sh"
 
+    signal needsUpdate()
 
     function getWallpaperPathForScreen(screen){
         if(config.wallpapers === undefined || config.wallpapers[screen.name] === undefined) return "";
@@ -38,7 +39,6 @@ Singleton {
     function setDefaultWallpaperFolder(path){
         console.log("Set Defualt Wallpaper folder!!")
         _.config.defaultWallpaperFolder = urlToPathString(path);
-
         saveConfig()
     }
 
@@ -47,31 +47,22 @@ Singleton {
         config = JSON.parse(data)
     }
 
-    function toJSON(){
-        var dump = JSON.stringify(_.config);
-        console.log(dump)
-        return dump;
-    }
 
     function setWallpaper(screen,path,callPostSetScript){
+        console.log("call post set wallpaper script with " + callPostSetScript)
         if(_.config.wallpapers === undefined)
             _.config.wallpapers = {}
         _.config.wallpapers[screen.name] = urlToPathString(path)
-
-        console.log(_.config.postSetScript)
-        console.log(callPostSetScript)
         if(callPostSetScript == true && _.config.postSetScript != undefined && _.config.postSetScript != ""){
             proc_postSetWallpaper.command = ["sh",_.config.postSetScript,"",  urlToPathString(path)]
-            console.log(proc_postSetWallpaper.command)
             proc_postSetWallpaper.running = true
         }
-
+        needsUpdate()
         saveConfig()
     }
 
     function saveConfig(){
-        proc_saveConfig.command = ["sh",writeScriptPath,urlToPathString(Qt.resolvedUrl(configPath)),configFileName,toJSON()];
-        proc_saveConfig.running = true
+        wpConfig.setText(JSON.stringify(_.config))
     }
     
     function setPostSetScriptPath(path) {
@@ -85,8 +76,6 @@ Singleton {
         proc_generate_thumbs.running = true
 
     }
-
-
 
     Process {
         id: proc_generate_thumbs
@@ -116,6 +105,7 @@ Singleton {
     FileView {
         id: wpConfig
         path: Qt.resolvedUrl(configPath + "/" + configFileName)
+        atomicWrites: true
         watchChanges:true
         onLoaded: _.fromJSON(wpConfig.text())
         onFileChanged: {

@@ -36,7 +36,7 @@ PanelWindow
         // Dark translucent scrim background
         Rectangle {
             anchors.fill: parent
-            color: "#80000000"
+            color: "#00000000"
 
         }
     }

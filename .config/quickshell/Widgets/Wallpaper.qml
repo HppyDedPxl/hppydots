@@ -26,6 +26,15 @@ PanelWindow{
     property var wallpaperFolder: "file:///home/Alexander/wallpaper"
     property var scriptToRun: "/home/Alexander/dotfiles/globalscripts/wallpaper/post_set_wallpaper.sh"
 
+   Connections {
+    target: WallpaperProvider
+    function onNeedsUpdate(){
+        // Forcefully set this again as sometimes the array based binding does
+        // not properly work when a js object is the target.
+        wallpaperUrl = WallpaperProvider.config.wallpapers[screen.name]
+    }
+   }
+    
     function isVideo(file){
         let psplit = file.toString().split('.');
         return psplit[psplit.length-1] == "mp4";
@@ -137,7 +146,5 @@ PanelWindow{
                 anchors.fill:parent
             }
         }
-
-    }
-    
+    }  
 }
