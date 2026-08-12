@@ -13,7 +13,7 @@ These dotfiles require certain programs to be installed and configured to have a
 * meson 
 * ~~waybar~~ (optional now if not wanting to use quickshell)
 * ~~swaync~~ (optional now if now not wanting to use quickshell)
-* quickshell-git (from AUR to get latest git due to polkit dependency)
+* quickshell
 * qutebrowser
 * code
 * wireguard-tools + running the install_polkit_policy.sh (for wireguard applet)

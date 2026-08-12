@@ -4,13 +4,13 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Widgets
 import "../Appearance"
-Rectangle{
+Rectangle {
     id:desktopEntry
     required property var _data
     width: parent.width
-    height: 64
+    height: 128
     property var isFocused: false
-    color : isFocused ? AppearanceProvider.highlightColor : AppearanceProvider.backgroundColorSecondary
+    color : isFocused ? AppearanceProvider.highlightColor : 'transparent'
     border.width:0
     radius: AppearanceProvider.rounding
     Rectangle {
@@ -40,8 +40,10 @@ Rectangle{
                     source: Quickshell.iconPath(_data.icon)
                 }
             }
-            
-            StyledText {
+            ColumnLayout {
+                Layout.fillWidth : true
+                Layout.fillHeight: true
+                 StyledText {
                 text: _data.name
                 clip:true
                 elide: Text.ElideRight
@@ -51,12 +53,15 @@ Rectangle{
 
             
             StyledText {
-                text: _data.execString
+                text: _data.comment
                 clip:true
                 elide: Text.ElideRight
                 color: desktopEntry.isFocused ? AppearanceProvider.highlightTextColor : AppearanceProvider.textColor
                 Layout.fillWidth:true
             }
+            }
+            
+           
         }
     }
 }

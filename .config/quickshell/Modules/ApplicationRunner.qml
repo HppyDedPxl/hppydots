@@ -57,7 +57,7 @@ BaseModule{
             property var getAutoFocusItem:()=>{
                 return textInput
             }
-            property var elementHeight: 45
+            property var elementHeight: 70
             property var elementSpacing: 10
             
             function calcScrollDuration(){

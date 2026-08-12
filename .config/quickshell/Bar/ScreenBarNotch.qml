@@ -127,7 +127,8 @@ PanelWindow {
 
     Rectangle {
         id: baseRect
-        property var yOffset : bar.hiddenContentSize-10
+        property var elasticAnimationPadding: 100
+        property var yOffset : bar.hiddenContentSize + baseRect.elasticAnimationPadding - 10 
         y: 0 - yOffset
         anchors.horizontalCenter : parent.horizontalCenter
         bottomLeftRadius: 25
@@ -137,10 +138,9 @@ PanelWindow {
         anchors.rightMargin: paddingPresets[bar.orientation][1]
         anchors.bottomMargin: paddingPresets[bar.orientation][2]
         anchors.leftMargin: paddingPresets[bar.orientation][3]
-        height: barWidth + hiddenContentSize
+        height: barWidth + hiddenContentSize + baseRect.elasticAnimationPadding
         color: AppearanceProvider.nativeBackgroundColor
         clip:true
-
 
         states: [
             State {
@@ -148,13 +148,18 @@ PanelWindow {
                 when : bar.bOpen == true
                 PropertyChanges {
                     baseRect {
-                        yOffset : 0
+                        yOffset : baseRect.elasticAnimationPadding
                     }
                 }
             },
             State {
                 name : "closed"
                 when: bar.bOpen == false
+                PropertyChanges {
+                    baseRect {
+                        yOffset : bar.hiddenContentSize-10 + baseRect.elasticAnimationPadding
+                    }
+                }
             }
         ]
 
@@ -162,16 +167,27 @@ PanelWindow {
             Transition {
                 from: "closed"
                 to:  "open"
-                reversible: true
                 NumberAnimation {
                     properties: "baseRect.yOffset"
-                    duration: 1000
+                    duration: 1050
+                    easing.type : Easing.OutElastic
+                    easing.amplitude: 0.3
+                    easing.period: .8
+                }
+            },
+            Transition {
+                from: "open"
+                to:  "closed"
+                NumberAnimation {
+                    properties: "baseRect.yOffset"
+                    duration: 750
                     easing.type : Easing.InOutCubic
                 }
             }
         ]
         
         ColumnLayout {
+            anchors.topMargin: baseRect.elasticAnimationPadding
             anchors.fill : parent
             id: contentRectColumn
             Rectangle {
@@ -235,20 +251,159 @@ PanelWindow {
                             id: wallpaper
                             Layout.fillWidth:true
                             Layout.preferredHeight:width/(16/9)
-                            color:'transparent'
-                            Image {
+                            color:AppearanceProvider.backgroundColorSecondary
+                            radius: AppearanceProvider.rounding
+                            property var bHovered : false
+                            Rectangle{
+                                id: baseWpRect
+                                anchors.centerIn:parent
+                                color:'transparent'
                                 anchors.fill:parent
-                                fillMode: Image.PreserveAspectFit
-                                source: WallpaperProvider.getWallpaperThumbnailPathForScreen(screen)
+                                clip:true
+
+                                radius:AppearanceProvider.rounding
+                                MultiEffect {
+                                    source: wallpaperImage
+                                    anchors.fill: wallpaperImage
+                                    maskEnabled: true
+                                    maskSource: mask
+                                }
+                                Image {
+                                    id: wallpaperImage
+                                    anchors.fill:parent
+                                    visible:false
+                                    smooth:true
+                                    fillMode: Image.PreserveAspectFit
+                                    source: WallpaperProvider.getWallpaperThumbnailPathForScreen(screen)
+                                }
+                                Item {
+                                    id:mask
+                                    anchors.fill: wallpaperImage
+                                    layer.enabled:true
+                                    visible:false
+                                    Rectangle {
+                                        anchors.fill:parent
+                                        radius: AppearanceProvider.rounding
+                                    }        
+                                }
+                                Rectangle{
+                                    anchors.fill:parent
+                                    radius: AppearanceProvider.rounding
+                                    color: 'transparent'
+                                    border.color: AppearanceProvider.backgroundColorSecondary
+                                    border.width:4
+                                }
+
+                                
+                                
                             }
-                            MouseArea{
+
+                                MultiEffect {
+                                    source: wpLabelWrapper
+                                    anchors.fill: baseWpRect
+                                    maskEnabled: true
+                                    maskSource: mask2
+                                }
+                                Rectangle{ 
+                                    id: wpLabelWrapper
+                                    anchors.fill:baseWpRect
+                                    color:'transparent'
+                                    visible:false
+
+                                    Rectangle{
+                                        id: wallpaperLabel
+                                        anchors.right: parent.right
+                                        anchors.left: parent.left
+                                        anchors.bottom: parent.bottom
+                                        height:0
+                                        color:AppearanceProvider.backgroundColorSecondary
+                                    }
+                                    Text {
+                                        id: wallpaperLabelText
+                                        text: "Change Wallpaper"
+                                        color: AppearanceProvider.textColor
+                                        anchors.bottom: wpLabelWrapper.bottom
+                                        anchors.left :wpLabelWrapper.left
+                                        anchors.right: wpLabelWrapper.right
+                                        height: 30
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        anchors.bottomMargin: -30
+                                    }
+                                }
+                                
+                                Item {
+                                    id:mask2
+                                    anchors.fill: baseWpRect
+                                    layer.enabled:true
+                                    visible:false
+                                    opacity:0.2
+                                    Rectangle {
+                                        anchors.fill:parent
+                                        radius: AppearanceProvider.rounding
+                                    }        
+                                }
+
+                            
+                            
+                                MouseArea{
                                 anchors.fill:parent
+                                hoverEnabled : true
                                 onClicked:{
                                     focusGrab.active = false
                                     bar.bOpen = false
                                     ModalWindowProvider.showModalOnScreen(screen,_wallpaperPicker)
                                 }
+                                cursorShape: Qt.PointingHandCursor
+                                onEntered:{
+                                    
+                                    wallpaper.bHovered = true
+                                }
+                                onExited:{
+                                    wallpaper.bHovered = false
+                                }
                             }
+                            states:[
+                                State{
+                                    name: "hovered"
+                                    when: wallpaper.bHovered
+                                    PropertyChanges{
+                                        wallpaperLabel {
+                                            height: 30
+                                        }
+                                        wallpaperLabelText{
+                                            anchors.bottomMargin:0
+                                        }
+                                    }
+                                },
+                                State{
+                                    name: "unhovered"
+                                    when: !wallpaper.bHovered
+                                }
+                            ]
+                            transitions: [
+                                Transition {
+                                    from: "unhovered"
+                                    to: "hovered"
+                                    NumberAnimation {
+                                        properties: "wallpaperLabel.height, wallpaperLabelText.anchors.bottomMargin"
+                                        duration: 550
+                                        easing.type : Easing.OutElastic
+                                        easing.amplitude: 1.5
+                                        easing.period: 1
+                                    }
+                                },
+                                Transition {
+                                    from : "hovered"
+                                    to : "unhovered"
+                                     NumberAnimation {
+                                        properties: "wallpaperLabel.height, wallpaperLabelText.anchors.bottomMargin"
+                                        duration: 350
+                                        easing.type : Easing.InOutCubic
+
+                                    }
+                                }
+                            ]
 
                         }
                         //// wallpaper widget end

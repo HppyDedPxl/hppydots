@@ -14,7 +14,7 @@ PanelWindow
     property var widgetToShow : null
 
     function show(widget){
-        modalRoot.visible =true
+        modalRoot.visible = true
         modalRoot.widgetToShow = widget;
         contentLoader.active = true
         modalRoot.forceActiveFocus();
@@ -29,14 +29,13 @@ PanelWindow
         acceptedButtons: Qt.LeftButton
         
         onClicked: {
-            modalRoot.visible = false
-            contentLoader.active = false
+            dialogBox.displaying = false
         }
         
         // Dark translucent scrim background
         Rectangle {
             anchors.fill: parent
-            color: "#00000000"
+            color: '#d7313030'
 
         }
     }
@@ -47,12 +46,79 @@ PanelWindow
         width:contentLoader.item.width
         color:'transparent'
         anchors.centerIn:parent
+        property var displaying : false
+        transform: Scale {
+            xScale: 0
+            yScale: 0
+            origin.x:0.5
+            origin.y:0.5
+        }
         Loader {
             id: contentLoader
             active: false
             sourceComponent: widgetToShow
             onLoaded: { 
+                dialogBox.displaying = true;
             }
         }
+        states: [
+            State {
+                name: "open"
+                when: dialogBox.displaying
+                PropertyChanges {
+                    dialogBox {
+                        transform : Scale{
+                            xScale: 1
+                            yScale: 1
+                        }
+                    }
+                }
+            },
+            State {
+                name: "closed"
+                when: !dialogBox.displaying
+                  PropertyChanges {
+                    dialogBox {
+                       transform : Scale{
+                            xScale: 0
+                            yScale: 0
+                        }
+                    }
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "closed"
+                to: "open"
+                ScaleAnimator {
+                    target: dialogBox
+                    from: 0
+                    to: 1
+                    easing.type: Easing.OutElastic
+                    easing.amplitude: 0.7
+                    easing.period: 1.2
+                    duration: 1500
+                }
+            },
+            Transition {
+                from: "open"
+                to: "closed"
+                  SequentialAnimation{
+                  ScaleAnimator {
+                    target: dialogBox
+                    from: 1
+                    to: 0
+                    easing.type: Easing.InOutCubic
+                    duration: 1500
+                }
+                    ScriptAction{
+                        script:{      
+                        modalRoot.visible= false
+                        contentLoader.active = false
+                    }}
+                  }
+            }
+        ]
     }
 }
