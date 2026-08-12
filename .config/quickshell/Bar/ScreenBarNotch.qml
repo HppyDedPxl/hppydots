@@ -211,7 +211,7 @@ PanelWindow {
                         Layout.fillHeight:true
                         width:300
                         color:'transparent'
-                        property var player : MprisHandler.getPrimaryPlayer()
+                        property var player : MprisHandler.primaryPlayer
                         property var onOpen : ()=>{
                             loader.item.seekBar.updateTime()
                         }
@@ -220,7 +220,7 @@ PanelWindow {
                             id: loader
                             active : true
                             sourceComponent: MprisWidget {
-                                player: MprisHandler.getPrimaryPlayer()
+                                player: MprisHandler.primaryPlayer
                                 height:base.height
                                 width:base.width
                                 bShowVolumeSlider : false
@@ -236,12 +236,10 @@ PanelWindow {
                     ColumnLayout {
                         Layout.fillHeight:true
                         Layout.fillWidth:true
-                        
-                        ControlCenterWidget {
-                            Layout.alignment: Qt.AlignTop
-                            Layout.fillWidth:true
-                            color:"transparent"
+                        Rectangle {
+                        Layout.preferredHeight: 20
                         }
+     
 
                         ////////////// wallpaper widget TODO make cool
                         WallpaperPickerFull {
@@ -291,7 +289,7 @@ PanelWindow {
                                     radius: AppearanceProvider.rounding
                                     color: 'transparent'
                                     border.color: AppearanceProvider.backgroundColorSecondary
-                                    border.width:4
+                                    border.width:2
                                 }
 
                                 
@@ -406,7 +404,20 @@ PanelWindow {
                             ]
 
                         }
+
                         //// wallpaper widget end
+
+                        Rectangle {
+                            Layout.preferredHeight: 10
+                        }
+                        ControlCenterWidget {
+                            Layout.alignment: Qt.AlignTop
+                            Layout.fillWidth:true
+                            color:"transparent"
+                        }
+                        Rectangle{
+                        Layout.fillHeight: true
+                        }
                     }
 
                     Rectangle{

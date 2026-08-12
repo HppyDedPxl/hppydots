@@ -7,7 +7,7 @@ Rectangle {
     property var text: ""
     property var onClick: ()=>{}
     radius: AppearanceProvider.rounding / 2
-    border.width:4
+    border.width:2
     property var buttonPrimaryColor : AppearanceProvider.backgroundColor
     border.color:buttonPrimaryColor
     color: Qt.darker(buttonPrimaryColor)
@@ -18,7 +18,7 @@ Rectangle {
     property alias textColor : innerText.color
     property var hoverTextColor : Qt.lighter(innerText.color)
     width:innerText.paintedWidth+padding*2
-    
+    property var active: true
 
     StyledText {
         id: innerText
@@ -29,9 +29,9 @@ Rectangle {
     }
     MouseArea{
         anchors.fill:parent
-        enabled:true
-        hoverEnabled:true
-        cursorShape: Qt.PointingHandCursor
+        enabled:button.active
+        hoverEnabled:button.active
+        cursorShape: button.active ? Qt.PointingHandCursor : Qt.Arrow
         onEntered: {
             bIsHovered = true
         }

@@ -8,6 +8,7 @@ Singleton {
     id: mprisHandler
 
     property var primaryActivePlayerIndex : -1
+    property var primaryPlayer : null
 
     function initService() {
         getPrimaryPlayer();
@@ -24,6 +25,8 @@ Singleton {
             primaryActivePlayerIndex--;
         else
             primaryActivePlayerIndex = Mpris.players.values.length-1;
+        primaryPlayer = Mpris.players.values[primaryActivePlayerIndex];
+        
     }
 
     function hasNextPlayer() {
@@ -36,12 +39,13 @@ Singleton {
         if(primaryActivePlayerIndex < Mpris.players.values.length-1)
             primaryActivePlayerIndex++;
         else
-            primaryActivePlayerIndex = 0;      
+            primaryActivePlayerIndex = 0;
+        primaryPlayer = Mpris.players.values[primaryActivePlayerIndex];
     }
 
 
     function getPrimaryPlayerUnsafe(){
-        return Mpris.players.values[primaryActivePlayerIndex];
+        return primaryPlayer
     }
 
     function getPrimaryPlayer() {
@@ -55,7 +59,9 @@ Singleton {
         if (primaryActivePlayerIndex == -1) {
             primaryActivePlayerIndex = 0
         }
-        return Mpris.players.values[primaryActivePlayerIndex]
+
+        primaryPlayer = Mpris.players.values[primaryActivePlayerIndex];
+        return primaryPlayer
     }
 
     function getPlayingPlayer() {

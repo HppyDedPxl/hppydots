@@ -29,7 +29,9 @@ Rectangle {
         anchors.rightMargin:30
         height:40
         StyledButton {
-            visible:MprisHandler.hasPreviousPlayer();
+            visible:true
+            opacity: MprisHandler.hasPreviousPlayer() ? 1 : 0.2
+            active: MprisHandler.hasPreviousPlayer()
             Layout.preferredWidth:20
             Layout.preferredHeight:20
             color: 'transparent'
@@ -50,7 +52,9 @@ Rectangle {
             font.pointSize:15
         }
         StyledButton {
-            visible:MprisHandler.hasNextPlayer();
+            visible:true
+            opacity: MprisHandler.hasNextPlayer() ? 1 : 0.2
+            active: MprisHandler.hasNextPlayer()
             Layout.preferredWidth:20
             Layout.preferredHeight:20
             border.width:0
@@ -64,17 +68,80 @@ Rectangle {
             }              
         }
     }
-    Image {
-        id:albumArt
+
+    MultiEffect{
+        id: roundedAlbumArt
+        visible: player.trackArtUrl != ""
         anchors.top: heading.bottom
         anchors.left:parent.left
         anchors.right:parent.right
         anchors.topMargin:5
         anchors.leftMargin:50
         anchors.rightMargin:50
+        height: width
+        source: albumArt
+        maskEnabled: true
+        maskSource: albumArtMask
+    }
+
+    
+    Image {
+        id:albumArt
+        visible: false
+        anchors.top: heading.bottom
+        anchors.left:parent.left
+        anchors.right:parent.right
+        anchors.topMargin:5
+        anchors.leftMargin:50
+        anchors.rightMargin:50
+        height: width
+        smooth: true
         fillMode: Image.PreserveAspectFit
         source: player.trackArtUrl
     }
+    Rectangle{
+        visible: player.trackArtUrl != ""
+        anchors.fill: albumArt
+        border.width: 1
+        border.color: AppearanceProvider.textColorSecondary
+        radius: AppearanceProvider.rounding
+        color:'transparent'
+    }
+
+    Item {
+        id: albumArtMask
+        anchors.fill:albumArt
+        height: width
+        layer.enabled: true
+        visible:false
+        Rectangle{
+            anchors.fill:parent
+            radius:AppearanceProvider.rounding
+        }
+    }
+
+    Rectangle {
+        id: noAlbumArt
+        visible: player.trackArtUrl  == ""
+        anchors.top: heading.bottom
+        anchors.left:parent.left
+        anchors.right:parent.right
+        anchors.topMargin:5
+        anchors.leftMargin:50
+        anchors.rightMargin:50
+        height: width
+        color:'transparent'
+        border.width:1
+        border.color: AppearanceProvider.textColorSecondary
+        radius: AppearanceProvider.rounding
+        Text{
+            anchors.centerIn:parent
+            text:"󱇑"
+            color: AppearanceProvider.textColorSecondary
+            font.pointSize:50
+        }
+    }
+
     Item {
         id: trackTitle
         anchors.top:albumArt.bottom
@@ -133,7 +200,7 @@ Rectangle {
                 width:undefined
                 text : ""
                 fontSize: 20
-                radius: controls.width/4
+                //radius: controls.width/4
                 onClick:()=>{
                     player.previous()
                 }
@@ -145,7 +212,7 @@ Rectangle {
                 width:undefined
                 text : player.isPlaying ? "" : ""
                 fontSize:20
-                radius: controls.width/4
+                //radius: controls.width/4
                 onClick:()=>{
                     if(player.isPlaying) 
                         player.pause(); 
@@ -160,7 +227,7 @@ Rectangle {
                 width:undefined
                 text : ""
                 fontSize:20
-                radius: controls.width/4
+                //radius: controls.width/4
                 onClick:()=>{
                     player.next()
                 }
