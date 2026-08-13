@@ -22,7 +22,9 @@ Rectangle {
     property bool bOpenClicked:false
     property bool bHasClickAction:false
     property list<string> onClickExecCommand : []
+    property list<string> onRightClickExecCommand: []
     property var onClickDelegate : null
+    property var onRightClickDelegate : null
     property color textColor: AppearanceProvider.textColor
     property color textColorOnBar: textColor
     property color usedBackgroundColor: AppearanceProvider.backgroundColor
@@ -270,6 +272,11 @@ Rectangle {
         command: onClickExecCommand
     }
 
+    Process {
+        id: onRightClickAction
+        command: onRightClickExecCommand
+    }
+
     MouseArea {
         id: mouse
         cursorShape: bHasClickAction || (!bPopupOnHover  && popupContent !== null) ? Qt.PointingHandCursor : Qt.ArrowCursor
@@ -288,11 +295,19 @@ Rectangle {
         }
         onClicked: (mouse)=>{
             mouse.accepted = false
-            if (bHasClickAction){
-                if(onClickDelegate != null){
-                    onClickDelegate();
+            if (bHasClickAction) {
+                if (mouse.button == Qt.LeftButton) {
+                    if(onClickDelegate != null){
+                        onClickDelegate();
+                    }
+                    onClickAction.startDetached();
                 }
-                onClickAction.startDetached();
+                else if(mouse.button == Qt.RightButton) {
+                    if(onRightClickDelegate != null){
+                        onRightClickDelegate();
+                    }
+                    onRightClickAction.startDetached();
+                }
             }
             else if(!bPopupOnHover){
                 openPopup();

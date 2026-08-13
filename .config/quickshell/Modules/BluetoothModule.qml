@@ -11,7 +11,11 @@ BaseModule{
     content: _content
     popupContent : null
     bHasClickAction: true
-    onClickExecCommand: ["blueman-manager"]
+    onClickDelegate: ()=>{
+        Bluetooth.adapters.values[0].enabled = !Bluetooth.adapters.values[0].enabled;
+    }
+    onRightClickExecCommand: ["blueman-manager"]
+
     function getBT(){
         var iState = 0;
         if (Bluetooth.adapters.values.length > 0) 
