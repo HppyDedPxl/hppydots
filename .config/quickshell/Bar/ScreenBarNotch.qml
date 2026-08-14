@@ -274,6 +274,12 @@ PanelWindow {
                                     fillMode: Image.PreserveAspectFit
                                     source: WallpaperProvider.getWallpaperThumbnailPathForScreen(screen)
                                 }
+                                Connections {
+                                    target: WallpaperProvider
+                                    function onNeedsUpdate(){
+                                        wallpaperImage.source = WallpaperProvider.getWallpaperThumbnailPathForScreen(screen);
+                                    }
+                                }
                                 Item {
                                     id:mask
                                     anchors.fill: wallpaperImage
