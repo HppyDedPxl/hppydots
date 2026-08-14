@@ -16,8 +16,8 @@ Component {
         property var padding: 8
         property alias wallpaperFolder: base.wallpaperFolder
 
-        width: padding + (192 + padding) * 5 + 60
-        height: (padding + (108 + padding) * 4) + 200
+        width: padding + (192 + padding) * 7 + 60
+        height: (padding + (108 + padding) * 2) + 200
         color: AppearanceProvider.nativeBackgroundColor
         radius: AppearanceProvider.rounding
 

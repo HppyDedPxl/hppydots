@@ -60,8 +60,7 @@ BaseModule{
             StyledText {
                 anchors.centerIn:  parent
                 color: Bluetooth.adapters.values[0].state == 1 ? baseModule.textColorOnBar : modAlpha(baseModule.textColorOnBar,0.7)
-                font.pointSize: AppearanceProvider.primaryFontSize + 2
-                
+                font.pointSize: AppearanceProvider.primaryFontSize + 2        
                 text: getBT();
             }
         }    

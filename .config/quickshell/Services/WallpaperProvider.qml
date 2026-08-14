@@ -37,7 +37,6 @@ Singleton {
 
 
     function setDefaultWallpaperFolder(path){
-        console.log("Set Defualt Wallpaper folder!!")
         _.config.defaultWallpaperFolder = urlToPathString(path);
         saveConfig()
     }
@@ -71,7 +70,7 @@ Singleton {
     }
 
     function generateThumbnailsInFolder(path, onDone){
-        proc_generate_thumbs.command = ["sh","./../Scripts/generate_wallpaper_thumbs.sh", urlToPathString(path)]
+        proc_generate_thumbs.command = ["sh",urlToPathString(Qt.resolvedUrl("./../Scripts/generate_wallpaper_thumbs.sh")), urlToPathString(path)]
         proc_generate_thumbs.onDoneCallback = onDone
         proc_generate_thumbs.running = true
 
@@ -83,7 +82,6 @@ Singleton {
         running: false
         stdout: StdioCollector {
             onStreamFinished:{
-                console.log("finished generating thumbnails")
                 if (proc_generate_thumbs.onDoneCallback !== undefined)
                 {
                     proc_generate_thumbs.onDoneCallback()

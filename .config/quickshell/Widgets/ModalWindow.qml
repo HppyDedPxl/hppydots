@@ -35,7 +35,7 @@ PanelWindow
         // Dark translucent scrim background
         Rectangle {
             anchors.fill: parent
-            color: '#d7313030'
+            color: '#96313030'
 
         }
     }
@@ -45,7 +45,10 @@ PanelWindow
         height:contentLoader.item.height
         width:contentLoader.item.width
         color:'transparent'
-        anchors.centerIn:parent
+        //anchors.centerIn:parent
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin:50
         property var displaying : false
         transform: Scale {
             xScale: 0
@@ -98,7 +101,7 @@ PanelWindow
                     easing.type: Easing.OutElastic
                     easing.amplitude: 0.7
                     easing.period: 1.2
-                    duration: 1500
+                    duration: 700
                 }
             },
             Transition {
@@ -110,8 +113,8 @@ PanelWindow
                     from: 1
                     to: 0
                     easing.type: Easing.InOutCubic
-                    duration: 1500
-                }
+                    duration: 400
+                    }
                     ScriptAction{
                         script:{      
                         modalRoot.visible= false

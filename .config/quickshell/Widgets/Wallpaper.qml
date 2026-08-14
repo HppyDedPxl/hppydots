@@ -5,6 +5,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import Qt.labs.folderlistmodel
+import QtQuick.Effects
 import QtMultimedia
 import "../Services"
 import "../Appearance"
@@ -26,43 +27,113 @@ PanelWindow{
     property var wallpaperFolder: "file:///home/Alexander/wallpaper"
     property var scriptToRun: "/home/Alexander/dotfiles/globalscripts/wallpaper/post_set_wallpaper.sh"
 
-   Connections {
-    target: WallpaperProvider
-    function onNeedsUpdate(){
-        // Forcefully set this again as sometimes the array based binding does
-        // not properly work when a js object is the target.
-        wallpaperUrl = WallpaperProvider.config.wallpapers[screen.name]
+    property var isInTransition: false;
+
+    property var mainWallpaper: rendererA;
+    property var backWallpaper: rendererB;
+
+    property var swapped: false;
+
+    anchors {
+        top:true
+        bottom:true
+        left:true
+        right:true
     }
-   }
+
+    margins {
+        top:-themeExclusionZonesTop
+        bottom:-themeExclusionZonesBottom
+        left:-themeExclusionZonesLeft
+        right:-themeExclusionZonesRight
+    }
+
+    Connections {
+        target: WallpaperProvider
+        function onNeedsUpdate(){
+            backWallpaper.wallpaperUrl = mainWallpaper.wallpaperUrl;
+            mainWallpaper.wallpaperUrl = WallpaperProvider.config.wallpapers[screen.name]
+            transition.restart()
+        }
+    }
+
+    SequentialAnimation {
+        id: transitionAnimation
+        NumberAnimation {
+            id: a1
+
+        }
+    }
+
+    WallpaperRenderer {
+        id: rendererB
+        anchors.fill: parent
+        wallpaperUrl:""
+        visible:true
+    }
+
+
+    MultiEffect {
+        id: rendererAEffective
+        source: rendererA
+        anchors.fill:parent
+        maskEnabled: true
+        maskSource: rendererAMask
+    }
+
+    WallpaperRenderer {
+        id: rendererA
+        anchors.fill: parent
+        visible:false
+        wallpaperUrl: WallpaperProvider.config.wallpapers[screen.name]
+
+    }
+
+    Item {
+        id: rendererAMask
+        visible:false
+        layer.enabled:true
+        anchors.fill: rendererA
+
+        Rectangle {
+            id: maskRect
+            height:parent.width
+            width:parent.width
+            anchors.centerIn: parent
+            radius: 0
+            ParallelAnimation{
+                id: transition
+                ScaleAnimator {
+                    id:scaleAnim
+                    target: maskRect
+                    from: 0
+                    to: 1.5
+                    easing.type: Easing.InOutCubic
+                    duration: 1200
+                }
+                NumberAnimation {
+                    property: "radius"
+                    target: maskRect
+                    from: width
+                    to: 0
+                    duration: 1800
+                    easing.type: Easing.Linear
+                }
+            }
+        }   
+    }
+
+
+
     
-    function isVideo(file){
-        let psplit = file.toString().split('.');
-        return psplit[psplit.length-1] == "mp4";
-    }
 
-    function setupVideoRendering(){
-        let isVid = isVideo(wallpaperUrl)
-        if(isVid){
-            player.source = wallpaperUrl
-            player.play()
-        }
-        else{
-            player.source = ""
-            player.stop()
-        }
-    }
-
-    onWallpaperUrlChanged:{
-        setupVideoRendering()
-    }
-
-    function mouseIsInScreenBounds(){
-        if(currentMousePos[0] > screen.width || currentMousePos[0] < 0)
-            return false
-        if(currentMousePos[1] > screen.height || currentMousePos[1] < 0)
-            return false
-        return true
-    }
+    // function mouseIsInScreenBounds(){
+    //     if(currentMousePos[0] > screen.width || currentMousePos[0] < 0)
+    //         return false
+    //     if(currentMousePos[1] > screen.height || currentMousePos[1] < 0)
+    //         return false
+    //     return true
+    // }
 
     // Process{
     //     id: getMousePos
@@ -91,60 +162,5 @@ PanelWindow{
     //         getMousePos.running=true
     //     }
     // }
-    anchors {
-        top:true
-        bottom:true
-        left:true
-        right:true
-    }
-    margins {
-        top:-themeExclusionZonesTop
-        bottom:-themeExclusionZonesBottom
-        left:-themeExclusionZonesLeft
-        right:-themeExclusionZonesRight
-    }
-
-    Rectangle{
-        color:'transparent'
-        anchors.fill:parent
-        Component.onCompleted:{
-            setupVideoRendering()
-        }
-
-        Image {
-            id: bgImage
-            height:parent.height
-            width:parent.width
-            fillMode: Image.PreserveAspectFit
-            
-            
-            // x : {(Math.abs((screen.width/2) - currentMousePos[0])/(screen.width/2)) * 30}
-            // y : {(Math.abs((screen.height/2) - currentMousePos[1])/(screen.height/2)) * 30}
-
-            Behavior on x{
-                NumberAnimation{
-                    duration:500
-                }
-            }
-            Behavior on y{
-                NumberAnimation{
-                    duration: 500
-                }
-            }
-            source:wallpaperUrl
-
-            // Optional video player?
-            MediaPlayer {
-                id: player
-                autoPlay: false
-                loops: MediaPlayer.Infinite
-                videoOutput: output
-
-            }
-            VideoOutput {
-                id: output
-                anchors.fill:parent
-            }
-        }
-    }  
+    
 }
