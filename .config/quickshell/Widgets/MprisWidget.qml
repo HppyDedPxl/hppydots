@@ -35,7 +35,7 @@ Rectangle {
             Layout.preferredWidth:20
             Layout.preferredHeight:20
             color: 'transparent'
-            textColor: AppearanceProvider.textColorSecondary
+            textColor: AppearanceProvider.backgroundColor
             text : ""
             border.width:0
             fontSize:18
@@ -59,7 +59,7 @@ Rectangle {
             Layout.preferredHeight:20
             border.width:0
             color: 'transparent'
-            textColor: AppearanceProvider.textColorSecondary
+            textColor: AppearanceProvider.backgroundColor
             text : ""
             fontSize:18
             radius: 20
@@ -103,7 +103,7 @@ Rectangle {
         visible: player.trackArtUrl != ""
         anchors.fill: albumArt
         border.width: 1
-        border.color: AppearanceProvider.textColorSecondary
+        border.color: AppearanceProvider.backgroundColor
         radius: AppearanceProvider.rounding
         color:'transparent'
     }

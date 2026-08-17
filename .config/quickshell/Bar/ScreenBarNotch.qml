@@ -230,9 +230,7 @@ PanelWindow {
                         }
                     }
                     // MPRIS END -------------------------
-                    Rectangle {
-                        Layout.preferredWidth: 200
-                    }
+
                     ColumnLayout {
                         Layout.fillHeight:true
                         Layout.fillWidth:true
@@ -294,8 +292,8 @@ PanelWindow {
                                     anchors.fill:parent
                                     radius: AppearanceProvider.rounding
                                     color: 'transparent'
-                                    border.color: AppearanceProvider.backgroundColorSecondary
-                                    border.width:2
+                                    border.color: AppearanceProvider.backgroundColor
+                                    border.width:1
                                 }
 
                                 
@@ -320,7 +318,7 @@ PanelWindow {
                                         anchors.left: parent.left
                                         anchors.bottom: parent.bottom
                                         height:0
-                                        color:AppearanceProvider.backgroundColorSecondary
+                                        color:AppearanceProvider.backgroundColor
                                     }
                                     Text {
                                         id: wallpaperLabelText
@@ -346,10 +344,7 @@ PanelWindow {
                                         anchors.fill:parent
                                         radius: AppearanceProvider.rounding
                                     }        
-                                }
-
-                            
-                            
+                                }       
                                 MouseArea{
                                 anchors.fill:parent
                                 hoverEnabled : true
@@ -423,6 +418,20 @@ PanelWindow {
                         }
                         Rectangle{
                         Layout.fillHeight: true
+                        }
+                    }
+                    
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                          Rectangle {
+                            Layout.preferredHeight: 10
+                        }
+                        Calendar {
+                            Layout.preferredHeight:300
+                            Layout.fillWidth:true
+                        }
+                        Rectangle {
+                            Layout.fillHeight:true
                         }
                     }
 

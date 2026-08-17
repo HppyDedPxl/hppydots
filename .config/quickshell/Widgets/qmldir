@@ -13,3 +13,4 @@ ModalWindow 1.0 ModalWindow.qml
 WallpaperGridImageEntry 1.0 WallpaperGridImageEntry.qml
 WallpaperGridFolderEntry 1.0 WallpaperGridFolderEntry.qml
 WallpaperRenderer 1.0 WallpaperRenderer.qml
+Calendar 1.0 Calendar.qml

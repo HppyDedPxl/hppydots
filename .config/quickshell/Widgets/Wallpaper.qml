@@ -121,46 +121,5 @@ PanelWindow{
                 }
             }
         }   
-    }
-
-
-
-    
-
-    // function mouseIsInScreenBounds(){
-    //     if(currentMousePos[0] > screen.width || currentMousePos[0] < 0)
-    //         return false
-    //     if(currentMousePos[1] > screen.height || currentMousePos[1] < 0)
-    //         return false
-    //     return true
-    // }
-
-    // Process{
-    //     id: getMousePos
-    //     command: ["hyprctl","cursorpos"]
-    //     running:true
-    //     stdout: StdioCollector {
-    //         onStreamFinished:{
-    //             let res = this.text.split(',')
-    //             currentMousePos[0] = parseFloat(res[0]) - screen.x
-    //             currentMousePos[1] = parseFloat(res[1]) - screen.y
-    //             if(mouseIsInScreenBounds()){
-                   
-    //                 bgImage.x = ((screen.width/2) - currentMousePos[0])/(screen.width/2) * 50
-    //                 bgImage.y = ((screen.height/2) - currentMousePos[1])/(screen.height/2) * 50
-    //             }
-           
-    //         }
-    //     }
-    // }
-
-    // Timer {
-    //     interval: 200
-    //     running:true
-    //     repeat:true
-    //     onTriggered:{
-    //         getMousePos.running=true
-    //     }
-    // }
-    
+    }   
 }
