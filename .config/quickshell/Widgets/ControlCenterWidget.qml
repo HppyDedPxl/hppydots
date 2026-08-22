@@ -17,7 +17,7 @@ import Quickshell.Io
 
             width: parent.width
             spacing: 0
-            height: childrenRect.height
+            //height: childrenRect.height
 
             StyledButton {
                 Layout.preferredWidth: parent.width / 5

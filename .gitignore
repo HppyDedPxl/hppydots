@@ -12,6 +12,14 @@
 .config/qutebrowser/quickmarks
 .config/qutebrowser/qsettings/QtProject.conf
 .config/quickshell/config/*
+*/__pycache__/*
+__pycache__/*
+*.ics
 .config/oh-my-posh/themes/1_shell.omp.json
 .config/oh-my-posh/themes/dynamic_autogen.omp.json
 .config/qutebrowser/qsettings/QtProject.conf
+.config/quickshell/events.json
+.config/quickshell/Scripts/calendar/__pycache__/ics_calendar.cpython-314.pyc
+.config/quickshell/Scripts/calendar/__pycache__/ics_downloader.cpython-314.pyc
+.config/quickshell/Scripts/calendar/__pycache__/ics_parser.cpython-314.pyc
+.config/quickshell/Scripts/calendar/events.json

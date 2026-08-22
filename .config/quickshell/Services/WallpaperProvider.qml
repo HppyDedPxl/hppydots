@@ -12,7 +12,6 @@ Singleton {
     property var writeScriptPath: "./../Scripts/write_config.sh"
     property var configPath: "./../config"
     property var configFileName: "wallpaper.json"
-    property var postSetScript: "/home/Alexander/dotfiles/globalscripts/wallpaper/post_set_wallpaper.sh"
 
     signal needsUpdate()
 

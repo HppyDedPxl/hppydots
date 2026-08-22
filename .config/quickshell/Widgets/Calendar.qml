@@ -1,37 +1,50 @@
-import Quickshell
+import "../Appearance"
+import "../Services"
 import QtQuick
 import QtQuick.Layouts
-import "../Appearance"
+import Quickshell
 
 Item {
-    id:root
-    property var days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    property var curDate : {new Date()};
-    property var months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    id: root
 
-    function getFirstMonday(){
+    property var days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    property var daysLong: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    property var curDate: {
+        new Date();
+    }
+    property var curDay: new Date()
+    property var months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    property var bInitialized: false
+    property var displayedItenerary: itenerary
+
+    function setDisplayedItenerary(dayItenerary) {
+        displayedItenerary.clear();
+        for (let i = 0; i < dayItenerary.count; ++i) {
+            displayedItenerary.append(dayItenerary.get(i));
+        }
+    }
+
+    function getFirstMonday() {
         var curMonth = curDate.getMonth();
         var itDate = new Date(curDate);
-        console.log("get first monday")
-        while(itDate.getMonth() == curMonth || itDate.getDay() != 1){
-            itDate = new Date(itDate - (3600*24));
-        }
-        console.log(itDate);
+        while (itDate.getMonth() == curMonth || itDate.getDay() != 1)itDate = new Date(itDate - (3600 * 24))
         return itDate;
     }
-    function getLastSunday(){
+
+    function getLastSunday() {
         var curMonth = curDate.getMonth();
         var itDate = new Date(curDate);
-        for (let i = 0; i < 6 ; i++) {
+        for (let i = 0; i < 6; i++) {
             itDate.setDate(itDate.getDate() + (1));
         }
         return itDate;
     }
 
-    function nextMonth(){
+    function nextMonth() {
         curDate.setMonth(curDate.getMonth() + 1);
     }
-    function previousMonth(){
+
+    function previousMonth() {
         curDate.setMonth(curDate.getMonth() - 1);
     }
 
@@ -40,15 +53,23 @@ Item {
         return day.getDate() == today.getDate() && day.getMonth() == today.getMonth() && day.getYear() == today.getYear();
     }
 
-    function updateMonth(){
+    function updateMonth() {
         var firstMonday = getFirstMonday();
         dayList.clear();
-        dayList.append({"date":firstMonday});
-        for ( let i = 0 ; i < 41 ; i++){
+        dayList.append({
+            "date": firstMonday
+        });
+        for (let i = 0; i < 41; i++) {
             firstMonday.setDate(firstMonday.getDate() + 1);
-            dayList.append({"date":firstMonday});
+            dayList.append({
+                "date": firstMonday
+            });
         }
         monthText.text = months[curDate.getMonth()];
+    }
+
+    function timeToString(time) {
+        return time.getHours().toString().padStart(2, "0").padEnd(2, "0") + ":" + time.getMinutes().toString().padStart(2, "0").padEnd(2, "0");
     }
 
     Component.onCompleted: {
@@ -59,113 +80,228 @@ Item {
         id: dayList
     }
 
+    ListModel {
+        id: itenerary
+    }
+
     Rectangle {
-        anchors.fill : parent
-        anchors.leftMargin:10
         property var currentDate: clock.date
+
+        anchors.fill: parent
+        anchors.leftMargin: 10
         color: "transparent"
+
         ColumnLayout {
-            anchors.fill:parent
+            anchors.fill: parent
+
             RowLayout {
-                Layout.fillWidth:true
-                Layout.preferredHeight:2
+                Layout.fillWidth: true
+                Layout.fillHeight: false
+                Layout.preferredHeight: 20
+                Layout.leftMargin:30
+
                 StyledButton {
-                    Layout.fillHeight:true;
+                    Layout.fillHeight: true
                     text: "<"
-                    border.width : 0
-                    onClick: ()=>{
+                    border.width: 0
+                    color: "transparent"
+                    onClick: () => {
                         previousMonth();
                         updateMonth();
-                       
                     }
                 }
+
                 Rectangle {
                     color: "transparent"
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+
                     StyledText {
                         id: monthText
-                        anchors.centerIn:parent
+
+                        anchors.centerIn: parent
                         fontSizeMode: Text.Fit
                         font.bold: true
                         color: AppearanceProvider.textColor
                         text: months[curDate.getMonth()]
                     }
+
                 }
+
                 StyledButton {
                     Layout.fillHeight: true
-                    border.width : 0
-
+                    border.width: 0
                     text: ">"
-                    onClick: ()=>{
+                    color: "transparent"
+                    Layout.rightMargin:30
+                    onClick: () => {
                         nextMonth();
                         updateMonth();
                     }
                 }
+
             }
-            Rectangle{
-                Layout.preferredHeight:3
+
+            Rectangle {
+                Layout.preferredHeight: 3
             }
-            RowLayout {
-                Layout.fillWidth:true
-                Repeater {
-                    model: {root.days.length}
-                    Rectangle{
-                        color: "transparent"
-                        Layout.fillWidth:true
-                        Layout.fillHeight:true
-                        Text {
-                            color: AppearanceProvider.textColor
-                            font.bold: true
-                            fontSizeMode: Text.Fit
-                            anchors.centerIn: parent
-                            text: days[index]
+
+            
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+
+                ColumnLayout {
+                    anchors.centerIn: parent
+                    height: parent.height
+                    width: parent.width - 75
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: false
+                        Layout.preferredHeight: 10
+
+                        Repeater {
+                            model: {
+                                root.days.length;
+                            }
+
+                            Rectangle {
+                                color: "transparent"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                Text {
+                                    color: AppearanceProvider.textColor
+                                    font.bold: true
+                                    fontSizeMode: Text.Fit
+                                    anchors.centerIn: parent
+                                    text: days[index]
+                                }
+
+                            }
+
                         }
-                    }        
-                }
-            }
-                    Rectangle{
-                Layout.preferredHeight:3
-            }
-            Component {
-                id: dayComponent
-                Rectangle {
-                    required property string model
-                    required property int index
-                    required property var date
-                    id: dayRoot
-                    color: "transparent"
-                    Layout.fillWidth:true
-                    Layout.fillHeight:true
+
+                    }
+
                     Rectangle {
+                        Layout.preferredHeight: 3
+                    }
 
-                        radius: width
-                        opacity: date.getMonth() == root.curDate.getMonth() ? 1.0 : 0.2
-                        color: isToday(date) ? AppearanceProvider.highlightColor :AppearanceProvider.backgroundColor
-                        anchors.centerIn:parent
-                        width: parent.width > parent.height ? parent.height : parent.width
-                        height: width
-                        Text {
-                            color: isToday(date) ? AppearanceProvider.highlightTextColor : AppearanceProvider.textColor
-                            anchors.centerIn:parent
-                            text: {date.getDate()}
+                    GridLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        columns: {
+                            root.days.length;
                         }
-                    }    
-                }  
-            }
+                        rows: 6
+                        uniformCellHeights: true
 
-            GridLayout {
-                Layout.fillWidth:true
-                columns: { root.days.length }
-                rows: 6
-                uniformCellHeights:true
+                        Repeater {
+                            id: repeater
 
-                Repeater {
-                    id: repeater
-                    model: dayList
-                    delegate: dayComponent
+                            model: dayList
+                            delegate: CalendarDayEntryButton {}
+                        }
+
+                    }
+
                 }
+
             }
+
+            Rectangle {
+                Layout.preferredHeight: 10
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 20
+
+                ColumnLayout{
+                    Layout.preferredHeight: 40
+                    
+
+                Text {
+                    id: scheduleText
+
+                    Layout.preferredHeight: 20
+                    color: AppearanceProvider.textColor
+                    Layout.fillWidth: true
+                    text: "Schedule"
+                    font.bold: true
+                }
+                Text {
+                    id: scheduleCurrentDayText
+
+                    Layout.preferredHeight: 20
+                    color: AppearanceProvider.textColor
+                    Layout.fillWidth: true
+                    text: root.daysLong[root.curDay.getDay()] + ", " + root.months[root.curDay.getMonth()] + " " + root.curDay.getDate()
+                    font.italic: true
+                    font.pointSize: 10
+                    
+                }
+                }
+                
+
+                StyledButton {
+                    Layout.preferredHeight: 20
+                    border.width: 0
+                    color: "transparent"
+                    fontSize: 12
+                    text: "Sync"
+                    onClick: () => {
+                        CalendarEventsProvider.sync();
+                    }
+                }
+
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                // Layout.fillHeight: true
+                Layout.preferredHeight: 200
+                color: "transparent"
+                // border.color: AppearanceProvider.textColor
+                radius: AppearanceProvider.rounding
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 5
+                    anchors.rightMargin: 5
+
+                    Text {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        visible: displayedItenerary.count == 0
+                        text: "Nothing planned"
+                        color: AppearanceProvider.textColor
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    Repeater {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        visible: displayedItenerary.count > 0
+                        model: displayedItenerary
+                        delegate: CalendarScheduleListEntry {}
+                    }
+
+                }
+
+            }
+
+            Rectangle {
+                Layout.preferredHeight: 20
+            }
+
         }
+
     }
+
 }

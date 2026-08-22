@@ -8,3 +8,4 @@ singleton PopupObserver 1.0 PopupObserver.qml
 singleton CavaListener 1.0 CavaListener.qml
 singleton WallpaperProvider 1.0 WallpaperProvider.qml
 singleton ModalWindowProvider 1.0 ModalWindowProvider.qml
+singleton CalendarEventsProvider 1.0 CalendarEventsProvider.qml

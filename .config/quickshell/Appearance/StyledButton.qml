@@ -24,7 +24,7 @@ Rectangle {
         id: innerText
         anchors.centerIn:parent
         text:button.text
-        font.pointSize: button.fontSize
+        fontSizeMode: Text.VerticalFit
         color: buttonPrimaryColor
     }
     MouseArea{

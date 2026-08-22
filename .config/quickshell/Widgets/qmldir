@@ -14,3 +14,5 @@ WallpaperGridImageEntry 1.0 WallpaperGridImageEntry.qml
 WallpaperGridFolderEntry 1.0 WallpaperGridFolderEntry.qml
 WallpaperRenderer 1.0 WallpaperRenderer.qml
 Calendar 1.0 Calendar.qml
+CalendarDayEntryButton 1.0 CalendarDayEntryButton.qml
+CalendarScheduleListEntry 1.0 CalendarScheduleListEntry.qml
