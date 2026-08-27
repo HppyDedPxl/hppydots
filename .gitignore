@@ -5,6 +5,7 @@
 .config/oh-my-posh/themes/dynamic_autogen.omp.json
 .config/qutebrowser/autoconfig.yml
 .config/hypr/custom/*
+!.config/hypr/custom/windowrules
 .config/qutebrowser/test.py
 .config/qutebrowser/bookmarks/urls
 .config/qutebrowser/bookmarks/*
