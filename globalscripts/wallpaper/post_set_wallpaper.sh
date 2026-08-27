@@ -31,12 +31,7 @@ echo "done... generate ohmypohstheme now"
 python $HOME/dotfiles/globalscripts/wallpaper/generate_oh_my_posh_theme.py "$HOME/.config/oh-my-posh/themes/dynamic.omp.json.template" "$HOME/.cache/wal/ohmyposh-palette.omp.json" "$HOME/.config/oh-my-posh/themes/dynamic_autogen.omp.json"
 
 echo "done generating ohmyposhteheme"
-# move copy the pywal dunst theme into dunst config
-#cp $HOME/.cache/wal/dunst.conf $HOME/.cache/hppydots/wallpaper_utils/dunst/dunstrc.d/80-dynamic-pywal.conf
 
-# move and copy the vicinae theme file into the vicinae theme folder
-cp "$HOME/.cache/wal/vicinae-hppy-dynamic.toml" "$HOME/.local/share/vicinae/themes/vicinae-hppy-dynamic.toml"
-vicinae theme set vicinae-hppy-dynamic
 systemctl restart --user swaync
 # restart waybar
 echo "restart waybar!"
