@@ -1,4 +1,4 @@
-require("./custom/windowrules")
+pcall(require,"./custom/windowrules")
 
 -- Suppress all maximize requests from apps
 hl.window_rule({
@@ -21,7 +21,6 @@ hl.window_rule({
     float = true,
     match = {class = "^(blueman-manager)$"}
 })
-
 -- kitty floating and size
 hl.window_rule({
     name = "kitty-rules",

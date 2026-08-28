@@ -6,4 +6,4 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/xdg-desktop-portal-gnome")
 end)
 
-require("./custom/autostart")
+pcall(require,"./custom/autostart")
