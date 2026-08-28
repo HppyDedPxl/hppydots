@@ -23,6 +23,8 @@ for ics_uri in cal_links:
     if r.status_code == 200:
         with open("cal.ics","w") as f:
             f.write(r.text)
+    else:
+        print("Error getting cal link")
 
 
     icsparser = ics_parser.ICSParser("cal.ics")

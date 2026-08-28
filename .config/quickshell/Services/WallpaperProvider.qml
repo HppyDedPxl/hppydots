@@ -52,7 +52,7 @@ Singleton {
             _.config.wallpapers = {}
         _.config.wallpapers[screen.name] = urlToPathString(path)
         if(callPostSetScript == true && _.config.postSetScript != undefined && _.config.postSetScript != ""){
-            proc_postSetWallpaper.command = ["sh",_.config.postSetScript,"",  urlToPathString(path)]
+            proc_postSetWallpaper.command = ["sh",urlToPathString(Qt.resolvedUrl(_.config.postSetScript)),  urlToPathString(path)]
             proc_postSetWallpaper.running = true
         }
         needsUpdate()

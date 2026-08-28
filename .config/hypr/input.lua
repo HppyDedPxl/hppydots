@@ -13,5 +13,4 @@ hl.config({
         },
     },
 })
-
-require("./custom/input")
+pcall(require,"./custom/input")

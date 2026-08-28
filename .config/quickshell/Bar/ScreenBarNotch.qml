@@ -129,11 +129,13 @@ PanelWindow {
         id: baseRect
         property var elasticAnimationPadding: 100
         property var yOffset : bar.hiddenContentSize + baseRect.elasticAnimationPadding - 10 
+        property var barClosedWidth : 850
+        property var barOpenWidth : 1000
         y: 0 - yOffset
         anchors.horizontalCenter : parent.horizontalCenter
         bottomLeftRadius: 25
         bottomRightRadius: 25
-        width: 750
+        width: barClosedWidth
         anchors.topMargin: paddingPresets[bar.orientation][0]
         anchors.rightMargin: paddingPresets[bar.orientation][1]
         anchors.bottomMargin: paddingPresets[bar.orientation][2]
@@ -149,7 +151,7 @@ PanelWindow {
                 PropertyChanges {
                     baseRect {
                         yOffset : baseRect.elasticAnimationPadding
-                        width: 1000
+                        width: baseRect.barOpenWidth
                     }
                 }
             },
@@ -159,7 +161,7 @@ PanelWindow {
                 PropertyChanges {
                     baseRect {
                         yOffset : bar.hiddenContentSize-10 + baseRect.elasticAnimationPadding
-                        width: 750
+                        width: baseRect.barClosedWidth
 
                     }
                 }

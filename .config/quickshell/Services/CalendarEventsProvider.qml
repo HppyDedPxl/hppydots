@@ -89,6 +89,11 @@ Singleton {
         command = command.concat(["-l"])
         command = command.concat(config.calendar_links)
         
+        let str = ""
+        for (let i = 0; i < command.length; i++){
+            str += command[i] + " "
+        }
+        console.log(str)
         syncCalendar.command = command
         syncCalendar.running = true  
     }
