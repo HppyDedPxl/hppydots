@@ -14,7 +14,6 @@ DOTFILES=(
 	".config/nwg-look"
 	".config/oh-my-posh"
 	".config/qt6ct"
-	".config/rofi"
 	".config/sddm"
 	".config/swaync"
 	".config/wal"
@@ -23,7 +22,7 @@ DOTFILES=(
 	".config/xdg-desktop-portal"
 	".config/yazi"
 	".config/quickshell"
-	".config/qutebrowser"
+	".config/neru"
 	".cache/hppydots"
 
 )
