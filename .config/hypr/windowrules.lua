@@ -41,6 +41,7 @@ hl.window_rule({
 -- No transparency for youtube, synctube mpv etc.
 hl.window_rule({ match = { title="(.*)YouTube(.*)" }, opacity = "1.0 override 1.0 override" })
 hl.window_rule({ match = { title="(.*)SyncTube(.*)" }, opacity = "1.0 override 1.0 override"  })
+hl.window_rule({ match = { title="(.*)Twitch(.*)" }, opacity = "1.0 override 1.0 override"  })
 hl.window_rule({ match = { initial_class="mpv" }, opacity = "1.0 override 1.0 override"  })
 
 

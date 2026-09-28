@@ -85,3 +85,10 @@ hl.window_rule({
     },
     no_focus = true
 })
+
+hl.window_rule({
+    match = {
+        class = "^(Unity)$",
+    },
+    opacity = "1.0 override 1.0 override"
+})
