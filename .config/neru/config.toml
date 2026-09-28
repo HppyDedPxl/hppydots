@@ -250,21 +250,21 @@ border_width = 1
 enabled = true
 grid_cols = 3                               # Number of columns (>= 1)
 grid_rows = 3                               # Number of rows (>= 1)
-keys = "rtyfghvbn"                          # Cell selection keys (must be grid_cols * grid_rows chars)
+keys = "qweasdzxc"                          # Cell selection keys (must be grid_cols * grid_rows chars)
 min_size_width = 1                          # Stop subdividing below this width (px)
 min_size_height = 1                         # Stop subdividing below this height (px)
 max_depth = 10                              # Maximum recursion levels (1–20)
 
 [recursive_grid.animation]
 enabled = true                              # Opt out from native depth transition animation on supported platforms
-duration_ms = 50                            # Recursive-grid animation duration in milliseconds
+duration_ms = 100                            # Recursive-grid animation duration in milliseconds
 
 [recursive_grid.hotkeys]
 "Escape" = "idle"
 "`" = "toggle-cursor-follow-selection"
-"Space" = "action reset"
+"Space" = ["action left_click","idle"]
 "Backspace" = "action backspace"
-"Shift+L" = "action left_click"
+"Ctrl+Space" = "action reset"
 "Shift+R" = "action right_click"
 "Shift+M" = "action middle_click"
 "Shift+I" = "action left_click --state down"
@@ -294,7 +294,7 @@ sub_key_preview_label_char = ""             # Override sub-key preview labels wi
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#virtual_pointer
 [virtual_pointer.ui]
 char = "●"             # Character to display (e.g. "•", "●", "◉", "⬤") or anything you like
-font_size = 8
+font_size = 13
 font_family = ""
 
 # Mouse action indicator (macOS)

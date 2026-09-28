@@ -12,7 +12,7 @@ hl.bind(mainMod .. "+ F", hl.dsp.window.fullscreen({action = "toggle"}))
 hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd(browser))
 
 hl.bind(mainMod .. "+ C", hl.dsp.exec_cmd("$HOME/.local/bin/neru hints --action left_click"))
-hl.bind(mainMod .. "+ V", hl.dsp.exec_cmd("$HOME/.local/bin/neru grid --action left_click"))
+hl.bind(mainMod .. "+ V", hl.dsp.exec_cmd("$HOME/.local/bin/neru recursive_grid"))
 
 -- todo: grouping behaviour
 

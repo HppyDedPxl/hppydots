@@ -280,7 +280,7 @@ Rectangle {
     MouseArea {
         id: mouse
         cursorShape: bHasClickAction || (!bPopupOnHover  && popupContent !== null) ? Qt.PointingHandCursor : Qt.ArrowCursor
-        
+        acceptedButtons: Qt.AllButtons
         propagateComposedEvents: true
         anchors.fill: baseModule
         enabled: {
