@@ -53,9 +53,6 @@ require('config.keymappings')
 require('config.diagnostic')
 
 require('lsp')
-local ros = require('lsp.roslyn_ls')
-vim.lsp.config["roslyn_ls"] = ros;
-vim.lsp.enable("roslyn_ls")
 require('nvim-tree.api').tree.open()
 
 vim.defer_fn(function()

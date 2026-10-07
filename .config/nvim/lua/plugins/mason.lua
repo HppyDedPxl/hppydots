@@ -12,4 +12,9 @@ require("mason").setup({
     }
 })
 
-require("mason-lspconfig").setup()
+local lsp_servers = require('config.lsp'):GetMasonNames()
+require("mason-lspconfig").setup({
+	ensure_installed =  lsp_servers;
+})
+
+
