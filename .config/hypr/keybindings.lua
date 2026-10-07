@@ -38,12 +38,10 @@ local function resize_centered(width_delta, height_delta)
 	hl.dispatch(hl.dsp.window.center())
 end
 
-hl.bind(mainMod .. "+ CTRL + left", function() resize_centered(-20,0) end)
-hl.bind(mainMod .. "+ CTRL + right", function() resize_centered(20,0) end)
-hl.bind(mainMod .. "+ CTRL + up", function() resize_centered(0,20) end)
-hl.bind(mainMod .. "+ CTRL + down", function() resize_centered(0,-20) end)
-
-
+hl.bind(mainMod .. "+ CTRL + left", function() resize_centered(-40,0) end)
+hl.bind(mainMod .. "+ CTRL + right", function() resize_centered(40,0) end)
+hl.bind(mainMod .. "+ CTRL + up", function() resize_centered(0,40) end)
+hl.bind(mainMod .. "+ CTRL + down", function() resize_centered(0,-40) end)
 
 -- workspace switching and move windows to workspace
 for i = 1, 10 do

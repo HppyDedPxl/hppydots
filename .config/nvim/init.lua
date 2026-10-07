@@ -17,36 +17,47 @@ vim.call('plug#begin')
 Plug('uZer/pywal16.nvim',{['as'] = 'pywal16'}) -- Color Scheme from Wallpaper
 Plug('nvim-tree/nvim-tree.lua') -- File Tree
 Plug('nvim-tree/nvim-web-devicons') -- Icons!
-Plug('saghen/blink.cmp', {['tag'] = 'v1'})
-Plug('rafamadriz/friendly-snippets')
+Plug('saghen/blink.cmp', {['tag'] = 'v1'}) -- Autocomplete
+Plug('rafamadriz/friendly-snippets') -- Snippet support for blink
+Plug('folke/which-key.nvim') -- Hints for shortcuts
+Plug('romgrk/barbar.nvim') -- Tab Bar up top
+Plug('nvim-treesitter/nvim-treesitter') -- better syntax highlight? Does it even work? TODO:
+Plug('uga-rosa/ccc.nvim') -- Preview Colors in text
+Plug('nvim-lualine/lualine.nvim') -- That input bar at the bottom
+Plug('meanderingprogrammer/render-markdown.nvim') -- Todo:/ I am not really happy with this one.
+Plug('windwp/nvim-autopairs') -- Automatically close brackets
+Plug('numToStr/Comment.nvim') -- Easier comments with g-c-c or g-c-b hotkeys
+Plug('mason-org/mason.nvim') -- LSP manager for nvim
+Plug('mason-org/mason-lspconfig.nvim') -- Automatically enable Mason LSP's without much config
 
 vim.call('plug#end')
+
+vim.opt.termguicolors = true
 
 local pywal16 = require('pywal16');
 pywal16.setup()
 
-require('nvim-tree').setup({
-  renderer = {
-    icons = {
-      show = {
-	      file = true,
-	      folder = true,
-	      folder_arrow = true,
-	      git = true
-      },
-    },
-  },
-})
+require('lualine').setup({})
+require('render-markdown').setup({})
+require('plugins.nvim-tree')
+require('plugins.mason')
+require('plugins.barbar')
+require('plugins.lualine')
+require('plugins.treesitter')
+require('plugins.blink')
+require('plugins.ccc')
+require('plugins.autopairs')
+require('Comment').setup()
 
+require('config.keymappings')
 require('config.diagnostic')
-require('lsp')
 
+require('lsp')
+local ros = require('lsp.roslyn_ls')
+vim.lsp.config["roslyn_ls"] = ros;
+vim.lsp.enable("roslyn_ls")
 require('nvim-tree.api').tree.open()
 
-require('blink.cmp').setup({
-	keymap = { preset = 'default'},
-	appearance = { nerd_font_variant = 'mono' },
-	completion = { documentation = { auto_show = true } },
-	sources = { default = { 'lsp','path','snippets','buffer'} },
-	fuzzy = { implementation = "prefer_rust_with_warning" }
-})
+vim.defer_fn(function()
+	vim.cmd("wincmd l")
+end,100)

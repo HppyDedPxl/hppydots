@@ -3,12 +3,11 @@ show_hidden = true
 
 [opener]
 edit = [
-    { run = '${EDITOR} "$1"', desc = "Default Editor", block = true, for = "linux" },
-    { run = 'xdg-open "$1"', desc = "Open (XDG-Mime)", block = true, for = "linux" },
-    { run = 'code "$1"', desc = "VSCode", block = true, for = "linux" },
+    { run = 'nvim "%s"', desc = "Default Editor", block = true, for = "linux" },
+    { run = 'xdg-open "%s"', desc = "Open (XDG-Mime)", block = true, for = "linux" },
 ]
 
 
 open = [
-    { run = 'xdg-open "$1"', desc = "Open", for = "linux" }
+    { run = 'xdg-open "%s"', desc = "Open", for = "linux" }
 ]

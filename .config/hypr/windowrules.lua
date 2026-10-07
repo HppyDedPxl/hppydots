@@ -59,4 +59,4 @@ hl.window_rule({
     border_size = 0
 })
 
-hl.window_rule({ match = { class="^(kitty)$" }, opacity = "1.0 override 0.8 override" })
+hl.window_rule({ match = { class="^(kitty)$" }, opacity = "0.9 override 0.8 override" })
