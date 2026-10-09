@@ -35,7 +35,8 @@ Plug('mason-org/mason-lspconfig.nvim') -- Adds auto download and installing for 
 Plug('mfussenegger/nvim-dap') -- Debugger adapter framework
 Plug('nvim-neotest/nvim-nio') -- Async Io Library requried  by dap ui
 Plug('rcarriga/nvim-dap-ui') -- Nicer readable UI for debugging
-
+-- Git Utils and Diff view
+Plug('sindrets/diffview.nvim')
 vim.call('plug#end')
 
 vim.opt.termguicolors = true
