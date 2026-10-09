@@ -17,6 +17,8 @@ These dotfiles require certain programs to be installed and configured to have a
 * tesseract (for Neru)
 * wireguard-tools + running the install_polkit_policy.sh (for wireguard applet)
 * brightnessctl (for easier laptop brightness backlight control)
+* nvim
+* tree-sitter-cli (for nvim tree-sitter highlighting plugin)
 
 
 ```bash 

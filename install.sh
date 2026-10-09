@@ -23,8 +23,8 @@ DOTFILES=(
 	".config/yazi"
 	".config/quickshell"
 	".config/neru"
+	".config/nvim"
 	".cache/hppydots"
-
 )
 
 for dotfile in "${DOTFILES[@]}";do

@@ -1,6 +1,5 @@
 local mainMod = "SUPER"
 
-
 hl.bind(mainMod .. "+ RETURN", hl.dsp.exec_cmd(terminal))
 
 hl.bind(mainMod .. "+ CTRL + RETURN", hl.dsp.global("quickshell:open_app_launcher"))
@@ -16,7 +15,6 @@ hl.bind(mainMod .. "+ V", hl.dsp.exec_cmd("$HOME/.local/bin/neru recursive_grid"
 
 -- todo: grouping behaviour
 
-
 hl.bind(mainMod .. "+ left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. "+ right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. "+ up",    hl.dsp.focus({ direction = "up" }))
@@ -27,6 +25,24 @@ hl.bind(mainMod .. "+ h",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. "+ l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. "+ k",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. "+ j",  hl.dsp.focus({ direction = "down" }))
+
+-- window moving
+hl.bind(mainMod .. "+ SHIFT + left", hl.dsp.window.move({ direction = "left"}))
+hl.bind(mainMod .. "+ SHIFT + right", hl.dsp.window.move({ direction = "right"}))
+hl.bind(mainMod .. "+ SHIFT + up", hl.dsp.window.move({ direction = "up"}))
+hl.bind(mainMod .. "+ SHIFT + down", hl.dsp.window.move({ direction = "down"}))
+
+-- window resizing and centering
+local function resize_centered(width_delta, height_delta)
+	hl.dispatch(hl.dsp.window.resize({ x= width_delta,y = height_delta, relative = true }))
+	hl.dispatch(hl.dsp.window.center())
+end
+
+local window_size_increment = 128
+hl.bind(mainMod .. "+ CTRL + left", function() resize_centered(-window_size_increment,0) end)
+hl.bind(mainMod .. "+ CTRL + right", function() resize_centered(window_size_increment,0) end)
+hl.bind(mainMod .. "+ CTRL + up", function() resize_centered(0,window_size_increment) end)
+hl.bind(mainMod .. "+ CTRL + down", function() resize_centered(0,-window_size_increment) end)
 
 -- workspace switching and move windows to workspace
 for i = 1, 10 do
