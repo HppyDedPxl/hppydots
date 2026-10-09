@@ -17,3 +17,5 @@ map("n","<leader>q",":BufferClose<CR>")
 map("n","<leader>Q",":BufferClose!<CR>")
 map("n","<leader>vs",':vsplit<CR>:bnext<CR>') -- split and open next buffer in split window
 map("n","<leader>ts",':split<CR>:resize +15<CR>:wincmd j<CR>:terminal<CR>:startinsert<CR>')
+map('n',"<leader>-",':resize -5<CR>')
+map('n',"<leader>+",':resize +5<CR>')
