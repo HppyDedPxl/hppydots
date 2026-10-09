@@ -1,6 +1,7 @@
 local vim = vim
 local Plug = vim.fn['plug#']
 
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -27,8 +28,13 @@ Plug('nvim-lualine/lualine.nvim') -- That input bar at the bottom
 Plug('meanderingprogrammer/render-markdown.nvim') -- Todo:/ I am not really happy with this one.
 Plug('windwp/nvim-autopairs') -- Automatically close brackets
 Plug('numToStr/Comment.nvim') -- Easier comments with g-c-c or g-c-b hotkeys
-Plug('mason-org/mason.nvim') -- LSP manager for nvim
-Plug('mason-org/mason-lspconfig.nvim') -- Automatically enable Mason LSP's without much config
+-- Language Server Support
+Plug('mason-org/mason.nvim') -- LSP and DAP manager for nvim
+Plug('mason-org/mason-lspconfig.nvim') -- Adds auto download and installing for mason
+-- Debugging
+Plug('mfussenegger/nvim-dap') -- Debugger adapter framework
+Plug('nvim-neotest/nvim-nio') -- Async Io Library requried  by dap ui
+Plug('rcarriga/nvim-dap-ui') -- Nicer readable UI for debugging
 
 vim.call('plug#end')
 
@@ -54,6 +60,8 @@ require('config.diagnostic')
 
 require('lsp')
 require('nvim-tree.api').tree.open()
+
+require('plugins.nvim-dap')
 
 vim.defer_fn(function()
 	vim.cmd("wincmd l")

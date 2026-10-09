@@ -3,6 +3,7 @@ require("mason").setup({
 		enabled = true
 	},
 	install_root_dir = vim.fn.stdpath("cache") .. "/mason",
+
 	ui = {
         icons = {
             package_installed = "✓",

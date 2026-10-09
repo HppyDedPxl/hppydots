@@ -16,13 +16,15 @@ local config = {
 		LSPDefinition("roslyn_ls","roslyn_ls","roslyn-language-server", {'--stdio'}), 
 		LSPDefinition("emmylua_ls","emmylua_ls","emmylua_ls"),
 		LSPDefinition("jsonls","jsonls","vscode-json-language-server", {'--stdio'}),
-		LSPDefinition("zuban", "zuban","zuban", {'server'})
+		LSPDefinition("zuban", "zuban","zuban", {'server'}),
+		LSPDefinition("html", "html", "vscode-html-language-server", {'--stdio'}),
+
 	}
 }
 
 config.GetMasonNames = function (self)
 	local names = {}
-	for i, def in pairs(self.servers) do
+	for _, def in pairs(self.servers) do
 		table.insert(names,def.Name)
 	end
 	return names
