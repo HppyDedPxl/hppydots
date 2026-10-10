@@ -17,6 +17,7 @@ vim.call('plug#begin')
 
 Plug('uZer/pywal16.nvim',{['as'] = 'pywal16'}) -- Color Scheme from Wallpaper
 Plug('nvim-tree/nvim-tree.lua') -- File Tree
+Plug('ibhagwan/fzf-lua') -- Fuzzy Finder
 Plug('nvim-tree/nvim-web-devicons') -- Icons!
 Plug('saghen/blink.cmp', {['tag'] = 'v1'}) -- Autocomplete
 Plug('rafamadriz/friendly-snippets') -- Snippet support for blink
@@ -55,7 +56,7 @@ require('plugins.blink')
 require('plugins.ccc')
 require('plugins.autopairs')
 require('Comment').setup()
-
+require('plugins.fzf-lua')
 require('config.keymappings')
 require('config.diagnostic')
 
